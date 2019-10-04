@@ -491,63 +491,75 @@
 <!-- Suggest Favourites ends -->
 
 
-<!-- Shelf Time Report -->
-<div id="shelfTime" class="modal">
-  <span onclick="document.getElementById('shelfTime').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="">
-    <div class="container">
-      <h1>Shelf Time Report</h1>
-      <hr>
-  
-		<input type="text" placeholder="Enter the Retailer ID" required >
-		<div class="container">
-		<label><bold>Report Type :
-			<select name="dropdown">
-			<option value="1" selected>Monthly Shelf Time Report</option>
-			<option value="2">Quarterly Shelf Time Report</option>
-			<option value="3">Yearly Shelf Time Report</option> </select></label>
-		</div>  
-		<label>Date Selection :<input type="date"></label> <br>
-		
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('shelfTime').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Submit</button>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- End of Shelf Time Report -->
+	<!-- Shelf Time Report -->
+	<!-- Form Name : shelfTime
+		method : get
+		action : ShelfTimeReportServlet
+		attributes
+			retailer-id : String
+			report-type : String
+			date-selection : String -->
+	<div id="shelfTime" class="modal">
+		<span onclick="document.getElementById('shelfTime').style.display='none'" class="close" title="Close Modal">&times;</span>
+		<form class="modal-content" action="ShelfTimeReportServlet" method="get">
+			<div class="container">
+				<h1>Shelf Time Report</h1>
+				<label for="retailer-id">Retailer ID: </label>
+				<input type="text" name="retailer-id"  required>
+				<div class="container">
+					<label for="report-type">Report Type :</label>
+					<select name="report-type">
+						<option value="1" selected> Monthly Shelf Time Report </option>
+						<option value="2"> Quarterly Shelf Time Report </option>
+						<option value="3"> Yearly Shelf Time Report </option>
+					</select>
+				</div>
+				<label for="date-selection">Date Selection : </label>
+				<input type="date" name="date-selection"> <br>
 
-<!--Delievery Time Report -->
-<div id="delieveryTime" class="modal">
-  <span onclick="document.getElementById('delieveryTime').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="">
-    <div class="container">
-      <h1>Delievery Time Report</h1>
-      <hr>
-  
-		<input type="text" placeholder="Enter the Retailer ID" required >
-		<div class="container">
-		<label><bold>Report Type :
-			<select name="dropdown">
-				<option value="1" selected>Product Delivery Time Report</option>
-				<option value="2">Outlier Item Level Delivery Time Report</option>
-				<option value="3">item level delivery time</option> </select></label>
-		</div>  
-		<label>Date Selection : <input type="date"></label><br>
-		
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('delieveryTime').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Submit</button>
-      </div>
-    </div>
-  </form>
-</div>
-<!--End of Delievery Time Report -->
+				<div class="clearfix">
+					<button type="button" onclick="document.getElementById('shelfTime').style.display='none'" class="cancelbtn">Cancel</button>
+					<button type="submit" class="signupbtn">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- End of Shelf Time Report -->
+
+	<!--Delivery Time Report -->
+	<!-- Form Name : shelfTime
+		method : get
+		action : DeliveryTimeReportServlet
+		attributes
+			retailer-id : String
+			report-type : String -->
+	<div id="delieveryTime" class="modal">
+		<span onclick="document.getElementById('delieveryTime').style.display='none'" class="close" title="Close Modal">&times;</span>
+		<form class="modal-content" action="DeliveryTimeReportServlet" method="get">
+			<div class="container">
+				<h1>Delivery Time Report</h1>
+				<label for="retailer-id">Retailer ID: </label>
+				<input type="text" name="retailer-id"  required>
+				<div class="container">
+					<label for="report-type">Report Type :</label>
+					<select name="report-type">
+						<option value="1" selected> Product Report </option>
+						<option value="2"> Product Category Report </option>
+						<option value="3"> Outlier Product in Outlier Category Report </option>
+					</select>
+				</div>
+				<div class="clearfix">
+					<button type="button" onclick="document.getElementById('delieveryTime').style.display='none'" class="cancelbtn">Cancel</button>
+					<button type="submit" class="signupbtn">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!--End of Delievery Time Report -->
 
 
 
-<!-- Retailer Forms Start-->
+	<!-- Retailer Forms Start-->
 
 
 <!-- Add Item to Cart-->
