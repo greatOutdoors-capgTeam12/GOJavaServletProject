@@ -791,24 +791,21 @@
 <!-- Return Order-->
 <div id="returnOrderSR" class="modal">
   <span onclick="document.getElementById('returnOrderSR').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="">
+  <form class="modal-content" action="ReturnOrderServlet" method="service">
     <div class="container">
       <h1>Return Order</h1>
       <hr>
-			<div class=".col-sm-12">
-				<form action="CancelOrderServlet" method="get">
+      <div class=".col-sm-12">
 				
 						 <input name="UserId" placeholder="Enter User_ID" type="text" class="form-control" id="UserId">
 						<input name="OrderId" placeholder="Enter Order_ID" type="text" class="form-control" id="OrderId">
-						<textarea class="form-control" placeholder="Enter reason for Returning " rows=10% cols=5% id="Reason" margin=30px></textarea>
+						<textarea name="Reason" class="form-control" placeholder="Enter reason for Returning " rows=10% cols=5% id="Reason" ></textarea>
 				
 				
-				</form>
 			</div>
 		
       <div class="clearfix">
-        <button type="button" onclick="document.getElementById('returnOrderSR').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Submit</button>
+       <button type="submit" onclick="document.getElementById('returnProductSR').style.display='none'" class="cancelbtn">Submit</button>
       </div>
     </div>
   </form>
@@ -819,7 +816,7 @@
 <!-- Return Product-->
 <div id="returnProductSR" class="modal">
   <span onclick="document.getElementById('returnProductSR').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="">
+  <form class="modal-content" action="ReturnProductServlet" method="post">
     <div class="container">
       <h1>Return Product</h1>
       <hr>
@@ -828,9 +825,9 @@
 				
 						 <input name="UserId" placeholder="Enter User_ID" type="text" class="form-control" id="UserId">
 						<input name="OrderId" placeholder="Enter Order_ID" type="text" class="form-control" id="OrderId">
-						<input name="UserId" placeholder="Enter Product_ID" type="text" class="form-control" id="ProductId">
-						<input name="OrderId" placeholder="Enter Quantity to cancel:" type="number" class="form-control" id="Quantity">
-						<textarea class="form-control" placeholder="Enter reason for Returning " rows=10% cols=5% id="Reason" margin=30px></textarea>
+						<input name="ProductId" placeholder="Enter Product_ID" type="text" class="form-control" id="ProductId">
+						<input name="Qty" placeholder="Enter Quantity to cancel:" type="number" class="form-control" id="Quantity">
+						<textarea name="Reason" class="form-control" placeholder="Enter reason for Returning " rows=10% cols=5% id="Reason" ></textarea>
 				
 				
 			</div>
