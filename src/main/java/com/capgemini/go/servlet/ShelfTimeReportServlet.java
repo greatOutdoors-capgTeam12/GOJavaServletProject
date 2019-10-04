@@ -3,7 +3,6 @@ package com.capgemini.go.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ConnectException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
