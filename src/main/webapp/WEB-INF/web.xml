@@ -14,4 +14,24 @@
     <servlet-name>AddProductMasterServlet</servlet-name>
     <url-pattern>/AddProductMasterServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShelfTimeReportServlet</display-name>
+    <servlet-name>ShelfTimeReportServlet</servlet-name>
+    <servlet-class>com.capgemini.go.servlet.ShelfTimeReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShelfTimeReportServlet</servlet-name>
+    <url-pattern>/ShelfTimeReportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeliveryTimeReportServlet</display-name>
+    <servlet-name>DeliveryTimeReportServlet</servlet-name>
+    <servlet-class>com.capgemini.go.servlet.DeliveryTimeReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeliveryTimeReportServlet</servlet-name>
+    <url-pattern>/DeliveryTimeReportServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

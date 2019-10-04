@@ -3,7 +3,6 @@ package com.capgemini.go.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ConnectException;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,18 +17,11 @@ import com.capgemini.go.service.GoAdminServiceImpl;
 /**
  * Servlet implementation class ShelfTimeReportServlet
  */
-public class ShelfTimeReportServlet extends HttpServlet {
+public class DeliveryTimeReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public ShelfTimeReportServlet() {
+	public DeliveryTimeReportServlet() {
 		super();
-	}
-	
-	public static Calendar getDateFromString (String date) {
-		// format of string: yyyy-mm-dd
-		Calendar result = Calendar.getInstance();
-		result.set(Integer.valueOf(date.substring(0, 4)), Integer.valueOf(date.substring(5, 7)), Integer.valueOf(date.substring(8, 10)));
-		return result;
 	}
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,17 +35,17 @@ public class ShelfTimeReportServlet extends HttpServlet {
 		int rt = Integer.valueOf(request.getParameter("report-type"));		
 		GoAdminService.ReportType reportType = null;
 		if (rt == 1) {
-			reportType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
+			reportType = GoAdminService.ReportType.OUTLIER_ITEM_DELIVERY_TIME;
 		} else if (rt == 2) {
-			reportType = GoAdminService.ReportType.QUARTERLY_SHELF_TIME;
+			reportType = GoAdminService.ReportType.OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME;
 		} else if (rt == 3) {
-			reportType = GoAdminService.ReportType.YEARLY_SHELF_TIME;
+			reportType = GoAdminService.ReportType.OUTLIER_ITEM_IN_OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME;
 		}
-		Calendar dateSelection = getDateFromString (request.getParameter("date-selection"));
+
 		try {
 			// calling admin service
 			GoAdminService goAdmin = new GoAdminServiceImpl();
-			List<RetailerInventoryBean> result = goAdmin.getShelfTimeReport(reportType, retailerId, dateSelection);
+			List<RetailerInventoryBean> result = goAdmin.getDeliveryTimeReport(reportType, retailerId, 0);
 			if (result.size() == 0 || result == null) {
 				out.println("No Report To Print");
 			} else {
