@@ -54,10 +54,8 @@ public class DeliveryTimeReportServlet extends HttpServlet {
 					out.println(r.toString());
 				}
 			}
-		} catch (ConnectException e) {
-			out.println("Error in Retreiving Report >> " + e.getMessage());
-		} catch (Exception exp) {
-			out.println("Error in Retreiving Report >> " + exp.getMessage());
+		} catch (ConnectException exception) {
+			out.println("Error in Retreiving Report >> " + exception.getMessage());
 		} finally {
 			out.close();
 		}

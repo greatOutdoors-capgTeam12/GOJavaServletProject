@@ -33,7 +33,7 @@
   <servlet-mapping>
     <servlet-name>DeliveryTimeReportServlet</servlet-name>
     <url-pattern>/DeliveryTimeReportServlet</url-pattern>
-  <servlet-mapping>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>ReturnOrderServlet</display-name>

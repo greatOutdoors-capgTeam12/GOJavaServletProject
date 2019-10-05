@@ -1,7 +1,6 @@
 package com.capgemini.go.dao;
 
 import java.net.ConnectException;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 
@@ -37,40 +36,45 @@ public interface GoAdminDao {
 	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
 	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
 	 * products and their Monthly Shelf time periods
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
-	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments)throws ConnectException;
+	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException;
 
 	/*******************************************************************************************************
 	 * - Function Name : getQuarterlyTimeReport - Input Parameters :
 	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
 	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
 	 * to get List of all products and their Quarterly Shelf time periods
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
-	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments)throws ConnectException;
+	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException;
 
 	/*******************************************************************************************************
 	 * - Function Name : getYearlyTimeReport - Input Parameters : RetailerInventory
 	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
 	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
 	 * products and their Yearly Shelf time periods
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
-	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments)throws ConnectException;
+	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException;
 
 	/*******************************************************************************************************
 	 * - Function Name : getOutlierProductCategoryDeliveryTime - Input Parameters :
 	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
 	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
 	 * to get List of all product categories and their Delivery time periods
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
-	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments)throws ConnectException;
+	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException;
 
 	/*******************************************************************************************************
 	 * - Function Name : getOutlierItemDeliveryTime - Input Parameters :
 	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
 	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
 	 * to get List of all products and their Delivery time periods
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
-	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments)throws ConnectException;
+	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException;
 
 	/*******************************************************************************************************
 	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime - Input
@@ -79,9 +83,10 @@ public interface GoAdminDao {
 	 * 21/9/2019 - Description : to get List of all products in outlier categories
 	 * and their Delivery time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getOutlierItemInOutlierProductCategoryDeliveryTime(
-			RetailerInventoryDTO queryArguments) throws ConnectException;
+			RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException;
 	// end of Shelf Time Report and Delivery Time Report
 
 	public void setBonus(SalesRepDTO sr, double bonus)throws ConnectException;

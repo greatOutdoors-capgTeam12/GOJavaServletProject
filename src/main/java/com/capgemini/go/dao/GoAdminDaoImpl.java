@@ -480,16 +480,17 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
 	 * products and their Monthly Shelf time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
+	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		// Declaring List where valid objects returned by query will be stored
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		// Storing given arguments
 		String retailerUserId = queryArguments.getRetailerUserId();
 		Connection connection = null;
 		try {
-			
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR_AND_MONTH);
@@ -511,16 +512,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(p);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
-		}
+		} catch (SQLException | DatabaseException | IOException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("monthly_shelf_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("monthly_shelf_time_report_failure"));
+		} 
 		finally
 		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
-				throw new ConnectException(Constants.connectionError);
+				throw new ConnectException (Constants.connectionError);
 			}
 		}
 		return result;
@@ -532,9 +533,10 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
 	 * to get List of all products and their Quarterly Shelf time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
+	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		// Declaring List where valid objects returned by query will be stored
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		// Storing given arguments
@@ -542,6 +544,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		Connection connection = null;
 		try {
 			connection = DbConnection.getInstance().getConnection();
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR_AND_QUARTER);
 			// filling query statement fields
@@ -564,9 +567,10 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(p);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
-		}
+		} catch (SQLException | DatabaseException | IOException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("quarterly_shelf_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("quarterly_shelf_time_report_failure"));
+		} 
 		finally
 		{
 			try {
@@ -585,17 +589,18 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
 	 * products and their Yearly Shelf time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
+	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		// Declaring List where valid objects returned by query will be stored
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		// Storing given arguments
 		String retailerUserId = queryArguments.getRetailerUserId();
 		Connection connection = null;
 		try {
-			
 			connection = DbConnection.getInstance().getConnection();
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			PreparedStatement stmt = connection
 					.prepareStatement(QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR);
 			// filling query statement fields
@@ -615,9 +620,10 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(p);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
-		}
+		} catch (SQLException | DatabaseException | IOException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("yearly_shelf_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("yearly_shelf_time_report_failure"));
+		} 
 		finally
 		{
 			try {
@@ -636,15 +642,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
 	 * to get List of all product categories and their Delivery time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException {
+	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		String retailerId = queryArguments.getRetailerUserId();
 		// Declaring List where valid objects returned by query will be stored
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		Connection connection = null;
 		try {
-			
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID_AND_PRODUCTCATEGORY);
@@ -663,8 +670,9 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(null);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
+		} catch (SQLException | DatabaseException | IOException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("outlier_product_category_delivery_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("outlier_product_category_delivery_time_report_failure"));
 		}
 		finally
 		{
@@ -684,15 +692,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
 	 * to get List of all products and their Delivery time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException {
+	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		String retailerId = queryArguments.getRetailerUserId();
 		// Declaring List where valid objects returned by query will be stored
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		Connection connection = null;
 		try {
-			
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement(QuerryMapper.GET_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID);
@@ -712,8 +721,9 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(null);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
+		} catch (SQLException | DatabaseException | IOException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("outlier_item_delivery_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("outlier_item_delivery_time_report_failure"));
 		}
 		finally
 		{
@@ -734,12 +744,19 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * 21/9/2019 - Description : to get List of all products in outlier categories
 	 * and their Delivery time periods
 	 * @throws ConnectException 
+	 * @throws GoAdminException 
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getOutlierItemInOutlierProductCategoryDeliveryTime(
-			RetailerInventoryDTO queryArguments) throws ConnectException {
+			RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		// get outlier product categories
-		List<RetailerInventoryBean> outlierCategories = this.getOutlierProductCategoryDeliveryTime(queryArguments);
+		List<RetailerInventoryBean> outlierCategories;
+		try {
+			outlierCategories = this.getOutlierProductCategoryDeliveryTime(queryArguments);
+		} catch (ConnectException | GoAdminException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("outlier_item_in_outlier_product_category_delivery_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("outlier_item_in_outlier_product_category_delivery_time_report_failure"));
+		}
 		int minDeliveryTimeCategory = outlierCategories.get(0).getProductCategory();
 		int maxDeliveryTimeCategory = outlierCategories.get(outlierCategories.size() - 1).getProductCategory();
 		String retailerId = queryArguments.getRetailerUserId();
@@ -747,7 +764,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		Connection connection = null;
 		try {
-			
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_OUTLIER_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID_AND_PRODUCTCATEGORY);
@@ -788,8 +805,9 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(null);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
+		} catch (SQLException | DatabaseException | IOException exception) {
+			GoLog.logger.error(exceptionProps.getProperty("outlier_item_in_outlier_product_category_delivery_time_report_failure"));
+			throw new GoAdminException(exceptionProps.getProperty("outlier_item_in_outlier_product_category_delivery_time_report_failure"));
 		}
 		finally
 		{
