@@ -66,19 +66,19 @@
           <li><a href="product.html">Golf<span class="fas fa-golf-ball "></span></a></li>
         </ul>
       </li>
-      <li class="dropdown">
+      <li class="dropdown" id="admin-dropdown-list">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#admin">Admin
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a onclick="document.getElementById('prodreg').style.display='block'">Add Product Master</a></li>
            <li><a href="#">Product Master List</a></li>
 		   <li><a href="#" onclick="document.getElementById('suggestFav').style.display='block'">Suggest Favourites</a></li>
-		   <li class="dropdown-submenu">
+		   <li class="dropdown-submenu" id="admin-get-reports">
         <a class="test" tabindex="-1" href="#">Get Report <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="openAdminReport()">Camping Reports</a></li>
-          <li><a tabindex="-1" href="#" onclick="document.getElementById('shelfTime').style.display='block'">Shelf Time Report</a></li>
-		   <li><a tabindex="-1" href="#" onclick="document.getElementById('delieveryTime').style.display='block'">Delievery Time Report</a></li>
+          <li id="admin-shelf-time-report"><a tabindex="-1" href="#" onclick="document.getElementById('shelfTime').style.display='block'">Shelf Time Report</a></li>
+		   <li id="admin-delivery-time-report"><a tabindex="-1" href="#" onclick="document.getElementById('delieveryTime').style.display='block'">Delievery Time Report</a></li>
         </ul>
       </li>
 		  
@@ -505,21 +505,21 @@
 			<div class="container">
 				<h1>Shelf Time Report</h1>
 				<label for="retailer-id">Retailer ID: </label>
-				<input type="text" name="retailer-id"  required>
+				<input type="text" name="retailer-id"  required id="shelf-time-report-retailer-id">
 				<div class="container">
 					<label for="report-type">Report Type :</label>
-					<select name="report-type">
+					<select name="report-type" id="shelf-time-report-report-type">
 						<option value="1" selected> Monthly Shelf Time Report </option>
 						<option value="2"> Quarterly Shelf Time Report </option>
 						<option value="3"> Yearly Shelf Time Report </option>
 					</select>
 				</div>
 				<label for="date-selection">Date Selection : </label>
-				<input type="date" name="date-selection"> <br>
+				<input type="date" name="date-selection" id="shelf-time-report-date-selection"> <br>
 
 				<div class="clearfix">
 					<button type="button" onclick="document.getElementById('shelfTime').style.display='none'" class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" class="signupbtn" id="shelf-time-report-form-submit-button">Submit</button>
 				</div>
 			</div>
 		</form>

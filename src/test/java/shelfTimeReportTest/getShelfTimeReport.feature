@@ -2,18 +2,16 @@ Feature: Shelf Time Reports
 #This is how background can be used to eliminate duplicate steps 
 
 Background: User navigates to Great Outdoors home Page
-	Given I am on Great Outdoors home page
-	
+	Given I am on Shelf Time Report Form in Great Outdoors home page
 
-Scenario Outline: User enters a valid Retailer Id and a valid Date in Shelf Time Report Form
-   When I enter retialerId as "<retailerId>"
-   And I enter reportType as "<reportType>"
-   And I enter date as "<date>"
-   Then Report must be generated 
-   
-   Examples:
+Scenario Outline: User enters a valid Retailer Id and a valid Date and Submits the form
+	When I enter retialerId as "<retailerId>"
+	And I enter reportType as "<reportType>"
+	And I enter date as "<date>"
+	Then Report must be generated 
+	Examples:
     |	retailerId	|	reportType						|	date		|
-    |	RT01		|	Monthly Shelf Time Report		|	10-04-2019	|
+    |	RT01		|	Yearly Shelf Time Report		|	10/04/2019	|
     
 
 #Scenario with BUT 
