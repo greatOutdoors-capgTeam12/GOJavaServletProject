@@ -12,8 +12,17 @@ Scenario Outline: User enters a valid Retailer Id and a valid Date and Submits t
 	Examples:
     |	retailerId	|	reportType						|	date		|
     |	RT01		|	Yearly Shelf Time Report		|	10/04/2019	|
-    
-
+ 	|	RT02		|	Monthly Shelf Time Report		|	09/21/2018	|
+ 	|	RT01		|	Quarterly Shelf Time Report		|	02/15/2017	|
+ 	|	RT01		|	Monthly Shelf Time Report		|	12/05/2019	|
+ 	|	RT02		|	Quarterly Shelf Time Report		|	10/21/2018	|
+ 	|	RT02		|	Yearly Shelf Time Report		|	12/10/2018	|
+ 	|	RT03		|	Yearly Shelf Time Report		|	05/07/2017	|
+ 	|	RT03		|	Quarterly Shelf Time Report		|	06/10/2017	|
+ 	|	RT03		|	Monthly Shelf Time Report		|	07/12/2017	|
+ 	
+ 	
+ 	
 #Scenario with BUT 
 #Scenario: Failed Login with relogin option for wrong credentials
 #   When I enter username as "TOM" 
