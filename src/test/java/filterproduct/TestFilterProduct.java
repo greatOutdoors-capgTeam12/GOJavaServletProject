@@ -20,13 +20,10 @@ public class TestFilterProduct {
 	public void goToGoAdminOnChrome() {
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 		driver = new ChromeDriver();
-		driver.navigate().to("http://localhost:9089/go/allprod.jsp");
+		driver.navigate().to("http://localhost:9090/go/allprod.jsp");
 		driver.findElement(By.id("filter-product")).click();
 		System.out.println("Title: " + driver.getTitle());
 	}
-	
-	
-	
 	
 	@When("^I enter product name as \"(.*)\"$")
 	public void enterProductName (String productName) {
@@ -34,8 +31,6 @@ public class TestFilterProduct {
 		driver.findElement(By.id("filter-prod-name")).sendKeys(productName);
 	}
 	
-	
-
 	@When("^I enter product brand as \"(.*)\"$")
 	public void enterProductBrand (String productBrand) {
 		System.out.println ("Product Brand entered: " + productBrand);
@@ -57,17 +52,12 @@ public class TestFilterProduct {
 		
 	}
 	
-	
-	
-	
-	@When("^I  select Category as \"(.*)\"$")
+	@When("^I select category as \"(.*)\"$")
 	public void enterCategory (String category) {
 		System.out.println ("Product category entered: " + category);
 		driver.findElement(By.id("filter-cat")).sendKeys(category);
 		
 	}
-	
-	
 	
 	@When("^I click on submit button$")
 	public void clickSubmitButton () {
@@ -77,17 +67,11 @@ public class TestFilterProduct {
 	
 	}
 	
-	
 	@Then("^Filtered Product page shown up$")
     public void FilterProductSuccess()  {
         
 		assertEquals("http://localhost:9089/go/FilterProductServlet", driver.getCurrentUrl());
 	}
-	
-	
-	
-	
-	
 	
 	
 	@After
