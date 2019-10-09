@@ -8,7 +8,7 @@ Scenario Outline:Successful Login as a authenticated user
     And User Clicks on Login Button
     When User enters "<UserId>" and "<password>"
     And User clicks on the submit button
-    Then User Successfully Logs-In
+    Then "<UserId>" Successfully Logs-In
 
 Examples:
 	| UserId | password |

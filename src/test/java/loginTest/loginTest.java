@@ -26,34 +26,36 @@ public class loginTest {
 	}
 
 	@When("^User Clicks on Login Tab$")
-	public void user_clicks_on_login_tab() throws InterruptedException {
+	public void user_clicks_on_login_tab(){
 		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/a")).click();
 	}
 	
 	@And("^User Clicks on Login Button$")
-	public void user_clicks_on_login_button() throws InterruptedException {
+	public void user_clicks_on_login_button(){
 		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/ul/li[1]/a")).click();
 	}
 
 	@And("User enters {string} and {string}")
-	public void user_enters_and(String UserId, String password) throws InterruptedException {
+	public void user_enters_and(String UserId, String password){
 		driver.findElement(By.name("ID")).sendKeys(UserId);
 		driver.findElement(By.name("pass")).sendKeys(password);
 
 	}
 
 	@And("^User clicks on the submit button$")
-	public void user_clicks_the_submit_button() throws InterruptedException {
+	public void user_clicks_the_submit_button(){
 		driver.findElement(By.xpath("//*[@id=\"login\"]/form/div/div/button[2]")).click();
 	}
 
-	@Then("^User Successfully Logs-In$")
-	public void user_successfully_login() throws InterruptedException {
-		String Title = driver.getTitle();
-		String title = "go";
+	@Then("^\"(.*)\" Successfully Logs-In$")
+	public void user_successfully_login(String userId) throws InterruptedException {
+		String Title = driver.findElement(By.xpath("//*[@id=\"msg\"]/h2")).getText();
+		String title = "USER WITH USER ID : " + userId + "HAS BEEN SUCCESSFULLY LOGGED-IN";
 		assertEquals(Title, title);
-		Thread.sleep(2000);
-		driver.close();
+		System.out.println("Closing the driver.");
+		if (driver != null) {
+			driver.quit();
+		}
 	}
 
 }

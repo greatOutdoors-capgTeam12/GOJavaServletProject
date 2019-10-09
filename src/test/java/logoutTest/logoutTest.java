@@ -43,13 +43,25 @@ public class logoutTest {
 		driver.findElement(By.xpath("//*[@id=\"logout\"]/form/div/div/button")).click();
 	}
 
-	@Then("^User Successfully Logs-Out$")
-	public void user_successfully_logout() {
-		String Title = driver.getTitle();
-		String title = "go";
+	@Then("^\"(.*)\" Successfully Logs-Out$")
+	public void user_successfully_logout(String userId) {
+		String Title = driver.findElement(By.xpath("//*[@id=\"msg\"]/h2")).getText();
+		String title = "USER WITH USER ID : " + userId + " HAS BEEN SUCCESSFULLY LOGGED OUT";
 		assertEquals(Title, title);
-		//Thread.sleep(2000);
-		driver.close();
+		System.out.println("Closing the driver.");
+		if (driver != null) {
+			driver.quit();
+		}
 	}
 
+	@Then("^User already logged out Message displayed$")
+	public void user_logout_denied() throws InterruptedException {
+		String Title = driver.findElement(By.xpath("//*[@id=\"err\"]/h2")).getText();
+		String title = "ERROR IN LOGGING OUT >> USER ALREADY LOGGED-OUT";
+		assertEquals(Title, title);
+		System.out.println("Closing the driver.");
+		if (driver != null) {
+			driver.quit();
+		}
+	}
 }
