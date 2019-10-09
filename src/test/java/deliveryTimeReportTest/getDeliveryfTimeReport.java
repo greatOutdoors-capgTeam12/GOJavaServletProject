@@ -20,7 +20,7 @@ public class getDeliveryfTimeReport {
 		driver.navigate().to("http://localhost:9090/go/index.html");
 		driver.findElement(By.id("admin-dropdown-list")).click();
 		driver.findElement(By.id("admin-get-reports")).click();
-		driver.findElement(By.id("admin-shelf-time-report")).click();
+		driver.findElement(By.id("admin-delivery-time-report")).click();
 		System.out.println("Title: " + driver.getTitle());
 	}
 	
@@ -28,20 +28,20 @@ public class getDeliveryfTimeReport {
 	@When("^I enter retialerId as \"(.*)\"$")
 	public void enterRetailerId (String retailerId) {
 		System.out.println ("Retailer Id entered: " + retailerId);
-		driver.findElement(By.id("shelf-time-report-retailer-id")).sendKeys(retailerId);
+		driver.findElement(By.id("delivery-time-report-retailer-id")).sendKeys(retailerId);
 	}
 	
 	@When("^I enter reportType as \"(.*)\"$")
 	public void enterReportType (String reportType) {
 		System.out.println ("Report Type entered: " + reportType);
-		driver.findElement(By.id("shelf-time-report-report-type")).sendKeys(reportType);
-	}
-	
-	@When("^I enter date as \"(.*)\"$")
-	public void enterDateSelection (String date) {
-		System.out.println ("Date entered: " + date);
-		driver.findElement(By.id("shelf-time-report-date-selection")).sendKeys(date);
-		driver.findElement(By.id("shelf-time-report-form-submit-button")).click();
+		driver.findElement(By.id("delivery-time-report-report-type")).sendKeys(reportType);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.findElement(By.id("delivery-time-report-submit")).click();
 	}
 		
 	@Then("^Report must be generated$")

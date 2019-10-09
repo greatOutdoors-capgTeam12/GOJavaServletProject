@@ -103,8 +103,8 @@
 								<li id="admin-shelf-time-report"><a tabindex="-1" href="#"
 									onclick="document.getElementById('shelfTime').style.display='block'">Shelf
 										Time Report</a></li>
-								<li><a tabindex="-1" href="#"
-									onclick="document.getElementById('delieveryTime').style.display='block'">Delievery
+								<li id="admin-delivery-time-report"><a tabindex="-1" href="#"
+									onclick="document.getElementById('delieveryTime').style.display='block'">Delivery
 										Time Report</a></li>
 							</ul></li>
 						<li><a href="ReportType.html">Report Management</a>
@@ -659,27 +659,24 @@
 		<span
 			onclick="document.getElementById('delieveryTime').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="DeliveryTimeReportServlet">
 			<div class="container">
 				<h1>Delievery Time Report</h1>
 				<hr>
 
-				<input type="text" placeholder="Enter the Retailer ID" required>
+				<input type="text" placeholder="Enter the Retailer ID" required id="delivery-time-report-retailer-id" name="retailer-id">
 				<div class="container">
-					<label><bold>Report Type : <select name="dropdown">
+					<label><bold>Report Type : <select name="report-type" id="delivery-time-report-report-type">
 							<option value="1" selected>Product Delivery Time Report</option>
-							<option value="2">Outlier Item Level Delivery Time
-								Report</option>
-							<option value="3">item level delivery time</option>
+							<option value="2">Outlier Item Level Delivery Time Report</option>
+							<option value="3">Item level delivery time</option>
 						</select></label>
 				</div>
-				<label>Date Selection : <input type="date"></label><br>
-
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('delieveryTime').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" class="signupbtn" id="delivery-time-report-submit">Submit</button>
 				</div>
 			</div>
 		</form>
