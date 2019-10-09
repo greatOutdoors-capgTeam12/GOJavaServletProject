@@ -17,7 +17,7 @@ public class loginTest {
 
 	@Given("^User is on GO homepage$")
 	public void User_is_on_GO_homepage() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\kuroycho\\Project Dependencies\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\araj15\\Documents\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("http://localhost:9090/go/index.html");
@@ -49,6 +49,28 @@ public class loginTest {
 	public void user_successfully_login(String userId) throws InterruptedException {
 		String Title = driver.findElement(By.xpath("//*[@id=\"msg\"]/h2")).getText();
 		String title = "USER WITH USER ID : " + userId + "HAS BEEN SUCCESSFULLY LOGGED-IN";
+		assertEquals(Title, title);
+		System.out.println("Closing the driver.");
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+	
+	@Then("^Message UserId doesn't exist pops$")
+	public void user_doesnot_exists() throws InterruptedException {
+		String Title = driver.findElement(By.xpath("//*[@id=\"err\"]/h2")).getText();
+		String title = "ERROR IN LOG-IN >> USER DOESN'T EXIST.PLEASE ENTER VALID USER_ID";
+		assertEquals(Title, title);
+		System.out.println("Closing the driver.");
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+	
+	@Then("^Message password doesnot match$")
+	public void password_doesnot_match() throws InterruptedException {
+		String Title = driver.findElement(By.xpath("//*[@id=\"err\"]/h2")).getText();
+		String title = "ERROR IN LOG-IN >> PLEASE ENTER THE CORRECT PASSWORD";
 		assertEquals(Title, title);
 		System.out.println("Closing the driver.");
 		if (driver != null) {
