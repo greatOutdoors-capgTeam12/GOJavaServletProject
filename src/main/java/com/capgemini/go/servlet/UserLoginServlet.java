@@ -23,7 +23,6 @@ import com.capgemini.go.service.UserServiceImpl;
 /**
  * Servlet implementation class UserLoginServlet
  */
-@WebServlet(description = "To Login an Existing Customer", urlPatterns = { "/UserLoginServlet" })
 public class UserLoginServlet extends HttpServlet {
 
  
