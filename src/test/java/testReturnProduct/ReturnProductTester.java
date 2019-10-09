@@ -63,7 +63,7 @@ public class ReturnProductTester {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			driver.close();
+			driver.quit();
 		}
 	}
 

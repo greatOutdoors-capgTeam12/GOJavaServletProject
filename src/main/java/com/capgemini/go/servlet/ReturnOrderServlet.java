@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,12 +42,15 @@ public class ReturnOrderServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
 		String userId=request.getParameter("ReturnOrderUserId");
 		String orderId=request.getParameter("ReturnOrderOrderId");
 		String reason=request.getParameter("ReturnOrderReason");
 		try {
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
+			RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/pages/header.html"); 
+			rd.include(request, response);
 			if ((salesRepService.validateUser(orderId)).equals(userId)) {
 				status = salesRepService.returnOrder(orderId, userId, reason);
 				if (status == true) {
@@ -59,10 +63,13 @@ public class ReturnOrderServlet extends HttpServlet {
 			}
 		} catch (SalesRepresentativeException | IOException e) {
 			result=exceptionProps.getProperty("validate_user_error");
+		} finally {
+			out.print("<div id = \"msg\" class=\"container-fluid \"><p><h2> " 
+					+ result + " </h2></p></div>");
+			RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/pages/footer.html"); 
+			rd.include(request, response); 
+			out.close();
 		}
-		PrintWriter out=response.getWriter();
-		out.print(result);
-		
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class ReturnOrderTester {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			driver.close();
+			driver.quit();
 		}
 	}
 
