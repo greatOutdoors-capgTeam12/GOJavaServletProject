@@ -297,4 +297,24 @@
 		<servlet-name>CheckBonusServlet</servlet-name>
 		<url-pattern>/CheckBonus</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>Return Order Servlet</display-name>
+		<servlet-name>ReturnOrderServlet</servlet-name>
+		<servlet-class>com.capgemini.go.servlet.ReturnOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReturnOrderServlet</servlet-name>
+		<url-pattern>/ReturnOrderServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>Return Product Servlet</display-name>
+		<servlet-name>ReturnProductServlet</servlet-name>
+		<servlet-class>com.capgemini.go.servlet.ReturnProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReturnProductServlet</servlet-name>
+		<url-pattern>/ReturnProductServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

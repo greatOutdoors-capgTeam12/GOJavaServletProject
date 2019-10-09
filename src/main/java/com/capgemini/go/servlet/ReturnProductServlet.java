@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.capgemini.go.exception.SalesRepresentativeException;
 import com.capgemini.go.service.SalesRepresentativeService;
 import com.capgemini.go.service.SalesRepresentativeServiceImpl;
-import com.capgemini.go.utility.GoLog;
 import com.capgemini.go.utility.PropertiesLoader;
 
 /**
@@ -41,27 +39,27 @@ public class ReturnProductServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		String userId=request.getParameter("UserId");
-		String orderId=request.getParameter("OrderId");
-		String productId=request.getParameter("ProductId");
-		int qty=Integer.parseInt(request.getParameter("Qty"));
-		String reason=request.getParameter("Reason");
+		String userId=request.getParameter("ReturnProductUserId");
+		String orderId=request.getParameter("ReturnProductOrderId");
+		String productId=request.getParameter("ReturnProductProductId");
+		int qty=Integer.parseInt(request.getParameter("ReturnProductQty"));
+		String reason=request.getParameter("ReturnProductReason");
 		try {
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
 			if ((salesRepService.validateUser(orderId)).equals(userId)) {
 				status = salesRepService.returnProduct(orderId, userId, productId, qty, reason);
 				if (status == true) {
-					GoLog.logger.info(exceptionProps.getProperty("return_order_processed"));
+					result=exceptionProps.getProperty("return_order_processed");
 				} else {
-					GoLog.logger.error(exceptionProps.getProperty("failure_order"));
+					result=exceptionProps.getProperty("failure_order");
 				}
 			} else {
-				GoLog.logger.error(exceptionProps.getProperty("validate_user_error"));
-				GoLog.logger.error(exceptionProps.getProperty("failure_order"));
+				result=exceptionProps.getProperty("validate_user_error");
+				result=exceptionProps.getProperty("failure_order");
 			}
 		} catch (SalesRepresentativeException | IOException e) {
-			GoLog.logger.error(exceptionProps.getProperty("failure_order"));
+			result=exceptionProps.getProperty("failure_order");
 		}
 		PrintWriter out=response.getWriter();
 		out.print(result);

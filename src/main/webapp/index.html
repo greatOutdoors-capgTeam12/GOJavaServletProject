@@ -163,13 +163,13 @@
 									onclick="document.getElementById('cancelProductSR').style.display='block'">Cancel
 										Product</a></li>
 							</ul></li>
-						<li class="dropdown-submenu"><a class="test" tabindex="-1"
-							href="#">Return<span class="caret"></span></a>
+						<li class="dropdown-submenu" name="returnClick"><a
+							class="test" tabindex="-1" href="#">Return<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a tabindex="-1" href="#"
+								<li name="returnOrderClick"><a tabindex="-1" href="#"
 									onclick="document.getElementById('returnOrderSR').style.display='block'">Return
 										Order</a></li>
-								<li><a tabindex="-1" href="#"
+								<li name="returnProductClick"><a tabindex="-1" href="#"
 									onclick="document.getElementById('returnProductSR').style.display='block'">Return
 										Product</a></li>
 							</ul></li>
@@ -1002,30 +1002,28 @@
 		<span
 			onclick="document.getElementById('returnOrderSR').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="ReturnOrderServlet"
+			method="service">
 			<div class="container">
 				<h1>Return Order</h1>
 				<hr>
 				<div class=".col-sm-12">
-					<form action="CancelOrderServlet" method="get">
 
-						<input name="UserId" placeholder="Enter User_ID" type="text"
-							class="form-control" id="UserId"> <input name="OrderId"
-							placeholder="Enter Order_ID" type="text" class="form-control"
-							id="OrderId">
-						<textarea class="form-control"
-							placeholder="Enter reason for Returning " rows=10% cols=5%
-							id="Reason" margin=30px></textarea>
+					<input name="ReturnOrderUserId" placeholder="Enter User_ID"
+						type="text" class="form-control" id="ReturnOrderUserId"> <input
+						name="ReturnOrderOrderId" placeholder="Enter Order_ID" type="text"
+						class="form-control" id="ReturnOrderOrderId">
+					<textarea name="ReturnOrderReason" class="form-control"
+						placeholder="Enter reason for Returning " rows=5 cols=10
+						id="ReturnOrderReason"></textarea>
 
 
-					</form>
 				</div>
 
 				<div class="clearfix">
-					<button type="button"
+					<button type="submit" name="ReturnOrderSubmit"
 						onclick="document.getElementById('returnOrderSR').style.display='none'"
-						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+						class="cancelbtn" id="ReturnOrderSubmit">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -1038,33 +1036,28 @@
 		<span
 			onclick="document.getElementById('returnProductSR').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="ReturnProductServlet"
+			method="post">
 			<div class="container">
 				<h1>Return Product</h1>
 				<hr>
-				<div class=".col-sm-12">
-
-
-					<input name="UserId" placeholder="Enter User_ID" type="text"
-						class="form-control" id="UserId"> <input name="OrderId"
-						placeholder="Enter Order_ID" type="text" class="form-control"
-						id="OrderId"> <input name="UserId"
-						placeholder="Enter Product_ID" type="text" class="form-control"
-						id="ProductId"> <input name="OrderId"
-						placeholder="Enter Quantity to cancel:" type="number"
-						class="form-control" id="Quantity">
-					<textarea class="form-control"
-						placeholder="Enter reason for Returning " rows=10% cols=5%
-						id="Reason" margin=30px></textarea>
-
-
-				</div>
+				<input name="ReturnProductUserId" placeholder="Enter User_ID"
+					type="text" class="form-control" id="ReturnProductUserId">
+				<input name="ReturnProductOrderId" placeholder="Enter Order_ID"
+					type="text" class="form-control" id="ReturnProductOrderId">
+				<input name="ReturnProductProductId" placeholder="Enter Product_ID"
+					type="text" class="form-control" id="ReturnProductProductId">
+				<input name="ReturnProductQty"
+					placeholder="Enter Quantity to cancel:" type="text"
+					class="form-control" id="ReturnProductQty">
+				<textarea name="ReturnProductReason" class="form-control"
+					style="width: 80%" placeholder="Enter reason for Returning "
+					id="ReturnProductReason"></textarea>
 
 				<div class="clearfix">
-					<button type="button"
+					<button type="submit" name="ReturnProductSubmit"
 						onclick="document.getElementById('returnProductSR').style.display='none'"
-						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+						class="cancelbtn" id="ReturnProductSubmit">Submit</button>
 				</div>
 			</div>
 		</form>

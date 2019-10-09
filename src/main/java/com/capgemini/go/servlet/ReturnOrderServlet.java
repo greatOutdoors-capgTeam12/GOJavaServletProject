@@ -41,9 +41,9 @@ public class ReturnOrderServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		String userId=request.getParameter("UserId");
-		String orderId=request.getParameter("OrderId");
-		String reason=request.getParameter("Reason");
+		String userId=request.getParameter("ReturnOrderUserId");
+		String orderId=request.getParameter("ReturnOrderOrderId");
+		String reason=request.getParameter("ReturnOrderReason");
 		try {
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
