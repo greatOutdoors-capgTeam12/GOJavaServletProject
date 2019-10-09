@@ -118,7 +118,7 @@
 						<li><a
 							onclick="document.getElementById('addItemCart').style.display='block'">Add
 								Item to Cart</a></li>
-						<li><a
+						<li><a id="retailer-place-order"
 							onclick="document.getElementById('placeOrder').style.display='block'">Place
 								Order</a></li>
 						<li class="dropdown-submenu"><a class="test" tabindex="-1"
@@ -720,10 +720,12 @@
 				<h1>Check Out</h1>
 				<hr>
 
-				Enter The Customer Id:<input type="text" name="retid"><br>
-				Enter The Address Id:<input type="text" name="addid"><br>
+				Enter The Customer Id:<input type="text" name="retid" id="place-order-retid"><br>
+				Enter The Address Id:<input type="text" name="addid" id="place-order-addid"><br>
 
-				<button type="submit" class="btn btn-default">Buy Now</button>
+				<div class="clearfix">
+					<button type="submit" class="signupbtn" id ="place-order-buynow">Buy Now</button>
+				</div>
 		</form>
 	</div>
 

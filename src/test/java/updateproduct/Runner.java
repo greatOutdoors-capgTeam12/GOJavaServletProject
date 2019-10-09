@@ -1,4 +1,4 @@
-package loginTest;
+package updateproduct;
 
 import org.junit.runner.RunWith;
 

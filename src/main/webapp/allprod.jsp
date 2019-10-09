@@ -25,7 +25,7 @@
     <div class="card col-lg-4 col-md-4 col-sm-4 ">
       <img  src="resources/images/products/${product.productId}.jpg" alt="Product_Name" style="width:100%" height="200px">
       <div class="overlay-prod"><span class="fas fa-eye"></span>
-	  <span class="fas fa-trash"></span>
+	  <span class="fas fa-trash"onclick="document.getElementById('delprod').style.display='block'"></span>
        <span class="fas fa-arrow-up" onclick="document.getElementById('incqty').style.display='block'"></span>
       <span class="fas fa-pen"  onclick="document.getElementById('upprod').style.display='block'"></span></div>
       <h3>${product.productName}</h3>
