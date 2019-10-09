@@ -129,16 +129,20 @@
 									onclick="document.getElementById('prodFav').style.display='block'">Add
 										Products</a></li>
 							</ul></li>
-						<li class="dropdown-submenu"><a class="test" tabindex="-1"
+						<li id="AddressUpdate" name="AddressUpdate"
+							class="dropdown-submenu"><a class="test" tabindex="-1"
 							href="#">Manage Address <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a tabindex="-1" href="#"
+								<li name="AddAddress" id="AddAddress"><a tabindex="-1"
+									href="#"
 									onclick="document.getElementById('addRetAdr').style.display='block'">Add
 										Address</a></li>
-								<li><a tabindex="-1" href="#"
+								<li name="UpdateAddress" id="UpdateAddress"><a
+									tabindex="-1" href="#"
 									onclick="document.getElementById('updateRetAdr').style.display='block'">Update
 										Address</a></li>
-								<li><a tabindex="-1" href="#"
+								<li name="DeleteAddress" id="DeleteAddress"><a
+									tabindex="-1" href="#"
 									onclick="document.getElementById('deleteAdr').style.display='block'">Delete
 										Address</a></li>
 							</ul></li>
@@ -702,7 +706,8 @@
 				Enter the Quantity of the product: <input type="number"
 					name="quantity" id="addItem-quant"><br>
 				<div class="clearfix">
-					<button type="submit" class="signupbtn" id="add-item-to-cart-submit">Add To Cart</button>
+					<button type="submit" class="signupbtn"
+						id="add-item-to-cart-submit">Add To Cart</button>
 				</div>
 			</div>
 		</form>
@@ -720,11 +725,13 @@
 				<h1>Check Out</h1>
 				<hr>
 
-				Enter The Customer Id:<input type="text" name="retid" id="place-order-retid"><br>
-				Enter The Address Id:<input type="text" name="addid" id="place-order-addid"><br>
+				Enter The Customer Id:<input type="text" name="retid"
+					id="place-order-retid"><br> Enter The Address Id:<input
+					type="text" name="addid" id="place-order-addid"><br>
 
 				<div class="clearfix">
-					<button type="submit" class="signupbtn" id ="place-order-buynow">Buy Now</button>
+					<button type="submit" class="signupbtn" id="place-order-buynow">Buy
+						Now</button>
 				</div>
 		</form>
 	</div>
@@ -798,34 +805,40 @@
 
 
 	<!--Form Add Address -->
-	<div id="addRetAdr" class="modal">
+	<div id="addRetAdr" class="modal" id="RetailerAddAddress">
 		<span
 			onclick="document.getElementById('addRetAdr').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="AddAddressServlet" method="post">
+		<form class="modal-content" action="AddAddressServlet"
+			method="service">
 			<div class="container">
 				<h1>Add a New Address</h1>
 				<hr>
+				<input type="text" name="retailerId"
+					placeholder="Enter Retailer Id." id="retailerId"><br>
+				<input type="text" name="building_num"
+					placeholder="Enter Building No." id="building_num"><br>
+				<input type="text" name="city" placeholder="Enter City" id="city"><br>
+				<input type="text" name="state" placeholder="Enter State" id="state"><br>
+				<input type="text" name="zip" placeholder="Enter ZIP Code" id="zip"><br>
+				<input type="text" name="country" placeholder="Enter Country"
+					id="country"><br>
 
-				<input type="text" placeholder="Enter Retailer_ID" name="ret_ID"
-					required><br> <input type="text"
-					placeholder="Enter Building No." name="building_num"><br>
-				<input type="text" placeholder="Enter City" name="city"><br>
-				<input type="text" placeholder="Enter State" name="state"><br>
-				<input type="text" placeholder="Enter ZIP Code" name="zip"><br>
-				<input type="text" placeholder="Enter Country" name="country"><br>
+
 
 
 				<div class="clearfix">
-					<button type="button"
+					<button type="button" name="RetailerCancel"
 						onclick="document.getElementById('addRetAdr').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" name="RetailerSubmit" class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<!--End of Form Add Address -->
+
+
 
 
 	<!--Form Update Address -->
@@ -834,63 +847,45 @@
 			onclick="document.getElementById('updateRetAdr').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
 		<form class="modal-content" action="UpdateAddressServlet"
-			method="post">
+			method="service">
 			<div class="container">
 				<h1>Update Address</h1>
 				<hr>
+				<input type="text" name="updateretailerId"
+					placeholder="Enter Retailer Id." id="updateretailerId"><br>
 
-				<input type="text" placeholder="Enter Retailer_ID" name="ret_ID"
-					required><br> <input type="text"
-					placeholder="Enter Address_ID" name="address_ID" required><br>
-				<input type="text" placeholder="Enter Building No."
-					name="building_num"><br> <input type="text"
-					placeholder="Enter City" name="city"><br> <input
-					type="text" placeholder="Enter State" name="state"><br>
-				<input type="text" placeholder="Enter ZIP Code" name="zip"><br>
-				<input type="text" placeholder="Enter Country" name="country"><br>
+
+
+				<input type="text" placeholder="Enter Address_ID"
+					id="updateaddress_ID" name="updateaddress_ID" required><br>
+				<br> <br> <input type="text"
+					placeholder="Enter Building No." name="updatebuilding_num"
+					id="updatebuilding_num"><br> <input type="text"
+					placeholder="Enter City" name="updatecity" id="updatecity"><br>
+				<input type="text" placeholder="Enter State" name="updatestate"
+					id="updatestate"><br> <input type="text"
+					placeholder="Enter ZIP Code" name="updatezip" id="updatezip"><br>
+				<input type="text" placeholder="Enter Country" name="updatecountry"
+					id="updatecountry"><br>
+
+
 
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('updateRetAdr').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" name="updateaddresssubmit" class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
 	</div>
+
+
 
 	<!--End of Form Update Address -->
 
 
-	<!--Form Change Order Address -->
-	<div id="changeOrderAdr" class="modal">
-		<span
-			onclick="document.getElementById('changeOrderAdr').style.display='none'"
-			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="DeleteAddressServlet"
-			method="post">
-			<div class="container">
-				<h1>Change Order Address</h1>
-				<hr>
-
-
-				<input type="text" placeholder="Enter Order_ID" id="order_ID"
-					required><br> <input type="text"
-					placeholder="Enter Address_ID" id="address_ID" required><br>
-
-
-				<div class="clearfix">
-					<button type="button"
-						onclick="document.getElementById('changeOrderAdr').style.display='none'"
-						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<!--End of Form Change Order Address -->
 
 
 	<!--Form Delete Address -->
@@ -899,27 +894,34 @@
 			onclick="document.getElementById('deleteAdr').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
 		<form class="modal-content" action="DeleteAddressServlet"
-			method="post">
+			action="service">
 			<div class="container">
 				<h1>Delete Address</h1>
 				<hr>
 
-				<input type="text" placeholder="Enter Retailer_ID" name="ret_ID"
-					required><br> <input type="text"
-					placeholder="Enter Address_ID" name="address_ID" required><br>
+
+
+				<input type="text" placeholder="Enter Address_ID"
+					name="deleteaddress_ID" id="deleteaddress_ID" required><br>
+
+
 
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('deleteAdr').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" name="deleteAddressSubmit" class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
 	</div>
 
+
+
 	<!--End of Form Delete Address -->
+
+
 
 
 	<!--End of Manage Address -->
