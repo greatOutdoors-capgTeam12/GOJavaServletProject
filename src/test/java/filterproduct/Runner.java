@@ -1,4 +1,4 @@
-package loginTest;
+package filterproduct;
 
 import org.junit.runner.RunWith;
 
@@ -11,4 +11,3 @@ import io.cucumber.junit.CucumberOptions;
 public class Runner {
 
 }
-
