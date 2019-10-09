@@ -12,3 +12,4 @@ Scenario Outline: User enters a valid Product Id and Retailer Id and Submits the
     |	retailerId	|	productId	|	
     |	SR01		|	prod06		|	
  	|	SR01		|	prod07		|
+ 	|	SR01		|	prod06		|

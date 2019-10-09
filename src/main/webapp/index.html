@@ -78,14 +78,19 @@
 						<li><a href="golf.jsp">Golf<span
 								class="fas fa-golf-ball "></span></a></li>
 					</ul></li>
+
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" id="admin-dropdown-menu" href="#admin">Admin <span class="caret"></span></a>
+
 				<li class="dropdown" id="admin-dropdown-list"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#admin">Admin <span class="caret"></span></a>
+
 					<ul class="dropdown-menu">
 						<li><a
 							onclick="document.getElementById('prodreg').style.display='block'">Add
 								Product Master</a></li>
 						<li><a href="#">Product Master List</a></li>
-						<li><a href="#"
+						<li><a href="#" id="admin-dropdown-suggest-fav"
 							onclick="document.getElementById('suggestFav').style.display='block'">Suggest
 								Favourites</a></li>
 						<li class="dropdown-submenu" id="admin-get-reports"><a class="test" tabindex="-1"
@@ -587,14 +592,14 @@
 				<hr>
 
 				<h3>Enter User ID</h3>
-				<br> <input type="text" name="User_ID"> <br> <br>
+				<br> <input type="text" name="User_ID" id="admin-suggest-product-retid"> <br> <br>
 
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('suggestFav').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" class="signupbtn" id="suggest-fav-product-submit-button">Submit</button>
 				</div>
 			</div>
 		</form>

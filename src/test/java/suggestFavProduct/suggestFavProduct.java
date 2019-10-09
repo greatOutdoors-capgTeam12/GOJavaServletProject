@@ -1,4 +1,4 @@
-package addProductToFav;
+package suggestFavProduct;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,38 +9,32 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class addProductToFav {
+public class suggestFavProduct {
 	String chromeDriverPath = "C:\\Users\\shapanwa\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe";
 	WebDriver driver = null;
 	
-	@Given("^User is on \"home\" page$")
+	@Given("Admin is on \"home\" page")
 	public void goToGoAdminOnChrome() {
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 		driver = new ChromeDriver();
 		driver.navigate().to("http://localhost:9090/go/index.html");
-		driver.findElement(By.id("retailer-dropdown-menu")).click();
-		driver.findElement(By.id("retailer-dropdown-your-fav")).click();
-		driver.findElement(By.id("retailer-add-prod-to-fav")).click();	
+		driver.findElement(By.id("admin-dropdown-menu")).click();
+		driver.findElement(By.id("admin-dropdown-suggest-fav")).click();
 		System.out.println("Title: " + driver.getTitle());
 	}
 	
 	@When("^I enter retialerId as \"(.*)\"$")
 	public void userFillsRetailerId (String retailerId) {
-		driver.findElement(By.id("add-prod-to-fav-retid")).sendKeys(retailerId);
-	}
-	
-	@When("^I enter productId as \"(.*)\"$")
-	public void userFillsProductId (String productId) {
-		driver.findElement(By.id("add-prod-to-fav-prodid")).sendKeys(productId);
+		driver.findElement(By.id("admin-suggest-product-retid")).sendKeys(retailerId);
 	}
 	
 	@When("^clicks on \"submit\" button$")
 	public void clickOnSubmitButton () {
-		driver.findElement(By.id("add-prod-to-fav-submit-button")).click();
+		driver.findElement(By.id("suggest-fav-product-submit-button")).click();
 	}
 	
-	@Then("^Product must be added to their wishlist$")
-	void checkProdAddedToFav () {
+	@Then("^Product must be displayed to their screen$")
+	void checkSuggestFavProd () {
 		
 	}
 	
