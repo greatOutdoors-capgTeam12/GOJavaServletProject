@@ -8,5 +8,6 @@ public interface Constants {
 	public static final String welcome = "******************* Welcome to Great Outdoor ******************";
 	public static final String connectionError = "Error in closing the connection";
 	public static final String connErr = " Error in establishing Connection";
+	public static final String prodImage = "C:/Users/agchandr/eclipse-workspace/go/src/main/webapp/resources/images/products";
 
 }

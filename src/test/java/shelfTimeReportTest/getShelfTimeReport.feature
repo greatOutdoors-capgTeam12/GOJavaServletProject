@@ -21,12 +21,3 @@ Scenario Outline: User enters a valid Retailer Id and a valid Date and Submits t
  	|	RT03		|	Quarterly Shelf Time Report		|	06/10/2017	|
  	|	RT03		|	Monthly Shelf Time Report		|	07/12/2017	|
  	
- 	
- 	
-#Scenario with BUT 
-#Scenario: Failed Login with relogin option for wrong credentials
-#   When I enter username as "TOM" 
-#   And I enter password as "JERRY" 
-#   Then Login should fail 
-#   But Relogin option should be available
-#    

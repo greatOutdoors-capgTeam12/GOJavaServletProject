@@ -22,7 +22,6 @@ import com.capgemini.go.exception.GoAdminException;
 import com.capgemini.go.exception.RetailerException;
 import com.capgemini.go.exception.SalesRepresentativeException;
 import com.capgemini.go.utility.GoLog;
-import com.capgemini.go.utility.PropertiesLoader;
 
 public class GoAdminServiceImpl implements GoAdminService {
 
@@ -104,34 +103,32 @@ public class GoAdminServiceImpl implements GoAdminService {
 	@Override
 	public List<RetailerInventoryBean> getShelfTimeReport(ReportType reportType, String retailerId,
 			Calendar dateSelection)throws ConnectException {
-		// DTO object to pass arguments
-		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, 0, null, null, null, dateSelection); 
+		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, 0, null, null, null, dateSelection); // DTO
+																												// object
+																												// to
+																												// pass
+																												// arguments
 		GoAdminDao goAdminDao = new GoAdminDaoImpl(); // Creating an object for Accessing Dao Layer Methods
 		List<RetailerInventoryBean> result = null; // List to store results from Dao Layer Methods
-		try {
-			switch (reportType) {
-				case MONTHLY_SHELF_TIME: {
-					result = goAdminDao.getMonthlyShelfTime(riDto);
-					break;
-				}
-				case QUARTERLY_SHELF_TIME: {
-					result = goAdminDao.getQuarterlyShelfTime(riDto);
-					break;
-				}
-				case YEARLY_SHELF_TIME: {
-					result = goAdminDao.getYearlyShelfTime(riDto);
-					break;
-				}
-				default: {
-					// get monthly report for current month of current year
-					riDto.setProductShelfTimeOut(Calendar.getInstance());
-					result = goAdminDao.getMonthlyShelfTime(riDto);
-					break;
-				}
-			}
-		} catch (GoAdminException | ConnectException exception) {
-			GoLog.logger.error("Failed to retrieve Shelf TIme Report");
-			throw new ConnectException ("Failed to retrieve Shelf TIme Report");
+		switch (reportType) {
+		case MONTHLY_SHELF_TIME: {
+			result = goAdminDao.getMonthlyShelfTime(riDto);
+			break;
+		}
+		case QUARTERLY_SHELF_TIME: {
+			result = goAdminDao.getQuarterlyShelfTime(riDto);
+			break;
+		}
+		case YEARLY_SHELF_TIME: {
+			result = goAdminDao.getYearlyShelfTime(riDto);
+			break;
+		}
+		default: {
+			// get monthly report for current month of current year
+			riDto.setProductShelfTimeOut(Calendar.getInstance());
+			result = goAdminDao.getMonthlyShelfTime(riDto);
+			break;
+		}
 		}
 		return result;
 	}
@@ -147,33 +144,31 @@ public class GoAdminServiceImpl implements GoAdminService {
 	@Override
 	public List<RetailerInventoryBean> getDeliveryTimeReport(ReportType reportType, String retailerId,
 			int productCategory)throws ConnectException {
-		// DTO object to pass arguments
-		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, productCategory, null, null, null, null); 
+		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, productCategory, null, null, null, null); // DTO
+																													// object
+																													// to
+																													// pass
+																													// arguments
 		GoAdminDao goAdminDao = new GoAdminDaoImpl(); // Creating an object for Accessing Dao Layer Methods
 		List<RetailerInventoryBean> result = null; // List to store results from Dao Layer Methods
-		try {
-			switch (reportType) {
-				case OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME: {
-					result = goAdminDao.getOutlierProductCategoryDeliveryTime(riDto);
-					break;
-				}
-				case OUTLIER_ITEM_DELIVERY_TIME: {
-					result = goAdminDao.getOutlierItemDeliveryTime(riDto);
-					break;
-				}
-				case OUTLIER_ITEM_IN_OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME: {
-					result = goAdminDao.getOutlierItemInOutlierProductCategoryDeliveryTime(riDto);
-					break;
-				}
-				default: {
-					// get monthly report for current month of current year
-					result = goAdminDao.getOutlierItemDeliveryTime(riDto);
-					break;
-				}
-			}
-		} catch (GoAdminException | ConnectException exception) {
-			GoLog.logger.error("Failed to retrieve Shelf TIme Report");
-			throw new ConnectException ("Failed to retrieve Shelf TIme Report");
+		switch (reportType) {
+		case OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME: {
+			result = goAdminDao.getOutlierProductCategoryDeliveryTime(riDto);
+			break;
+		}
+		case OUTLIER_ITEM_DELIVERY_TIME: {
+			result = goAdminDao.getOutlierItemDeliveryTime(riDto);
+			break;
+		}
+		case OUTLIER_ITEM_IN_OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME: {
+			result = goAdminDao.getOutlierItemInOutlierProductCategoryDeliveryTime(riDto);
+			break;
+		}
+		default: {
+			// get monthly report for current month of current year
+			result = goAdminDao.getOutlierItemDeliveryTime(riDto);
+			break;
+		}
 		}
 		return result;
 	}

@@ -3,6 +3,7 @@ package com.capgemini.go.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,19 +34,24 @@ public class AddProductMasterServlet extends HttpServlet {
 		String password=request.getParameter("psw"); 
 		
 		try {
+			RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/pages/header.html"); 
+			rd.include(request, response);  
 			password =  Authentication.encrypt(password,AuthenticationConstants.secretKey);
 			UserDTO productMaster = new UserDTO(username, userId, email, password, Long.parseLong(contact), 2, false);
 			GoAdminService goAdmin = new GoAdminServiceImpl();
 			boolean status = goAdmin.addProductMaster(productMaster);
+			
 			if(status == true) {
-				out.println("Product Master with Product ID : " + userId + "has been successfully registered");
+				out.println("<div id = \"msg\" class=\"container-fluid \"><p><h2>Product Master with Product ID : " + userId + "has been successfully registered</h2></p></div>");
 			}
 		}
 		catch(Exception exp)
 		{
-			out.println("Error in registering Product Master >> " + exp.getMessage());
+			out.println("<div id = \"err\" class=\"container-fluid \"><p><h2>Error in registering Product Master >> " + exp.getMessage() + "</h2></p></div>");
 		}  
 		finally {
+			RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/pages/footer.html"); 
+			rd.include(request, response); 
 			out.close();
 		}
 	}

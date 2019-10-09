@@ -129,10 +129,45 @@ hr {
   padding: 20px;
   margin-top: 10px;
   width:50%;
+  box-shadow: 0 4px 8px 0 rgb(19,38,57);
 }
 
 #message p {
   padding: 10px 35px;
+  font-size: 18px;
+}
+
+#msg {
+  display:block;
+  background: #339933;
+  color: white;
+  position: relative;
+  padding: 20px;
+  margin-top: 20%;
+  margin-left:30%;
+  width:50%;
+  border-radius:10px;
+  box-shadow: 0 4px 8px 0 grey;
+}
+
+#msg p {  padding: 10px 35px;
+  font-size: 18px;
+}
+
+#err {
+  display:block;
+  background: red;
+  color: white;
+  position: relative;
+  padding: 20px;
+  margin-top: 20%;
+  margin-left:30%;
+  width:50%;
+  border-radius:10px;
+  box-shadow: 0 4px 8px 0 grey;
+}
+
+#err p {  padding: 10px 35px;
   font-size: 18px;
 }
 

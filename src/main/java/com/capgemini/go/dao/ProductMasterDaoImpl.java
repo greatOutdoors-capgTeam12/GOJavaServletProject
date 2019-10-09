@@ -128,7 +128,7 @@ public class ProductMasterDaoImpl implements ProductMasterDao {
 		} catch (DatabaseException | SQLException | IOException e) {
 
 			GoLog.logger.error(exceptionProps.getProperty("add_product_failure"));
-			throw new ProductMasterException(" >>>" + e.getMessage());
+			throw new ProductMasterException(exceptionProps.getProperty("add_product_failure")+" >>>" + e.getMessage());
 		}
 		finally
 		{
