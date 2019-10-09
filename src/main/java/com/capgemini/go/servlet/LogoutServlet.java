@@ -5,22 +5,19 @@ import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.capgemini.go.dto.*;
-import com.capgemini.go.service.*;
+import com.capgemini.go.dto.UserDTO;
+import com.capgemini.go.service.UserService;
+import com.capgemini.go.service.UserServiceImpl;
 
 /**
  * Servlet implementation class LogoutServlet
  */
 public class LogoutServlet extends HttpServlet {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -966626700846407176L;
+
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	response.setContentType("text/html");  
