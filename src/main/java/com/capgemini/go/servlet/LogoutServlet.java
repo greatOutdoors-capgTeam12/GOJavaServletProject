@@ -16,7 +16,6 @@ import com.capgemini.go.service.*;
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
 	/**
 	 * 
