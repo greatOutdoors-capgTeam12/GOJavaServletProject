@@ -79,10 +79,12 @@
 								class="fas fa-golf-ball "></span></a></li>
 					</ul></li>
 
-				
 
-				<li class="dropdown" id="admin-dropdown-list"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#admin">Admin <span class="caret"></span></a>
+
+				<li class="dropdown" id="admin-dropdown-list"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#admin">Admin
+						<span class="caret"></span>
+				</a>
 
 					<ul class="dropdown-menu">
 						<li><a
@@ -92,8 +94,9 @@
 						<li><a href="#" id="admin-dropdown-suggest-fav"
 							onclick="document.getElementById('suggestFav').style.display='block'">Suggest
 								Favourites</a></li>
-						<li class="dropdown-submenu" id="admin-get-reports"><a class="test" tabindex="-1"
-							href="#">Get Report <span class="caret"></span></a>
+						<li class="dropdown-submenu" id="admin-get-reports"><a
+							class="test" tabindex="-1" href="#">Get Report <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#" onclick="openAdminReport()">Camping
 										Reports</a></li>
@@ -109,7 +112,8 @@
 					</ul></li>
 
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" id="retailer-dropdown-menu">Retailer <span class="caret"></span></a>
+					data-toggle="dropdown" id="retailer-dropdown-menu">Retailer <span
+						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a
 							onclick="document.getElementById('addItemCart').style.display='block'">Add
@@ -118,7 +122,8 @@
 							onclick="document.getElementById('placeOrder').style.display='block'">Place
 								Order</a></li>
 						<li class="dropdown-submenu"><a class="test" tabindex="-1"
-							href="#" id="retailer-dropdown-your-fav">Your Favourites <span class="caret"></span></a>
+							href="#" id="retailer-dropdown-your-fav">Your Favourites <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li id="retailer-add-prod-to-fav"><a tabindex="-1" href="#"
 									onclick="document.getElementById('prodFav').style.display='block'">Add
@@ -139,17 +144,22 @@
 							</ul></li>
 					</ul></li>
 
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">Sales Representative <span
-						class="caret"></span></a>
+				<li name="salesRepDropDownClick" class="dropdown"><a
+					class="dropdown-toggle" name="salesrep" data-toggle="dropdown">Sales
+						Representative <span class="caret"></span>
+				</a>
 					<ul class="dropdown-menu">
-						<li class="dropdown-submenu"><a class="test" tabindex="-1"
-							href="#">Cancel<span class="caret"></span></a>
+						<li name="cancelClick" class="dropdown-submenu"><a
+							class="test" tabindex="-1" name="cancel" href="#">Cancel<span
+								class="caret"></span></a>
+
 							<ul class="dropdown-menu">
-								<li><a tabindex="-1" href="#"
+								<li name="cancelOrderClick"><a tabindex="-1" href="#"
+									name="cancelOrder"
 									onclick="document.getElementById('cancelOrderSR').style.display='block'">Cancel
 										Order</a></li>
-								<li><a tabindex="-1" href="#"
+								<li name="cancelProductClick"><a tabindex="-1" href="#"
+									name="cancelProduct"
 									onclick="document.getElementById('cancelProductSR').style.display='block'">Cancel
 										Product</a></li>
 							</ul></li>
@@ -163,10 +173,10 @@
 									onclick="document.getElementById('returnProductSR').style.display='block'">Return
 										Product</a></li>
 							</ul></li>
-						<li><a href="#"
+						<li name="checkTargetStatus"><a href="#"
 							onclick="document.getElementById('checkTarget').style.display='block'">Check
 								Target Status</a></li>
-						<li><a href="#"
+						<li name="checkBonus"><a href="#"
 							onclick="document.getElementById('checkBonus').style.display='block'">Check
 								Bonus</a></li>
 					</ul></li>
@@ -250,8 +260,7 @@
 				<p>content..</p>
 			</div>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 		<div class="row">
 			<div class="col-sm-6">
 				<span class="glyphicon glyphicon-sunglasses logo-small"></span>
@@ -286,24 +295,21 @@
 					<img src="resources/images/customer/customer1.jpg"
 						class="img-rounded customer-img text-center" alt="Name">
 					<h4>
-						"coment"<br>
-						<span>Name, Desg, company</span>
+						"coment"<br> <span>Name, Desg, company</span>
 					</h4>
 				</div>
 				<div class="item">
 					<img src="resources/images/customer/customer2.jpg"
 						class="img-rounded customer-img text-center" alt="Name">
 					<h4>
-						"content"<br>
-						<span>Name, Desg, company</span>
+						"content"<br> <span>Name, Desg, company</span>
 					</h4>
 				</div>
 				<div class="item">
 					<img src="resources/images/customer/customer3.jpg"
 						class="img-rounded customer-img text-center" alt="Name">
 					<h4>
-						"content"<br>
-						<span>Name, Desg, company</span>
+						"content"<br> <span>Name, Desg, company</span>
 					</h4>
 				</div>
 			</div>
@@ -378,8 +384,8 @@
 	<!-- Footer Section -->
 	<footer class="container-fluid text-center">
 	<p>
-		Copyright(2019) Reserves Great Outdoors Pvt .Ltd <br>
-		<a href="#" title="Visit www.greatoutdoors.com">www.greatoutdoors.com</a>
+		Copyright(2019) Reserves Great Outdoors Pvt .Ltd <br> <a href="#"
+			title="Visit www.greatoutdoors.com">www.greatoutdoors.com</a>
 	</p>
 	</footer>
 	<!--End of Footer Section -->
@@ -454,9 +460,9 @@
 
 				<input type="text" placeholder="Enter User ID" name="ID" required><br>
 				<br> <input type="password" placeholder="Enter Password"
-					name="pass" required><br>
-				<br> <a style="margin-left: 80px;" onclick="openRegistration()">New
-					to greatoutdoors ! Please register here</a>
+					name="pass" required><br> <br> <a
+					style="margin-left: 80px;" onclick="openRegistration()">New to
+					greatoutdoors ! Please register here</a>
 
 				<div class="clearfix">
 					<button type="button"
@@ -484,15 +490,15 @@
 
 
 				<input type="text" name="Name" id="reg-name"
-					placeholder="Enter Your Name Here"><br>
-				<br> <input type="text" name="ID" id="reg-id"
-					placeholder="Enter Your User ID Here" required><br>
-				<br> <input type="email" name="email" id="reg-mail"
-					placeholder="Enter Your Email Here"><br>
-				<br> <input type="password" placeholder="Enter Password"
-					id="reg-pass" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-					required> <input type="button" value="?" onclick="msg()"><br>
-				<br> <select id="ph">
+					placeholder="Enter Your Name Here"><br> <br> <input
+					type="text" name="ID" id="reg-id"
+					placeholder="Enter Your User ID Here" required><br> <br>
+				<input type="email" name="email" id="reg-mail"
+					placeholder="Enter Your Email Here"><br> <br> <input
+					type="password" placeholder="Enter Password" id="reg-pass"
+					name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+				<input type="button" value="?" onclick="msg()"><br> <br>
+				<select id="ph">
 					<option>+91</option>
 					<option>+1</option>
 					<option>00</option>
@@ -591,14 +597,16 @@
 				<hr>
 
 				<h3>Enter User ID</h3>
-				<br> <input type="text" name="User_ID" id="admin-suggest-product-retid"> <br> <br>
+				<br> <input type="text" name="User_ID"
+					id="admin-suggest-product-retid"> <br> <br>
 
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('suggestFav').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn" id="suggest-fav-product-submit-button">Submit</button>
+					<button type="submit" class="signupbtn"
+						id="suggest-fav-product-submit-button">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -616,21 +624,26 @@
 				<h1>Shelf Time Report</h1>
 				<hr>
 
-				<input type="text" placeholder="Enter the Retailer ID" required id="shelf-time-report-retailer-id" name="retailer-id">
+				<input type="text" placeholder="Enter the Retailer ID" required
+					id="shelf-time-report-retailer-id" name="retailer-id">
 				<div class="container">
-					<label><bold>Report Type : <select name="report-type" id="shelf-time-report-report-type">
+					<label><bold>Report Type : <select
+							name="report-type" id="shelf-time-report-report-type">
 							<option value="1" selected>Monthly Shelf Time Report</option>
 							<option value="2">Quarterly Shelf Time Report</option>
 							<option value="3">Yearly Shelf Time Report</option>
 						</select></label>
 				</div>
-				<label>Date Selection :<input type="date" name="date-selection" id="shelf-time-report-date-selection"></label> <br>
+				<label>Date Selection :<input type="date"
+					name="date-selection" id="shelf-time-report-date-selection"></label>
+				<br>
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('shelfTime').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn" id="shelf-time-report-form-submit-button">Submit</button>
+					<button type="submit" class="signupbtn"
+						id="shelf-time-report-form-submit-button">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -731,9 +744,11 @@
 				<hr>
 
 				<h3>Enter Product ID</h3>
-				<br> <input type="text" name="prodid" id="add-prod-to-fav-prodid"> <br>
+				<br> <input type="text" name="prodid"
+					id="add-prod-to-fav-prodid"> <br>
 				<h3>Enter Retailer ID</h3>
-				<br> <input type="text" name="retid" id="add-prod-to-fav-retid"> <br> <br>
+				<br> <input type="text" name="retid" id="add-prod-to-fav-retid">
+				<br> <br>
 
 
 
@@ -741,7 +756,8 @@
 					<button type="button"
 						onclick="document.getElementById('prodFav').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn" id="add-prod-to-fav-submit-button">Submit</button>
+					<button type="submit" class="signupbtn"
+						id="add-prod-to-fav-submit-button">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -916,27 +932,25 @@
 		<span
 			onclick="document.getElementById('cancelOrderSR').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="CancelOrderServlet"
+			method="service">
 			<div class="container">
 				<h1>Cancel Order</h1>
 				<hr>
 				<div class=".col-sm-12">
-					<form action="CancelOrderServlet" method="get">
 
-						<input name="UserId" placeholder="Enter User_ID" type="text"
-							class="form-control" id="UserId"> <input name="OrderId"
-							placeholder="Enter Order_ID" type="text" class="form-control"
-							id="OrderId">
+					<input name="UserIdCancelOrder" placeholder="Enter User_ID"
+						type="text" class="form-control" id="UserId"> <input
+						name="OrderIdCancelOrder" placeholder="Enter Order_ID" type="text"
+						class="form-control" id="OrderId">
 
-
-					</form>
 				</div>
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('cancelOrderSR').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" id="submitCancelOrder" class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -949,20 +963,22 @@
 		<span
 			onclick="document.getElementById('cancelProductSR').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="CancelProductSerlvlet"
+			method="service">
 			<div class="container">
 				<h1>Cancel Product</h1>
 				<hr>
 				<div class=".col-sm-12">
 
 
-					<input name="UserId" placeholder="Enter User_ID" type="text"
-						class="form-control" id="UserId"> <input name="OrderId"
-						placeholder="Enter Order_ID" type="text" class="form-control"
-						id="OrderId"> <input name="UserId"
-						placeholder="Enter Product_ID" type="text" class="form-control"
-						id="ProductId"> <input name="OrderId"
-						placeholder="Enter Quantity to cancel:" type="number"
+					<input name="UserIdCancelProduct" placeholder="Enter User_ID"
+						type="text" class="form-control" id="UserId"> <input
+						name="OrderIdCancelProduct" placeholder="Enter Order_ID"
+						type="text" class="form-control" id="OrderId"> <input
+						name="ProductIdCancelProduct" placeholder="Enter Product_ID"
+						type="text" class="form-control" id="ProductId"> <input
+						name="QuantityCancelProduct"
+						placeholder="Enter Quantity to cancel:" type="text"
 						class="form-control" id="Quantity">
 
 
@@ -972,12 +988,13 @@
 					<button type="button"
 						onclick="document.getElementById('cancelProductSR').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" id="submitCancelProduct" class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<!--End of Cancel Product-->
+
 
 
 	<!-- Return Order-->
@@ -1060,20 +1077,23 @@
 		<span
 			onclick="document.getElementById('checkTarget').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="CheckTargetStatusServlet"
+			method="service">
 			<div class="container">
 				<h1>Check Target Status</h1>
 				<hr>
 
 				<h3>Enter User ID</h3>
-				<br> <input type="text" name="User_ID"> <br> <br>
+				<br> <input name="UserIdCheckTargetStatus" type="text"
+					id="User_ID"> <br> <br>
 
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('checkTarget').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" id="submitCheckTargetStatus"
+						class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -1086,20 +1106,22 @@
 		<span
 			onclick="document.getElementById('checkBonus').style.display='none'"
 			class="close" title="Close Modal">&times;</span>
-		<form class="modal-content" action="">
+		<form class="modal-content" action="CheckBonusServlet"
+			method="service">
 			<div class="container">
 				<h1>Check Bonus</h1>
 				<hr>
 
 				<h3>Enter User ID</h3>
-				<br> <input type="text" name="User_ID"> <br> <br>
+				<br> <input name="UserIdCheckBonus" type="text" id="User_ID">
+				<br> <br>
 
 
 				<div class="clearfix">
 					<button type="button"
 						onclick="document.getElementById('checkBonus').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">Submit</button>
+					<button type="submit" id="submitCheckBonus" class="signupbtn">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -1107,6 +1129,7 @@
 	<!--End of Check Bonus-->
 
 	<!-- End of Sales Representative-->
+
 
 	<script>
 		function openRegistration() {

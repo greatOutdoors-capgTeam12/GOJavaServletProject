@@ -405,7 +405,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						}
 					} catch (Exception e) {
 						GoLog.logger.error(exceptionProps.getProperty("orderId_not_found_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return orderID;
 
 				}
@@ -443,7 +452,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						}
 					} catch (Exception e) {
 						GoLog.logger.error(exceptionProps.getProperty("userId_not_found_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return checkSalesRepIdFlag;
 
 				}
@@ -476,7 +494,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						product = resultSet.getObject(1, ProductDTO.class);
 					} catch (DatabaseException e) {
 						GoLog.logger.error(exceptionProps.getProperty("productId_not_found_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return product;
 				}
 
@@ -514,7 +541,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						}
 					} catch (DatabaseException | IOException | SQLException se) {
 						GoLog.logger.error(exceptionProps.getProperty("productId_not_found_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return checkDispatchStatusFlag;
 				}
 
@@ -560,7 +596,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 					} catch (SalesRepresentativeException | DatabaseException | SQLException | IOException e) {
 						GoLog.logger.error(exceptionProps.getProperty("orderId_not_found_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return list;
 				}
 
@@ -606,7 +651,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						cancelOrderStatus = "The product with the uin" + orderCancel.getProductUIN() + "has been cancelled";
 					} catch (SQLException | IOException | DatabaseException e) {
 						GoLog.logger.error(exceptionProps.getProperty(" return_order_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return cancelOrderStatus;
 				}
 
@@ -639,7 +693,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						productQuantity = resultSet.getInt(1);
 					} catch (SQLException e) {
 						GoLog.logger.error(exceptionProps.getProperty("product_quantity_failure"));
-					}
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return productQuantity;
 				}
 
@@ -684,7 +747,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						return cancelProductStatus;
 					} catch (SQLException e) {
 						GoLog.logger.error(exceptionProps.getProperty("product_quantity_failure"));
-					}
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return cancelProductStatus;
 				}
 
@@ -755,7 +827,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						statusCancelOrderForProduct = "The given quantity of product has been cancelled";
 					} catch (SQLException e) {
 						GoLog.logger.error(exceptionProps.getProperty(" return_order_failure"));
-					} 
+					} finally {
+			            try {
+			                connection.close();
+			            } catch (SQLException e) {
+
+			 
+
+			                throw new ConnectException(Constants.connectionError);
+			            }
+			        }
 					return statusCancelOrderForProduct;
 				}
 
@@ -806,7 +887,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 									+ status;
 						} catch (SQLException | IOException | DatabaseException e) {
 							GoLog.logger.error(exceptionProps.getProperty("sales representative not found"));
-						}
+						} finally {
+				            try {
+				                connection.close();
+				            } catch (SQLException e) {
+
+				 
+
+				                throw new ConnectException(Constants.connectionError);
+				            }
+				        }
 						return targetStatus;
 					}
 
@@ -841,9 +931,16 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 						} catch (SQLException | DatabaseException e) {
 							GoLog.logger.error(exceptionProps.getProperty("sales representative not found"));
 							throw new Exception("sales representative not found");
-						}
+						} finally {
+				            try {
+				                connection.close();
+				            } catch (SQLException e) {
+
+				 
+
+				                throw new ConnectException(Constants.connectionError);
+				            }
+				        }
 						return bonusForSales;
 					}
-
-
 }

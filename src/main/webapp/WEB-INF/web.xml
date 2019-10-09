@@ -257,4 +257,44 @@
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/LogoutServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>CancelOrderServlet</display-name>
+		<servlet-name>CancelOrderServlet</servlet-name>
+		<servlet-class>com.capgemini.go.servlet.CancelOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelOrderServlet</servlet-name>
+		<url-pattern>/CancelOrder</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>CancelProductServlet</display-name>
+		<servlet-name>CancelProductServlet</servlet-name>
+		<servlet-class>com.capgemini.go.servlet.CancelProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelProductServlet</servlet-name>
+		<url-pattern>/CancelProduct</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>CheckTargetStatusServlet</display-name>
+		<servlet-name>CheckTargetStatusServlet</servlet-name>
+		<servlet-class>com.capgemini.go.servlet.CheckTargetStatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckTargetStatusServlet</servlet-name>
+		<url-pattern>/CheckTarget</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>CheckBonusServlet</display-name>
+		<servlet-name>CheckBonusServlet</servlet-name>
+		<servlet-class>com.capgemini.go.servlet.CheckBonusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckBonusServlet</servlet-name>
+		<url-pattern>/CheckBonus</url-pattern>
+	</servlet-mapping>
 </web-app>
