@@ -24,7 +24,7 @@ public class GenerateOrderID {
 			Statement Stmt = connection.createStatement();
 			ResultSet resultSet = Stmt.executeQuery(QuerryMapper.ORDER_COUNT);
 			resultSet.next();
-			int count = resultSet.getInt(1);
+			int count = resultSet.getInt(1)+1;
 			return Integer.toString(count);
 		} catch (DatabaseException | SQLException e) {
 			throw new IdGenerationException(e.getMessage());

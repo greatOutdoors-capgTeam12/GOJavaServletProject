@@ -28,8 +28,8 @@ Feature: Placing order of the products present in the cart by retailer
 
 
     Examples: 
-      | retid | addid	 | 	 message        	|
-      | RT02  |	AR234	 |   Order is placed	|
-      | RT02  | hhflk	 |   Wrong Address  	|
-      |	hfabd | SR02AD2  |   Wrong Retailer id	|
+      | retid | addid	 | 	 message         |
+      | SR01  |	AR234	 |   Order is placed |
+      | RT02  | hhflk	 |   Wrong Address   |
+      |hfabd | SR02AD2   |  Wrong Retailer id|
      
