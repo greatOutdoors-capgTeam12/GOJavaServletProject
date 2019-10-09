@@ -31,16 +31,16 @@
   
   <form action="FilterProductServlet" method="post">
     
-      <input type="text" placeholder="Product Name" name="pro-name">
+      <input type="text" placeholder="Product Name" name="pro-name" id="filter-prod-name">
 	  
-      <input type="text" placeholder="Brand" name="brand"><br>
+      <input type="text" placeholder="Brand" name="brand" id="filter-prod-brand"><br>
       <div data-role="rangeslider">
         <label for="price-min">Low Price:</label>
-         <input type="number" placeholder="Enter Low Range"  min="0"  step="0.01" /name="qtylow" value=1 required><br>
+         <input type="number" placeholder="Enter Low Range"  min="0"  step="0.01" /name="qtylow" value=1 required id="filter-low-price"><br>
         <label for="price-max">High Price:</label>
-         <input type="number" placeholder="Enter High Range"   max="1000000" step="0.01" /name="qtyhigh" value=1000000 required><br>
+         <input type="number" placeholder="Enter High Range"   max="1000000" step="0.01" /name="qtyhigh" value=1000000 required id="filter-high-price"><br>
       </div>
-        <select name="category">
+        <select name="category" id="filter-cat">
           <option value="0">Select Category</option>
           <option value="1">Camping</option>
           <option value="2">Golf</option>
@@ -48,7 +48,7 @@
           <option value="4">Outdoor</option>
           <option value="5">Personal</option>
       </select>
-      <button type="submit" class="btn btn-success">Apply Fiter</button>
+      <button type="submit" class="btn btn-success" id="filter-prod-btn">Apply Fiter</button>
     </form>
   </div>
   </div>
@@ -59,7 +59,7 @@
 <!-- Add Product Section -->
 <div id="addprod" class="modal">
   <span onclick="document.getElementById('addprod').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="AddProductServlet" method="post">
+  <form class="modal-content" action="AddProductServlet" method="post" >
     <div class="container">
       <h1>Product Addition </h1>
       <p>Please fill in this form to add product.</p>
@@ -91,8 +91,9 @@
 	    <label for="pic"><b>Upload Product Images</b></label><br>
 		<input type="file" name="pic" accept="image/*"><br>
 		<br><img id="myImg" src="#" alt="your image" height=200 width=100 style="margin-left:80px;""><br>
-        <button type="button" onclick="document.getElementById('addprod').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn" id="addprod">Add Product</button>
+        <button type="submit" class="signupbtn" id="addprodbtn" >Add Product</button>
+        <button type="button" onclick="document.getElementById('addprod').style.display='none'" class="cancelbtn" id="cancel">Cancel</button>
+        
       </div>
     </div>
   </form>
@@ -110,19 +111,19 @@
       <p>Please fill in this form to update product</p>
       <hr>
 	  
-      <input type="text" placeholder="Enter Product Id" name="prodid" required><br>
+      <input type="text" placeholder="Enter Product Id" name="prodid" id="up-prod-id" required><br>
 	  
 	  
-      <input type="text" placeholder="Enter Product Name" name="prodname" ><br>
+      <input type="text" placeholder="Enter Product Name" name="prodname" id="up-prod-name" ><br>
 	  
-	  <input type="text" placeholder="Enter Product Brand" name="brand" ><br>
-      <input type="text" placeholder="Enter Product Dimension" name="dim" ><br>
-	  <input type="text" placeholder="Enter Product Specification" name="spec" ><br>
+	  <input type="text" placeholder="Enter Product Brand" name="brand" id="up-prod-brand" ><br>
+      <input type="text" placeholder="Enter Product Dimension" name="dim" id="up-prod-dimension"><br>
+	  <input type="text" placeholder="Enter Product Specification" name="spec" id="up-prod-spec"><br>
       
 	  
-	  <input type="number" placeholder="Enter Price"  min="0.00" max="1000000.00" step="0.01" /name="price" required><br>
+	  <input type="number" placeholder="Enter Price"  min="0.00" max="1000000.00" step="0.01" /name="price" id="up-prod-price" required><br>
      
-      <select name="prodcat">
+      <select name="prodcat" id="up-prod-cat">
           <option value="0">Select Category</option>
           <option value="1">Camping</option>
           <option value="2">Golf</option>
@@ -131,10 +132,10 @@
           <option value="5">Personal</option>
       </select>
 	  
-	  <input type="color" placeholder="Enter Product Specification" name="col" ><br>
+	  <input type="color" placeholder="Enter Product Specification" name="col" id="up-prod-col" ><br>
 	    
         <button type="button" onclick="document.getElementById('upprod').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Update Product</button>
+        <button type="submit" class="signupbtn" id="updateprodbtn">Update Product</button>
       </div>
     </div>
   </form>
@@ -154,12 +155,12 @@
       <p>Please fill in this form to increase Quantity</p>
       <hr>
 	  
-	  	<input type="text" placeholder="Enter Product Id"  name="prodid" required><br>
-		 <input type="number" placeholder="Enter Quantity to be Increased"  min="1" max="1000" step="1" /name="qty" required><br>
+	  	<input type="text" placeholder="Enter Product Id"  name="prodid" id="inc-prod-id" required><br>
+		 <input type="number" placeholder="Enter Quantity to be Increased"  min="1" max="1000" step="1" /name="qty" id="inc-prod-qty" required><br>
       
 	    
         <button type="button" onclick="document.getElementById('incqty').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Add More Product Item</button>
+        <button type="submit" class="signupbtn" id="inc-qty-btn">Add More Product Item</button>
       </div>
     </div>
   </form>
@@ -177,11 +178,11 @@
       <p>Please fill in this form to Delete Product</p>
       <hr>
 	  
-		 <input type="text" placeholder="Enter product Id to be deleted" name="prodid"   required><br>
+		 <input type="text" placeholder="Enter product Id to be deleted" name="prodid" id="del-prod-id"  required><br>
       
 	    
         <button type="button" onclick="document.getElementById('delprd').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn" onclick="deleteAlert()">Delete Product</button>
+        <button type="submit" class="signupbtn" onclick="deleteAlert()" id="delprodbtn" >Delete Product</button>
       </div>
     </div>
   </form>

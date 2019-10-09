@@ -150,7 +150,7 @@ input:checked + .slider:before {
 <div class="searchbar">
 <span class="dropdown">
 
-  <span class="glyphicon glyphicon-filter" onclick="openNav()">Filter</span>
+  <span class="glyphicon glyphicon-filter" onclick="openNav()" id="filter-product">Filter</span>
 </label>
   <div class="search-container">
       <input type="text" placeholder="Search ...." id="search" >
@@ -158,8 +158,8 @@ input:checked + .slider:before {
     </form>
   </div>
   <button class="btn btn-info"   onclick="document.getElementById('addprod').style.display='block'" id="add-product">Add Product</button>
-  <button class="btn btn-info"   onclick="document.getElementById('upprod').style.display='block'">Update Product</button>
-  <button class="btn btn-info"   onclick="document.getElementById('delprod').style.display='block'">Delete Product</button>
-  <button class="btn btn-info"   onclick="document.getElementById('incqty').style.display='block'">Increase Product Quantity</button>
+  <button class="btn btn-info"   onclick="document.getElementById('upprod').style.display='block'"  id="update-product">Update Product</button>
+  <button class="btn btn-info"   onclick="document.getElementById('delprod').style.display='block'" id="delete-product">Delete Product</button>
+  <button class="btn btn-info"   onclick="document.getElementById('incqty').style.display='block'" id="increase-qty">Increase Product Quantity</button>
 </div>
 <!-- end of Search Bar Section -->

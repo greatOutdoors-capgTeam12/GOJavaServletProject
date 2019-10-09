@@ -1,9 +1,10 @@
 package addproduct;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.cucumber.java.After;
@@ -11,15 +12,15 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class AddProduct {
-	String chromeDriverPath = "C:/Users/agchandr/Downloads/chromedriver.exe";
+public class TestAddProduct {
+	String chromeDriverPath = "C:\\Users\\kuroycho\\Project Dependencies\\chromedriver_win32\\chromedriver.exe";
 	WebDriver driver = null;
 
 	@Given("^I am on Add Product Form in Great Outdoors Product page$")
 	public void goToGoAdminOnChrome() {
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 		driver = new ChromeDriver();
-		driver.navigate().to("http://localhost:9089/go/allprod.jsp");
+		driver.navigate().to("http://localhost:9090/go/allprod.jsp");
 		driver.findElement(By.id("add-product")).click();
 		System.out.println("Title: " + driver.getTitle());
 	}
@@ -55,7 +56,7 @@ public class AddProduct {
 	
 	@When("^I enter product Specification as \"(.*)\"$")
 	public void enterProductSpecification (String productspec) {
-		System.out.println ("Product Dimension entered: " + productspec);
+		System.out.println ("Product Specification entered: " + productspec);
 		driver.findElement(By.id("add-prodspec")).sendKeys(productspec);
 		
 	}
@@ -70,35 +71,48 @@ public class AddProduct {
 	
 	@When("^I enter price as \"(.*)\"$")
 	public void enterProductPrice (String price) {
-		System.out.println ("Product Dimension entered: " + price);
+		System.out.println ("Product price entered: " + price);
 		driver.findElement(By.id("add-prod-price")).sendKeys(price);
 		
 	}
 	
 	@When("^I  select Category as \"(.*)\"$")
 	public void enterCategory (String category) {
-		System.out.println ("Product Dimension entered: " + category);
+		System.out.println ("Product category entered: " + category);
 		driver.findElement(By.id("add-prod-cat")).sendKeys(category);
 		
 	}
 	
 	@When("^I enter color as \"(.*)\"$")
 	public void enterProductColor (String color) {
-		System.out.println ("Product Dimension entered: " + color);
+		System.out.println ("Product color entered: " + color);
 		driver.findElement(By.id("add-prod-col")).sendKeys(color);
 		
 	}
 	
 	@When("^I click on submit button$")
 	public void clickSubmitButton () {
-		driver.findElement(By.id("addprod")).click();
+		System.out.println ("Add Product button clicked");
+		WebElement we = driver.findElement(By.xpath("//*[@id=\"addprodbtn\"]"));
+		we.click();
+	
 	}
 	
-	/*
-	@Then("^Add product successfull message will pop up$")
-	public void checkSuccess () {
-		assertTrue(driver.getCurrentUrl().equals("http://localhost:9089/go/AddProductServlet"));
-	}*/
+	@Then("^\"(.*)\" and \"(.*)\" Add Product Success Message Popped Up$")
+    public void AddProductSuccess(String productId, String productName) throws InterruptedException {
+        String Message = driver.findElement(By.xpath("//*[@id=\"msg\"]")).getText();
+        String msg = "PRODUCT("+productName.toUpperCase()+") PRODUCT ID : "+productId.toUpperCase()+" HAS BEEN SUCCESSFULLY REGISTERED" ;
+        assertEquals(Message, msg);
+	}
+	
+	@Then("Add Product Failure Message Popped Up$")
+    public void AddProductFailure() throws InterruptedException {
+        String Message = driver.findElement(By.xpath("//*[@id=\"err\"]")).getText();
+        String msg = "ERROR IN ADDING PRODUCT >> PRODUCT ID ALREADY EXISTS" ;
+        assertEquals(Message, msg);
+	}
+	
+	
 	
 	
 	
