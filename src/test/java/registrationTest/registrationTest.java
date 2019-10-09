@@ -58,5 +58,16 @@ public class registrationTest {
 			driver.quit();
 		}
 	}
+	
+	@Then("^Message UserId exists pops-up$")
+	public void user_already_registered() throws InterruptedException {
+		String Title = driver.findElement(By.xpath("//*[@id=\"err\"]/h2")).getText();
+		String title = "ERROR IN REGISTERING NEW USER >> THIS USER ALREADY EXISTS";
+		assertEquals(Title, title);
+		System.out.println("Closing the driver.");
+		if (driver != null) {
+			driver.quit();
+		}
+	}
 
 }
