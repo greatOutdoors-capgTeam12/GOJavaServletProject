@@ -185,15 +185,15 @@
 				<li><a href="#contact">Contact</a></li>
 
 				<li class="dropdown-submenu"><a class="test" tabindex="-1"
-					href="#">Login<span class="glyphicon glyphicon-user"></span></a>
+					id="Login-tab">Login<span class="glyphicon glyphicon-user"></span></a>
 					<ul class="dropdown-menu">
 						<li><a
-							onclick="document.getElementById('login').style.display='block'">Login</a></li>
+							onclick="document.getElementById('login').style.display='block'" id="login-nav">Login</a></li>
 						<li><a tabindex="-1" href="#"
-							onclick="document.getElementById('reg').style.display='block'">New
+							onclick="document.getElementById('reg').style.display='block'" id="newregister-nav">New
 								Registration</a></li>
 						<li><a tabindex="-1" href="#"
-							onclick="document.getElementById('logout').style.display='block'">Log-Out</a></li>
+							onclick="document.getElementById('logout').style.display='block'" id="logout-nav">Log-Out</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -458,9 +458,9 @@
 				<hr>
 
 
-				<input type="text" placeholder="Enter User ID" name="ID" required><br>
+				<input type="text" placeholder="Enter User ID" id="user-loginID" required name="user-login-id"><br>
 				<br> <input type="password" placeholder="Enter Password"
-					name="pass" required><br> <br> <a
+					id="user-LoginPass"name="user-login-password" required ><br> <br> <a
 					style="margin-left: 80px;" onclick="openRegistration()">New to
 					greatoutdoors ! Please register here</a>
 
@@ -468,7 +468,7 @@
 					<button type="button"
 						onclick="document.getElementById('login').style.display='none'"
 						class="cancelbtn">Cancel</button>
-					<button type="submit" class="signupbtn">login</button>
+					<button type="submit" class="signupbtn" id="login-btn">login</button>
 				</div>
 			</div>
 		</form>
@@ -531,11 +531,11 @@
 				<h1>Log-Out Form</h1>
 				<hr>
 
-				<input type="text" placeholder="Enter User ID" name="ID" required><br>
+				<input type="text" placeholder="Enter User ID" name="ID" id="logout-ID" required><br>
 				<br>
 
 				<div class="clearfix">
-					<button type="submit" class="signupbtn">Log-Out</button>
+					<button type="submit" class="signupbtn" id="logout-submit">Log-Out</button>
 				</div>
 			</div>
 		</form>

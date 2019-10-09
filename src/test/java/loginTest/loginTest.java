@@ -25,24 +25,24 @@ public class loginTest {
 
 	@When("^User Clicks on Login Tab$")
 	public void user_clicks_on_login_tab(){
-		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/a")).click();
+		driver.findElement(By.id("Login-tab")).click();
 	}
 	
 	@And("^User Clicks on Login Button$")
 	public void user_clicks_on_login_button(){
-		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/ul/li[1]/a")).click();
+		driver.findElement(By.id("login-nav")).click();
 	}
 
 	@And("User enters {string} and {string}")
 	public void user_enters_and(String UserId, String password){
-		driver.findElement(By.name("ID")).sendKeys(UserId);
-		driver.findElement(By.name("pass")).sendKeys(password);
+		driver.findElement(By.id("user-loginID")).sendKeys(UserId);
+		driver.findElement(By.id("user-LoginPass")).sendKeys(password);
 
 	}
 
 	@And("^User clicks on the submit button$")
 	public void user_clicks_the_submit_button(){
-		driver.findElement(By.xpath("//*[@id=\"login\"]/form/div/div/button[2]")).click();
+		driver.findElement(By.id("login-btn")).click();
 	}
 
 	@Then("^\"(.*)\" Successfully Logs-In$")

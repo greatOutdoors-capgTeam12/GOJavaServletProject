@@ -24,12 +24,12 @@ public class registrationTest {
 
 	@When("^User Clicks on Login Tab$")
 	public void user_clicks_on_login_tab(){
-		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/a")).click();
+		driver.findElement(By.id("Login-tab")).click();
 	}
 	
 	@When("^User Clicks on New Registration Button$")
 	public void user_clicks_on_registration_button(){
-		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/ul/li[2]/a")).click();
+		driver.findElement(By.id("newregister-nav")).click();
 	}
 
 	@When("User enters \"(.*)\" , \"(.*)\" , \"(.*)\" , \"(.*)\" , \"(.*)\" , \"(.*)\"")
