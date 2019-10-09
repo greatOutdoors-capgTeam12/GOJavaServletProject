@@ -16,7 +16,7 @@ public class registrationTest {
 
 	@Given("^User is on GO homepage$")
 	public void User_is_on_GO_homepage() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\kuroycho\\Project Dependencies\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\araj15\\Documents\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("http://localhost:9090/go/index.html");
@@ -24,12 +24,12 @@ public class registrationTest {
 
 	@When("^User Clicks on Login Tab$")
 	public void user_clicks_on_login_tab(){
-		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/a")).click();
+		driver.findElement(By.id("Login-tab")).click();
 	}
 	
 	@When("^User Clicks on New Registration Button$")
 	public void user_clicks_on_registration_button(){
-		driver.findElement(By.xpath("//*[@id=\"myNavbar\"]/ul/li[8]/ul/li[2]/a")).click();
+		driver.findElement(By.id("newregister-nav")).click();
 	}
 
 	@When("User enters \"(.*)\" , \"(.*)\" , \"(.*)\" , \"(.*)\" , \"(.*)\" , \"(.*)\"")

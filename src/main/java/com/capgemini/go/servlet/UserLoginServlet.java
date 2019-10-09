@@ -7,12 +7,9 @@ import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
- 
 
 import com.capgemini.go.dto.UserDTO;
 import com.capgemini.go.service.UserService;
@@ -37,8 +34,8 @@ public class UserLoginServlet extends HttpServlet {
             response.setContentType("text/html");  
             PrintWriter out = response.getWriter();  
                      
-            String userId=request.getParameter("ID");  
-            String password=request.getParameter("pass"); 
+            String userId=request.getParameter("user-login-id");  
+            String password=request.getParameter("user-login-password"); 
             
             try {
             	RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/pages/header.html"); 
@@ -52,7 +49,7 @@ public class UserLoginServlet extends HttpServlet {
             }
             catch(Exception exp)
             {
-            out.println("<div id = \"err\" class=\"container-fluid \"><p><h2>Error in Log-in >> " + exp.getMessage()+"</h2></p></div>");
+            out.println("<div id = \"err\" class=\"container-fluid \"><p><h2>Error in Log-in >> " + exp.getMessage() +"</h2></p></div>");
             }  
             finally {
             	RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/pages/footer.html"); 

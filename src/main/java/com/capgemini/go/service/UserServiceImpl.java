@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userLoginStatus = user.userLogin(existingUser);
 		} catch (UserException e) {
-			throw e;
+			throw new Exception (e.getMessage());
 		}
 		return userLoginStatus;
 	}
