@@ -79,8 +79,7 @@
 								class="fas fa-golf-ball "></span></a></li>
 					</ul></li>
 
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" id="admin-dropdown-menu" href="#admin">Admin <span class="caret"></span></a>
+				
 
 				<li class="dropdown" id="admin-dropdown-list"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#admin">Admin <span class="caret"></span></a>
@@ -484,23 +483,23 @@
 				<hr>
 
 
-				<input type="text" name="Name" id="name"
+				<input type="text" name="Name" id="reg-name"
 					placeholder="Enter Your Name Here"><br>
-				<br> <input type="text" name="ID" id="name"
+				<br> <input type="text" name="ID" id="reg-id"
 					placeholder="Enter Your User ID Here" required><br>
-				<br> <input type="email" name="email" id="name"
+				<br> <input type="email" name="email" id="reg-mail"
 					placeholder="Enter Your Email Here"><br>
 				<br> <input type="password" placeholder="Enter Password"
-					id="pass" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+					id="reg-pass" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 					required> <input type="button" value="?" onclick="msg()"><br>
 				<br> <select id="ph">
 					<option>+91</option>
 					<option>+1</option>
 					<option>00</option>
 					<option>+61</option>
-				</select> <input type="number" name="MNum" id="num"
+				</select> <input type="number" name="MNum" id="reg-num"
 					placeholder="Enter Your 10 Digit Mobile Number Here" maxlength="10"><br>
-				<br> <select name="category">
+				<br> <select name="category" id="reg-cat">
 					<option value="3">Retailer</option>
 					<option value="2">Sales Representative</option>
 				</select> <a style="margin-left: 80px;" onclick="openLogin()">Already a
@@ -508,7 +507,7 @@
 
 				<div class="clearfix">
 					<button type="reset" class="cancelbtn">Reset</button>
-					<button type="submit" class="signupbtn">Register</button>
+					<button type="submit" class="signupbtn" id="reg-submit">Register</button>
 
 
 				</div>
