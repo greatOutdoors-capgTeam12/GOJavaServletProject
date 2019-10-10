@@ -103,7 +103,7 @@ public class RetailerDaoImpl implements RetailerDao {
 
 						if (res.getInt("count(*)") > 3) {
 							Statement.executeUpdate();
-
+							break;
 						}
 					}
 

@@ -17,7 +17,7 @@ public class loginTest {
 
 	@Given("^User is on GO homepage$")
 	public void User_is_on_GO_homepage() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\araj15\\Documents\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\\\Users\\\\kuroycho\\\\Project Dependencies\\\\chromedriver_win32\\\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("http://localhost:9090/go/index.html");

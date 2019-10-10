@@ -10,7 +10,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class suggestFavProduct {
-	String chromeDriverPath = "C:\\Users\\shapanwa\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe";
+	String chromeDriverPath = "C:\\Users\\kuroycho\\Project Dependencies\\chromedriver_win32\\chromedriver.exe";
 	WebDriver driver = null;
 	
 	@Given("Admin is on \"home\" page")
@@ -18,7 +18,7 @@ public class suggestFavProduct {
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 		driver = new ChromeDriver();
 		driver.navigate().to("http://localhost:9090/go/index.html");
-		driver.findElement(By.id("admin-dropdown-menu")).click();
+		driver.findElement(By.id("admin-dropdown-list")).click();
 		driver.findElement(By.id("admin-dropdown-suggest-fav")).click();
 		System.out.println("Title: " + driver.getTitle());
 	}

@@ -10,7 +10,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class addProductToFav {
-	String chromeDriverPath = "C:\\Users\\shapanwa\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe";
+	String chromeDriverPath = "C:\\Users\\kuroycho\\Project Dependencies\\chromedriver_win32\\chromedriver.exe";
 	WebDriver driver = null;
 	
 	@Given("^User is on \"home\" page$")
