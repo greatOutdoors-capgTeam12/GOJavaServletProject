@@ -11,8 +11,8 @@ Scenario Outline: User enters required details to update address
 	
 	
 	Examples: 
-		|address_ID     |Retailer_ID    |	Building_Number  | City    | State     | Zip Code | Country | message                    |
-		|SR01AD13		|SR01           |	11               | PUNE    | AFRICA    | 234156   | INDIA   | ADDRESS ADDED SUCCESSFULLY |
-		|SR01AD12		|SR01           |	23               | NAGPUR  | CHINA     | 241456   | INsDIA  | ADDRESS NOT ADDED          |
-		|AR123			|SR02           |	69               | BIHAR   | AMERICA   | 900800   | INDIA   | ADDRESS ADDED SUCCESSFULLY |
+		|address_ID     |Retailer_ID    |	Building_Number  | City    		| State     	| Zip Code | Country | message                    |
+		|SR01AD13		|SR01           |	11               | PUNE    		| AFRICA    	| 234156   | INDIA   | ADDRESS ADDED SUCCESSFULLY |
+		|SR01AD12		|SR01           |	26               | KOCHBIHAR	| AZERBAIJAN	| 241456   | INsDIA  | ADDRESS ADDED SUCCESSFULLY |
+		|AR123			|SR02           |	69               | BIHAR   		| AMERICA   	| 900800   | INDIA   | ADDRESS ADDED SUCCESSFULLY |
 		
