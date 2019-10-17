@@ -94,20 +94,18 @@ public class GoAdminServiceImpl implements GoAdminService {
 	// Shelf time report and delivery time report
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : getShelfTimeReport - Input Parameters : ReportType
-	 * reportType, String retailerId, Calendar dateSelection - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products and their shelf time
-	 * periods
+	 * - Function Name : getShelfTimeReport 
+	 * - Input Parameters : ReportType, reportType, String retailerId, Calendar dateSelection 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : ConnectException
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their shelf time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getShelfTimeReport(ReportType reportType, String retailerId,
 			Calendar dateSelection)throws ConnectException {
-		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, 0, null, null, null, dateSelection); // DTO
-																												// object
-																												// to
-																												// pass
-																												// arguments
+		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, 0, null, null, null, dateSelection); 
 		GoAdminDao goAdminDao = new GoAdminDaoImpl(); // Creating an object for Accessing Dao Layer Methods
 		List<RetailerInventoryBean> result = null; // List to store results from Dao Layer Methods
 		switch (reportType) {
@@ -135,20 +133,18 @@ public class GoAdminServiceImpl implements GoAdminService {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : getDeliveryTimeReport - Input Parameters : ReportType
-	 * reportType, String retailerId, int productCategory - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products and their Delivery time
-	 * periods
+	 * - Function Name : getDeliveryTimeReport 
+	 * - Input Parameters : ReportType, reportType, String retailerId, int productCategory 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : ConnectException 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Delivery time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getDeliveryTimeReport(ReportType reportType, String retailerId,
 			int productCategory)throws ConnectException {
-		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, productCategory, null, null, null, null); // DTO
-																													// object
-																													// to
-																													// pass
-																													// arguments
+		RetailerInventoryDTO riDto = new RetailerInventoryDTO(retailerId, productCategory, null, null, null, null); 
 		GoAdminDao goAdminDao = new GoAdminDaoImpl(); // Creating an object for Accessing Dao Layer Methods
 		List<RetailerInventoryBean> result = null; // List to store results from Dao Layer Methods
 		switch (reportType) {
@@ -171,6 +167,20 @@ public class GoAdminServiceImpl implements GoAdminService {
 		}
 		}
 		return result;
+	}
+	
+	/*******************************************************************************************************
+	 * - Function Name : getListOfRetailers 
+	 * - Input Parameters : N/A 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all retailers in database
+	 ********************************************************************************************************/
+	public List<RetailerInventoryBean> getListOfRetailers () throws ConnectException {
+		GoAdminDao goAdmin = new GoAdminDaoImpl();
+		return goAdmin.getListOfRetailers();
 	}
 	// end of Shelf time report and delivery time report
 

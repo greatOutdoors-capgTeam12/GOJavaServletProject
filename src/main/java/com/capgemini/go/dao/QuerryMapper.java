@@ -94,6 +94,7 @@ public class QuerryMapper {
 
 	public static final String UPDATE_PRODUCT_SALE_TIMESTAMP_BY_RETAILER_ID_AND_PRODUCT_UIN = "UPDATE `RETAILER_INVENTORY` SET `PRODUCT_SALE_TIMESTAMP`=? WHERE `RETAILER_ID`=? AND `PRODUCT_UIN`=?";
 
+	public static final String GET_ALL_RETAILERS_IN_DATABASE = "SELECT `RETAILER_ID` FROM `RETAILER_INVENTORY` GROUP BY `RETAILER_ID`";
 	// need to add one more update query when an order with items is dispatched
 	// end of Retailer Inventory Table access and insert and update queries
 

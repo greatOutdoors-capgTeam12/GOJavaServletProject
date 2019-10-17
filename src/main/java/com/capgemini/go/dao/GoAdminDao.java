@@ -82,6 +82,18 @@ public interface GoAdminDao {
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getOutlierItemInOutlierProductCategoryDeliveryTime(
 			RetailerInventoryDTO queryArguments) throws ConnectException;
+	
+	/*******************************************************************************************************
+	 * - Function Name : getListOfRetailers 
+	 * - Input Parameters : N/A
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all retailers in database
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
+	public List<RetailerInventoryBean> getListOfRetailers () throws ConnectException;
 	// end of Shelf Time Report and Delivery Time Report
 
 	public void setBonus(SalesRepDTO sr, double bonus)throws ConnectException;

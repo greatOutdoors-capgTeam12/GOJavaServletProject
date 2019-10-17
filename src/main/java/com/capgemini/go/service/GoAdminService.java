@@ -1,9 +1,8 @@
 package com.capgemini.go.service;
 
 import java.net.ConnectException;
-import java.sql.Connection;
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.capgemini.go.bean.RetailerInventoryBean;
@@ -23,7 +22,9 @@ public interface GoAdminService {
 
 	// Shelf Time Report and Delivery Time Report
 	/*******************************************************************************************************
-	 * - Author : Kunal - Creation Date : 21/9/2019 - Description : Static
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : Static
 	 * Enumeration for Different Report Types
 	 ********************************************************************************************************/
 	public static enum ReportType {
@@ -32,24 +33,39 @@ public interface GoAdminService {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : getShelfTimeReport - Input Parameters : ReportType
-	 * reportType, String retailerId, Calendar dateSelection - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products and their shelf time
-	 * periods
+	 * - Function Name : getShelfTimeReport 
+	 * - Input Parameters : ReportType, reportType, String retailerId, Calendar dateSelection 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : ConnectException
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their shelf time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getShelfTimeReport(ReportType reportType, String retailerId,
 			Calendar dateSelection)throws ConnectException;
 
 	/*******************************************************************************************************
-	 * - Function Name : getDeliveryTimeReport - Input Parameters : ReportType
-	 * reportType, String retailerId, int productCategory - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products and their Delivery time
-	 * periods
+	 * - Function Name : getDeliveryTimeReport 
+	 * - Input Parameters : ReportType, reportType, String retailerId, int productCategory 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : ConnectException 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Delivery time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getDeliveryTimeReport(ReportType reportType, String retailerId,
 			int productCategory)throws ConnectException;
+	
+	/*******************************************************************************************************
+	 * - Function Name : getListOfRetailers 
+	 * - Input Parameters : N/A 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all retailers in database
+	 ********************************************************************************************************/
+	public List<RetailerInventoryBean> getListOfRetailers () throws ConnectException;
 	// end of Shelf Time Report and Delivery Time Report
 
 	List<WrongProductNotificationDTO> getNotification() throws GoAdminException, ConnectException;

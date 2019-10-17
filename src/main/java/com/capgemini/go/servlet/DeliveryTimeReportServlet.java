@@ -53,32 +53,23 @@ public class DeliveryTimeReportServlet extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST");
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode dataResponse = mapper.createObjectNode();
-		boolean result = true;
 		PrintWriter out = response.getWriter();
 
 		String inventoryList = null;
 		try {
-			if (result) {
-				GoAdminService.ReportType repType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
-				if (rt == 1) {
-					repType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
-				} else if (rt == 2) {
-					repType = GoAdminService.ReportType.QUARTERLY_SHELF_TIME;
-				} else if (rt == 3) {
-					repType = GoAdminService.ReportType.YEARLY_SHELF_TIME;
-				}
-				GoAdminService goadmin = new GoAdminServiceImpl ();
-				List<RetailerInventoryBean> list = goadmin.getDeliveryTimeReport(repType, retailerId, 0);
-				inventoryList = mapper.writerWithDefaultPrettyPrinter()
-						.writeValueAsString(list);
-			} else {
-				throw new Exception("SHit!");
+			GoAdminService.ReportType repType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
+			if (rt == 1) {
+				repType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
+			} else if (rt == 2) {
+				repType = GoAdminService.ReportType.QUARTERLY_SHELF_TIME;
+			} else if (rt == 3) {
+				repType = GoAdminService.ReportType.YEARLY_SHELF_TIME;
 			}
-
+			GoAdminService goadmin = new GoAdminServiceImpl ();
+			List<RetailerInventoryBean> list = goadmin.getDeliveryTimeReport(repType, retailerId, 0);
+			inventoryList = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
 		} catch (Exception e) {
-			((ObjectNode) dataResponse).put("success", result);
 			((ObjectNode) dataResponse).put("message", e.getMessage());
-
 		} finally {
 			out.print(inventoryList);
 		}
