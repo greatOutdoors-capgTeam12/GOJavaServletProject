@@ -23,11 +23,22 @@ import com.google.gson.JsonObject;
 
 @Path("/reports")
 public class ReportsController {
+	/*
+	@OPTIONS
+	public Response filter () {
+		Response response = null;
+		ResponseBuilder respBuilder = null;
+		respBuilder = Response.status(Status.OK);
+		respBuilder.header("Access-Control-Allow-Origin", "*");
+		return response;
+	}
+	*/
+	
 	@POST
 	@Consumes("application/json")
 	@Path("/deliveryTimeReport/loadRetailers")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getListOfAvailabelRetailers (ReportFormBean input) {
+	public Response getListOfAvailableRetailers (ReportFormBean input) {
 		Response response = null;
 		ResponseBuilder respBuilder = null;
 		
@@ -43,6 +54,9 @@ public class ReportsController {
 			}
 			respBuilder = Response.status(Status.OK);
 			respBuilder.header("Access-Control-Allow-Origin", "*");
+			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+			respBuilder.header("Access-Control-Allow-Credentials", true);
 			respBuilder.entity(dataList.toString());
 			response = respBuilder.build();
 		} catch (Exception e) {
@@ -55,7 +69,7 @@ public class ReportsController {
 	@Consumes("application/json")
 	@Path("/deliveryTimeReport")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDeliveryTimeReportData (ReportFormBean input) {
+	public Response deliveryTimeReportJaxRsService (ReportFormBean input) {
 		Response response = null;
 		ResponseBuilder respBuilder = null;
 		GoLog.logger.debug("Retailer ID: " + input.retailerId + " Report Type: " + input.reportType);
@@ -86,6 +100,9 @@ public class ReportsController {
 			}
 			respBuilder = Response.status(Status.OK);
 			respBuilder.header("Access-Control-Allow-Origin", "*");
+			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+			respBuilder.header("Access-Control-Allow-Credentials", true);
 			respBuilder.entity(dataList.toString());
 			response = respBuilder.build();
 		} catch (Exception e) {
@@ -126,7 +143,9 @@ public class ReportsController {
 			}
 			respBuilder = Response.status(Status.OK);
 			respBuilder.header("Access-Control-Allow-Origin", "*");
-			respBuilder.entity(dataList.toString());
+			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+			respBuilder.header("Access-Control-Allow-Credentials", true);
 			response = respBuilder.build();
 		} catch (Exception e) {
 			

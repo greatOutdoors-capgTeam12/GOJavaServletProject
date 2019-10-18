@@ -22,6 +22,14 @@
 		<servlet-name>Jersey REST Service</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	<filter>
+		<filter-name>Options Filter</filter-name>
+		<filter-class>com.capgemini.go.controller.OptionsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Options Filter</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<description></description>
 		<display-name>AddProductMasterServlet</display-name>
