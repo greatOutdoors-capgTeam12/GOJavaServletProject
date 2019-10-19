@@ -20,5 +20,7 @@ public class ReportFormBean {
     @XmlElement public String reportType;
     @XmlElement public String startDate;
     @XmlElement public String endDate;
+    @XmlElement public Double bonus;
+    @XmlElement public Double target;
 }
 

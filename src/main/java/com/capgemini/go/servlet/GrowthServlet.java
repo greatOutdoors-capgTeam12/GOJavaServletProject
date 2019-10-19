@@ -84,9 +84,9 @@ public class GrowthServlet extends HttpServlet {
 					"<body><table><tr><td>Month</td><td>Revenue</td><td>Amount Change</td><td>Percentage Growth</td><td>Color Code</td></tr>");
 
 			while (i < n) {
-				out.println("<tr><td>" + Month.of(reports.get(i).getMonth() + 1).name() + "</td><td>"
+				out.println("<tr><td>" + Month.of(reports.get(i).getPeriod() + 1).name() + "</td><td>"
 						+ reports.get(i).getRevenue() + "</td><td>" + reports.get(i).getAmountChange() + "</td><td>"
-						+ reports.get(i).percentageGrowth() + "</td><td>" + reports.get(i).getCode() + "</td></tr>");
+						+ reports.get(i).getPercentageGrowth() + "</td><td>" + reports.get(i).getCode() + "</td></tr>");
 
 				i++;
 			}

@@ -842,17 +842,17 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 
-			if (connection == null)
-				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
-			if (salesRepId == null)
-				throw new GoAdminException(exceptionProps.getProperty("INVALID_USERID"));
+//			if (connection == null)
+//				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
+//			if (salesRepId == null)
+//				throw new GoAdminException(exceptionProps.getProperty("INVALID_USERID"));
 
-			PreparedStatement stmt = connection.prepareStatement(QuerryMapper.SELECT_USER);
-			stmt.setString(1, salesRepId);
-			ResultSet user = stmt.executeQuery();
-			if (!user.isBeforeFirst())
-				throw new GoAdminException(exceptionProps.getProperty("USER_DOES_NOT_EXISTS"));
-
+//			PreparedStatement stmt = connection.prepareStatement(QuerryMapper.SELECT_USER);
+//			stmt.setString(1, salesRepId);
+//			ResultSet user = stmt.executeQuery();
+//			if (!user.isBeforeFirst())
+//				throw new GoAdminException(exceptionProps.getProperty("USER_DOES_NOT_EXISTS"));
+//			System.out.println(salesRepId);
 			PreparedStatement statement = connection.prepareStatement(QuerryMapper.SELECT_SALES_REP);
 			statement.setString(1, salesRepId);
 			ResultSet rs = statement.executeQuery();
@@ -1254,6 +1254,8 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
+//		for(int i=0;i<viewSales.size();i++)
+//			System.out.println(viewSales.get(i).getUserId());
 		return viewSales;
 	}
 
@@ -1328,20 +1330,31 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			int category) throws GoAdminException, ConnectException {
 
 		List<ViewDetailedSalesReportByProductDTO> viewDetailedSalesReportByProduct = new ArrayList<ViewDetailedSalesReportByProductDTO>();
+		List<ViewDetailedSalesReportByProductDTO> growthListfinal = new ArrayList<ViewDetailedSalesReportByProductDTO>();
+		
 		ViewDetailedSalesReportByProductDTO temp;
 
 		Statement stmt = null;
 		int startYear = entry.getYear();
 		int endYear = exit.getYear();
 		int j = 0;
-		double prevM = 0.0, prevQ = 0.0, prevY;
+		double prevM = 0.0, prevQ = 0.0, prevY = 0.0;
 
 		double[] amtM = new double[12];
 		double[] perChngM = new double[12];
 		String[] codeM = new String[12];
 
-		long[] arrQty = new long[12];
-		double[] arrRev = new double[12];
+		double[] amtQ = new double[4];
+		double[] perChngQ = new double[4];
+		String[] codeQ = new String[4];
+
+		double amtY = 0.0, perChngY = 0.0;
+		String codeY;
+
+		double[] arrRevM = new double[12];
+		double[] arrRevQ = new double[4];
+		double arrRevY = 0.0;
+
 		Connection connection = null;
 		try {
 
@@ -1351,8 +1364,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 			if (connection == null)
 				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
-			if (category < 1 || category > 5)
-				throw new GoAdminException(exceptionProps.getProperty("INVALID_CATEGORY"));
+			
 			if (entry == null || exit == null)
 				throw new GoAdminException(exceptionProps.getProperty("INVALID_DATE"));
 
@@ -1371,69 +1383,198 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				// loop for going through order list
 				while (rs.next()) {
 
-					if (category == rs.getInt("PRODUCT_CATEGORY")) {
+					// if (category == rs.getInt("PRODUCT_CATEGORY")) {
+					
 
-						int d = rs.getInt(3);
-						for (j = 0; j <= 11; j++) {
+					int month = rs.getInt(3);
+					int year = rs.getInt(4) - 1900;
+					for (j = 0; j <= 11; j++) {
 
-							if (j == d) {
+						if (month == j && year == index) {
+							
 
-								arrRev[j] += rs.getDouble("PRODUCT_PRICE");
-
-							}
+							arrRevM[j] += rs.getDouble("PRODUCT_PRICE");
 
 						}
-					}
-				}
-			}
 
-			amtM[0] = arrRev[0] - prevM;
-			// loop for going from January to December
-			for (j = 0; j <= 11; j++) {
+					}
+					// }
+				}
+				/// }
+
+				// loop for going from January to December
+				for (j = 0; j <= 11; j++) {
+
+					temp = new ViewDetailedSalesReportByProductDTO();
+					// initialising the amount change of current month and previous month
+
+					if (j == 0) {
+
+						amtM[j] = arrRevM[j] - prevM;
+						perChngM[j] = 100 * (amtM[j]) / prevM;
+
+					} else {
+						amtM[j] = arrRevM[j] - arrRevM[j - 1];
+						perChngM[j] = 100 * (amtM[j]) / arrRevM[j - 1];
+
+					}
+
+					// checking the necessary condition for color code
+					if (perChngM[j] >= 10.0)
+						codeM[j] = "GREEN";
+					else if (perChngM[j] >= 2.0 && perChngM[j] <= 10)
+						codeM[j] = "AMBER";
+					else
+						codeM[j] = "RED";
+
+					temp.setPeriod(j);
+					temp.setRevenue(arrRevM[j]);
+					temp.setAmountChange(amtM[j]);
+					temp.setPercentageGrowth(perChngM[j]);
+					temp.setCode(codeM[j]);
+					temp.setType("MONTH");
+
+					viewDetailedSalesReportByProduct.add(temp);
+
+				}
+
+				// Initialising previous month as last month of current year
+				prevM = arrRevM[11];
+
+				int k = 0;
+				for (j = 0; j <= 3; j++) {
+					arrRevQ[j] = arrRevM[k] + arrRevM[k + 1] + arrRevM[k + 2];
+					k += 3;
+
+				}
+
+				for (j = 0; j <= 3; j++) {
+
+					temp = new ViewDetailedSalesReportByProductDTO();
+					// initialising the amount change of current month and previous month
+
+					if (j == 0) {
+
+						amtQ[j] = arrRevQ[j] - prevQ;
+						perChngM[j] = 100 * (amtQ[j]) / prevQ;
+
+					} else {
+
+						amtQ[j] = arrRevQ[j] - arrRevQ[j - 1];
+						perChngQ[j] = 100 * (amtQ[j]) / arrRevQ[j - 1];
+
+					}
+
+					// checking the necessary condition for color code
+					if (perChngQ[j] >= 10.0)
+						codeQ[j] = "GREEN";
+					else if (perChngQ[j] >= 2.0 && perChngQ[j] <= 10)
+						codeQ[j] = "AMBER";
+					else
+						codeQ[j] = "RED";
+
+					temp.setPeriod(j);
+					temp.setRevenue(arrRevQ[j]);
+					temp.setAmountChange(amtQ[j]);
+					temp.setPercentageGrowth(perChngQ[j]);
+					temp.setCode(codeQ[j]);
+					temp.setType("QUARTER");
+
+					viewDetailedSalesReportByProduct.add(temp);
+
+				}
+				// initialising the amount change of previous quarter as last quarter
+				prevQ = arrRevQ[3];
+
+				// year to year
+				arrRevY = arrRevQ[0] + arrRevQ[1] + arrRevQ[2] + arrRevQ[3];
+				amtY = arrRevY - prevY;
+				perChngY = 100 * (amtY / prevY);
+				if (perChngY >= 10.0)
+					codeY = "GREEN";
+				else if (perChngY >= 2.0 && perChngY <= 10)
+					codeY = "AMBER";
+				else
+					codeY = "RED";
 
 				temp = new ViewDetailedSalesReportByProductDTO();
-				// initialising the amount change of current month and previous month
+				temp.setPeriod((index+1900));
+				temp.setRevenue(arrRevY);
+				temp.setAmountChange(amtY);
+				temp.setPercentageGrowth(perChngY);
+				temp.setCode(codeY);
+				temp.setType("YEAR");
+				viewDetailedSalesReportByProduct.add(temp);
+				prevY = arrRevY;
+				for (j = 0; j <= 11; j++) {
 
-				if (j == 0) {
-
-					perChngM[j] = amtM[j] / prevM;
-				} else {
-					amtM[j] = arrRev[j] - arrRev[j - 1];
-					perChngM[j] = 100 * (arrRev[j] - arrRev[j - 1]) / arrRev[j - 1];
+					amtM[j] = 0.0;
+					perChngM[j] = 0.0;
+					codeM[j] = "NA";
+					arrRevM[j] = 0.0;
 
 				}
+				for (j = 0; j <= 3; j++) {
+					amtQ[j] = 0.0;
+					perChngQ[j] = 0.0;
+					codeQ[j] = "NA";
+					arrRevQ[j] = 0.0;
 
-				// checking the necessary condition for color code
-				if (perChngM[j] >= 10.0)
-					codeM[j] = "GREEN";
-				else if (perChngM[j] >= 2.0 && perChngM[j] <= 10)
-					codeM[j] = "AMBER";
-				else
-					codeM[j] = "RED";
-
-				temp.setMonth(j);
-				temp.setRevenue(arrRev[j]);
-				temp.setAmountChange(amtM[j]);
-				temp.setpercentageGrowth(perChngM[j]);
-				temp.setCode(codeM[j]);
-
-				viewDetailedSalesReportByProduct.add(temp);
+				}
+				amtY = 0.0;
+				perChngY = 0.0;
+				codeY = "NA";
+				arrRevY = 0.0;
 
 			}
-			prevM = arrRev[11];
+			
 
 		} catch (DatabaseException | SQLException | IOException e) {
+			e.printStackTrace();
 			GoLog.logger.error(exceptionProps.getProperty(e.getMessage()));
 
-		} finally {
+		} 
+		finally 
+		{
+			
 			try {
 				connection.close();
 			} catch (SQLException e) {
+				e.printStackTrace();
 
 				throw new ConnectException(Constants.connectionError);
 			}
+			int n=viewDetailedSalesReportByProduct.size(),index;
+			if(category==1)
+			{
+				for(index=0;index<n;index++)
+				{
+					
+					if(viewDetailedSalesReportByProduct.get(index).getType().equalsIgnoreCase("MONTH"))
+						growthListfinal.add(viewDetailedSalesReportByProduct.get(index));
+				}
+				
+			}
+			else if(category==2)
+			{
+				for(index=0;index<n;index++)
+				{
+					if(viewDetailedSalesReportByProduct.get(index).getType().equalsIgnoreCase("QUARTER"))
+						growthListfinal.add(viewDetailedSalesReportByProduct.get(index));
+				}
+				
+			}
+			else if(category==3)
+			{
+				for(index=0;index<n;index++)
+				{
+					if(viewDetailedSalesReportByProduct.get(index).getType().equalsIgnoreCase("YEAR"))
+						growthListfinal.add(viewDetailedSalesReportByProduct.get(index));
+				}
+			}
+			return growthListfinal;
 		}
-		return viewDetailedSalesReportByProduct;
+
 
 	}
 

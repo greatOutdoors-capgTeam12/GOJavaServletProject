@@ -1,6 +1,8 @@
 package com.capgemini.go.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.capgemini.go.bean.RetailerInventoryBean;
+import com.capgemini.go.dto.SalesRepDTO;
+import com.capgemini.go.dto.ViewDetailedSalesReportByProductDTO;
 import com.capgemini.go.dto.ViewSalesReportByUserDTO;
 import com.capgemini.go.service.GoAdminService;
 import com.capgemini.go.service.GoAdminServiceImpl;
@@ -24,27 +28,22 @@ import com.google.gson.JsonObject;
 @Path("/reports")
 public class ReportsController {
 	/*
-	@OPTIONS
-	public Response filter () {
-		Response response = null;
-		ResponseBuilder respBuilder = null;
-		respBuilder = Response.status(Status.OK);
-		respBuilder.header("Access-Control-Allow-Origin", "*");
-		return response;
-	}
-	*/
-	
+	 * @OPTIONS public Response filter () { Response response = null;
+	 * ResponseBuilder respBuilder = null; respBuilder = Response.status(Status.OK);
+	 * respBuilder.header("Access-Control-Allow-Origin", "*"); return response; }
+	 */
+
 	@POST
 	@Consumes("application/json")
 	@Path("/deliveryTimeReport/loadRetailers")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getListOfAvailableRetailers (ReportFormBean input) {
+	public Response getListOfAvailableRetailers(ReportFormBean input) {
 		Response response = null;
 		ResponseBuilder respBuilder = null;
-		
+
 		List<RetailerInventoryBean> list = null;
 		try {
-			GoAdminService goadmin = new GoAdminServiceImpl ();
+			GoAdminService goadmin = new GoAdminServiceImpl();
 			list = goadmin.getListOfRetailers();
 			JsonArray dataList = new JsonArray();
 			for (RetailerInventoryBean bean : list) {
@@ -60,16 +59,16 @@ public class ReportsController {
 			respBuilder.entity(dataList.toString());
 			response = respBuilder.build();
 		} catch (Exception e) {
-			
+
 		}
 		return response;
 	}
-	
-	@POST 
+
+	@POST
 	@Consumes("application/json")
 	@Path("/deliveryTimeReport")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deliveryTimeReportJaxRsService (ReportFormBean input) {
+	public Response deliveryTimeReportJaxRsService(ReportFormBean input) {
 		Response response = null;
 		ResponseBuilder respBuilder = null;
 		GoLog.logger.debug("Retailer ID: " + input.retailerId + " Report Type: " + input.reportType);
@@ -86,7 +85,7 @@ public class ReportsController {
 			} else if (rt == 3) {
 				repType = GoAdminService.ReportType.YEARLY_SHELF_TIME;
 			}
-			GoAdminService goadmin = new GoAdminServiceImpl ();
+			GoAdminService goadmin = new GoAdminServiceImpl();
 			list = goadmin.getDeliveryTimeReport(repType, retailerId, 0);
 			JsonArray dataList = new JsonArray();
 			for (RetailerInventoryBean bean : list) {
@@ -94,8 +93,10 @@ public class ReportsController {
 				dataObj.addProperty("retailerUserId", bean.getRetailerUserId());
 				dataObj.addProperty("productCategory", bean.getProductCategory());
 				dataObj.addProperty("productUIN", bean.getProductUIN());
-				dataObj.addProperty("productDeliveryTimePeriod", RetailerInventoryBean.periodToString(bean.getProductDeliveryTimePeriod()));
-				dataObj.addProperty("productShelfTimePeriod", RetailerInventoryBean.periodToString(bean.getProductShelfTimePeriod()));
+				dataObj.addProperty("productDeliveryTimePeriod",
+						RetailerInventoryBean.periodToString(bean.getProductDeliveryTimePeriod()));
+				dataObj.addProperty("productShelfTimePeriod",
+						RetailerInventoryBean.periodToString(bean.getProductShelfTimePeriod()));
 				dataList.add(dataObj);
 			}
 			respBuilder = Response.status(Status.OK);
@@ -106,20 +107,20 @@ public class ReportsController {
 			respBuilder.entity(dataList.toString());
 			response = respBuilder.build();
 		} catch (Exception e) {
-			
-		}	
+
+		}
 		return response;
 	}
-	
-	@POST 
+
+	@POST
 	@Consumes("application/json")
 	@Path("/revenueReport")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getRevenueReportData (ReportFormBean input) {
+	public Response getRevenueReportData(ReportFormBean input) {
 		Response response = null;
 		ResponseBuilder respBuilder = null;
-		GoLog.logger.debug("Retailer ID: " + input.retailerId + " Category Type: " + input.reportType +
-				" Start Date: " + input.startDate + " End Date: " + input.endDate);
+		GoLog.logger.debug("Retailer ID: " + input.retailerId + " Category Type: " + input.reportType + " Start Date: "
+				+ input.startDate + " End Date: " + input.endDate);
 		String userId = input.retailerId;
 		int categoryType = Integer.parseInt(input.reportType);
 		String startDate = input.startDate;
@@ -128,7 +129,7 @@ public class ReportsController {
 		try {
 			Date dentry = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 			Date dexit = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-			GoAdminService goadmin = new GoAdminServiceImpl ();
+			GoAdminService goadmin = new GoAdminServiceImpl();
 			list = goadmin.viewSalesReportByUserAndCategory(dentry, dexit, userId, categoryType);
 			JsonArray dataList = new JsonArray();
 			for (ViewSalesReportByUserDTO bean : list) {
@@ -146,10 +147,163 @@ public class ReportsController {
 			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
 			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
 			respBuilder.header("Access-Control-Allow-Credentials", true);
+			respBuilder.entity(dataList.toString());
 			response = respBuilder.build();
 		} catch (Exception e) {
-			
-		}	
+			e.printStackTrace();
+		}
 		return response;
 	}
+
+	@POST
+	@Consumes("application/json")
+	@Path("/growthReport")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getgrowthReportData(ReportFormBean input) {
+		Response response = null;
+		ResponseBuilder respBuilder = null;
+		GoLog.logger.debug(" ReportType Type: " + input.reportType + " Start Date: " + input.startDate + " End Date: "
+				+ input.endDate);
+		int categoryType = Integer.parseInt(input.reportType);
+		String startDate = input.startDate;
+		String endDate = input.endDate;
+		List<ViewDetailedSalesReportByProductDTO> list = null;
+		try {
+			Date dentry = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+			Date dexit = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+			GoAdminService goadmin = new GoAdminServiceImpl();
+			list = goadmin.viewDetailedSalesReportByProduct(dentry, dexit, categoryType);
+			JsonArray dataList = new JsonArray();
+			for (ViewDetailedSalesReportByProductDTO bean : list) {
+				JsonObject dataObj = new JsonObject();
+
+				if (categoryType == 1) {
+					dataObj.addProperty("period", Month.of(bean.getPeriod() + 1).name());
+				} else if (categoryType == 2) {
+					dataObj.addProperty("period", "Q" + Integer.toString((bean.getPeriod()) + 1));
+				} else {
+					dataObj.addProperty("period", "YEAR:" + Integer.toString(bean.getPeriod()));
+				}
+				dataObj.addProperty("revenue", Double.toString(bean.getRevenue()));
+				dataObj.addProperty("amountChange", Double.toString(bean.getAmountChange()));
+				dataObj.addProperty("percentageGrowth", Double.toString(bean.getPercentageGrowth()));
+				dataObj.addProperty("colorCode", bean.getCode());
+				dataList.add(dataObj);
+			}
+			respBuilder = Response.status(Status.OK);
+			respBuilder.header("Access-Control-Allow-Origin", "*");
+			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+			respBuilder.header("Access-Control-Allow-Credentials", true);
+			respBuilder.entity(dataList.toString());
+			response = respBuilder.build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return response;
+	}
+
+//	@POST
+//	@Consumes("application/json")
+//	@Path("/salesReport")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response getsalesReportData(ReportFormBean input) {
+//		Response response = null;
+//		ResponseBuilder respBuilder = null;
+//		GoLog.logger.debug(" ReportType Type: " + input.reportType + " Start Date: " + input.startDate + " End Date: "
+//				+ input.endDate);
+//		int categoryType = Integer.parseInt(input.reportType);
+//		String startDate = input.startDate;
+//		String endDate = input.endDate;
+//		List<ViewDetailedSalesReportByProductDTO> list = null;
+//		try {
+//			Date dentry = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+//			Date dexit = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+//			GoAdminService goadmin = new GoAdminServiceImpl();
+//			list = goadmin.viewDetailedSalesReportByProduct(dentry, dexit, categoryType);
+//			JsonArray dataList = new JsonArray();
+//			for (ViewDetailedSalesReportByProductDTO bean : list) {
+//				JsonObject dataObj = new JsonObject();
+//
+//				if (categoryType == 1) {
+//					dataObj.addProperty("period", Month.of(bean.getPeriod() + 1).name());
+//				} else if (categoryType == 2) {
+//					dataObj.addProperty("period", "Q" + Integer.toString((bean.getPeriod()) + 1));
+//				} else {
+//					dataObj.addProperty("period", "YEAR:" + Integer.toString(bean.getPeriod()));
+//				}
+//				dataObj.addProperty("revenue", Double.toString(bean.getRevenue()));
+//				dataObj.addProperty("amountChange", Double.toString(bean.getAmountChange()));
+//				dataObj.addProperty("percentageGrowth", Double.toString(bean.getPercentageGrowth()));
+//				dataObj.addProperty("colorCode", bean.getCode());
+//				dataList.add(dataObj);
+//			}
+//			respBuilder = Response.status(Status.OK);
+//			respBuilder.header("Access-Control-Allow-Origin", "*");
+//			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+//			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+//			respBuilder.header("Access-Control-Allow-Credentials", true);
+//			respBuilder.entity(dataList.toString());
+//			response = respBuilder.build();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		return response;
+//	}
+
+	@POST
+	@Consumes("application/json")
+	@Path("/salesReport")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSalesData(SalesRepFormBean input) {
+		Response response = null;
+		ResponseBuilder respBuilder = null;
+//	        GoLog.logger.debug(" ReportType Type: " + input.reportType +
+//	                " Start Date: " + input.startDate + " End Date: " + input.endDate);
+		String userId = input.userId;
+		Double bonus = input.setBonus;
+		Double target = input.setTarget;
+		System.out.println(userId+"=="+bonus+"=="+target);
+		List<SalesRepDTO> list = null;
+		try {
+			GoAdminService goadmin = new GoAdminServiceImpl();
+			System.out.println(goadmin.viewSalesRepData(userId).getUserId());
+			
+			if (userId.equalsIgnoreCase("ALL"))
+				list = goadmin.viewAllSalesRepData();
+			else {
+				list = new ArrayList<SalesRepDTO>();
+				list.add(goadmin.viewSalesRepData(userId));
+				if(bonus>0)
+					goadmin.setBonus(goadmin.viewSalesRepData(userId), bonus);
+				if(target>0)
+					goadmin.setTarget(goadmin.viewSalesRepData(userId), target);
+			}
+
+			JsonArray dataList = new JsonArray();
+			for (SalesRepDTO bean : list) {
+				
+				JsonObject dataObj = new JsonObject();
+				dataObj.addProperty("userID", bean.getUserId());
+				dataObj.addProperty("targetSales", Double.toString(bean.getTarget()));
+				dataObj.addProperty("target", Integer.toString(bean.getTargetStatus()));
+				dataObj.addProperty("currentSales", Double.toString(bean.getCurrentTargetStatus()));
+				dataObj.addProperty("bonus", Double.toString(bean.getBonus()));
+				System.out.println(dataObj.toString());
+
+				dataList.add(dataObj);
+			}
+			respBuilder = Response.status(Status.OK);
+			respBuilder.header("Access-Control-Allow-Origin", "*");
+			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+			respBuilder.header("Access-Control-Allow-Credentials", true);
+			respBuilder.entity(dataList.toString());
+			response = respBuilder.build();
+		} catch (Exception e) {
+
+		}
+		return response;
+	}
+
 }

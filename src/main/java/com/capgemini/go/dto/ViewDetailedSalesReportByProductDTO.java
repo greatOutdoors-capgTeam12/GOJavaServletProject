@@ -4,33 +4,34 @@ import java.time.Month;
 
 public class ViewDetailedSalesReportByProductDTO {
 
-	private int month;
+	private int period;
 	private Double revenue;
 	private Double amountChange;
 	private Double percentageGrowth;
 	private String code;
+	private String type;
 
-	public ViewDetailedSalesReportByProductDTO(int month, Double revenue, Double amountChange, Double percentageGrowth,
-			String code) {
+	public ViewDetailedSalesReportByProductDTO(int period, Double revenue, Double amountChange, Double percentageGrowth,
+			String code, String type) {
 		super();
-		this.month = month;
+		this.period = period;
 		this.revenue = revenue;
 		this.amountChange = amountChange;
 		this.percentageGrowth = percentageGrowth;
 		this.code = code;
+		this.type = type;
 	}
 
 	public ViewDetailedSalesReportByProductDTO() {
-		// default constructor
 
 	}
 
-	public int getMonth() {
-		return month;
+	public int getPeriod() {
+		return period;
 	}
 
-	public void setMonth(int month) {
-		this.month = month;
+	public void setPeriod(int period) {
+		this.period = period;
 	}
 
 	public Double getRevenue() {
@@ -49,11 +50,11 @@ public class ViewDetailedSalesReportByProductDTO {
 		this.amountChange = amountChange;
 	}
 
-	public Double percentageGrowth() {
+	public Double getPercentageGrowth() {
 		return percentageGrowth;
 	}
 
-	public void setpercentageGrowth(Double percentageGrowth) {
+	public void setPercentageGrowth(Double percentageGrowth) {
 		this.percentageGrowth = percentageGrowth;
 	}
 
@@ -65,11 +66,18 @@ public class ViewDetailedSalesReportByProductDTO {
 		this.code = code;
 	}
 
-	public void printData() {
-
-		System.out.printf("%-25s %-25.2f %-25.2f %-25.2f %-25s %n", Month.of(month + 1).name(), revenue, amountChange,
-				percentageGrowth, code);
-
+	public String getType() {
+		return type;
 	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void printData() {
+
+		System.out.printf("%-25s %-25.2f %-25.2f %-25.2f %-25s %-25s %n", period, revenue, amountChange,
+				percentageGrowth, code, type);
+
+	}
 }
