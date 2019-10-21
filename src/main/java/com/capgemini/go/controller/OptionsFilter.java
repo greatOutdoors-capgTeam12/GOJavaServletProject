@@ -28,7 +28,6 @@ public class OptionsFilter implements Filter {
 			if (requestOrigin == null) {
 				requestOrigin = "*";
 			}
-			System.out.println("Request Origin = " + requestOrigin);
 			resp.setHeader("Access-Control-Allow-Origin", requestOrigin);
 			resp.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
 			resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");

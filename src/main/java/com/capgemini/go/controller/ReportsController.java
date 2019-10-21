@@ -3,6 +3,7 @@ package com.capgemini.go.controller;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.capgemini.go.bean.RetailerInventoryBean;
+import com.capgemini.go.dto.RetailerDTO;
 import com.capgemini.go.dto.SalesRepDTO;
 import com.capgemini.go.dto.ViewDetailedSalesReportByProductDTO;
 import com.capgemini.go.dto.ViewSalesReportByUserDTO;
@@ -27,6 +29,13 @@ import com.google.gson.JsonObject;
 
 @Path("/reports")
 public class ReportsController {
+	public static Calendar getDateFromString (String date) {
+		// format of string: yyyy-mm-dd
+		Calendar result = Calendar.getInstance();
+		result.set(Integer.valueOf(date.substring(0, 4)), Integer.valueOf(date.substring(5, 7)), Integer.valueOf(date.substring(8, 10)));
+		return result;
+	}
+	
 	/*
 	 * @OPTIONS public Response filter () { Response response = null;
 	 * ResponseBuilder respBuilder = null; respBuilder = Response.status(Status.OK);
@@ -77,6 +86,56 @@ public class ReportsController {
 		int rt = Integer.parseInt(reportType);
 		List<RetailerInventoryBean> list = null;
 		try {
+			GoAdminService.ReportType repType = GoAdminService.ReportType.OUTLIER_ITEM_DELIVERY_TIME;
+			if (rt == 1) {
+				repType = GoAdminService.ReportType.OUTLIER_ITEM_DELIVERY_TIME;
+			} else if (rt == 2) {
+				repType = GoAdminService.ReportType.OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME;
+			} else if (rt == 3) {
+				repType = GoAdminService.ReportType.OUTLIER_ITEM_IN_OUTLIER_PRODUCT_CATEGORY_DELIVERY_TIME;
+			}
+			GoAdminService goadmin = new GoAdminServiceImpl();
+			list = goadmin.getDeliveryTimeReport(repType, retailerId, 0);
+			JsonArray dataList = new JsonArray();
+			for (RetailerInventoryBean bean : list) {
+				JsonObject dataObj = new JsonObject();
+				dataObj.addProperty("retailerUserId", bean.getRetailerUserId());
+				dataObj.addProperty("productCategory", bean.getProductCategory());
+				dataObj.addProperty("productUIN", bean.getProductUIN());
+				dataObj.addProperty("productDeliveryTimePeriod",
+						RetailerInventoryBean.periodToString(bean.getProductDeliveryTimePeriod()));
+				dataObj.addProperty("productShelfTimePeriod",
+						RetailerInventoryBean.periodToString(bean.getProductShelfTimePeriod()));
+				dataList.add(dataObj);
+			}
+			respBuilder = Response.status(Status.OK);
+			respBuilder.header("Access-Control-Allow-Origin", "*");
+			respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+			respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+			respBuilder.header("Access-Control-Allow-Credentials", true);
+			respBuilder.entity(dataList.toString());
+			response = respBuilder.build();
+		} catch (Exception e) {
+
+		}
+		return response;
+	}
+	
+	@POST
+	@Consumes("application/json")
+	@Path("/shelfTimeReport")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response shelfTimeReportJaxRsService(ReportFormBean input) {
+		Response response = null;
+		ResponseBuilder respBuilder = null;
+		GoLog.logger.debug("Retailer ID: " + input.retailerId + " Report Type: " 
+				+ input.reportType + " Start-Date: " + input.startDate + " End-Date:" + input.endDate);
+		String retailerId = input.retailerId;
+		String reportType = input.reportType;
+		Calendar dateSelection = getDateFromString (input.startDate);
+		int rt = Integer.parseInt(reportType);
+		List<RetailerInventoryBean> list = null;
+		try {			
 			GoAdminService.ReportType repType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
 			if (rt == 1) {
 				repType = GoAdminService.ReportType.MONTHLY_SHELF_TIME;
@@ -86,7 +145,7 @@ public class ReportsController {
 				repType = GoAdminService.ReportType.YEARLY_SHELF_TIME;
 			}
 			GoAdminService goadmin = new GoAdminServiceImpl();
-			list = goadmin.getDeliveryTimeReport(repType, retailerId, 0);
+			list = goadmin.getShelfTimeReport(repType, retailerId, dateSelection);
 			JsonArray dataList = new JsonArray();
 			for (RetailerInventoryBean bean : list) {
 				JsonObject dataObj = new JsonObject();
@@ -305,5 +364,52 @@ public class ReportsController {
 		}
 		return response;
 	}
+    
 
+    @POST
+    @Consumes("application/json")
+    @Path("/retailerReport")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRetailerData(RetailerRepFormBean input) {
+    	System.out.println("in getRetialer() Data");
+        Response response = null;
+        ResponseBuilder respBuilder = null;
+//            GoLog.logger.debug(" ReportType Type: " + input.reportType +
+//                    " Start Date: " + input.startDate + " End Date: " + input.endDate);
+        String userId = input.userId;
+        Double discount = input.setDiscount;
+        System.out.println(userId+"=="+discount);
+        List<RetailerDTO> list = null;
+        try {
+            GoAdminService goadmin = new GoAdminServiceImpl();
+            System.out.println(goadmin.viewRetailerData(userId).getUserId());
+            if (userId.equalsIgnoreCase("ALL"))
+                list = goadmin.viewAllRetailerData();
+            else {
+                list = new ArrayList<RetailerDTO>();
+                list.add(goadmin.viewRetailerData(userId));
+                if(discount>0)
+                    goadmin.setDiscount(goadmin.viewRetailerData(userId), discount);                
+            }
+            JsonArray dataList = new JsonArray();
+            for (RetailerDTO bean : list) {
+                JsonObject dataObj = new JsonObject();
+                dataObj.addProperty("userID", bean.getUserId());
+                dataObj.addProperty("discount", Double.toString(bean.getDiscount()));
+                System.out.println(dataObj.toString());
+                dataList.add(dataObj);
+            }
+            respBuilder = Response.status(Status.OK);
+            respBuilder.header("Access-Control-Allow-Origin", "*");
+            respBuilder.header("Access-Control-Allow-Methods", "GET, POST");
+            respBuilder.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+            respBuilder.header("Access-Control-Allow-Credentials", true);
+            respBuilder.entity(dataList.toString());
+            response = respBuilder.build();
+        } catch (Exception e) {
+
+
+        }
+        return response;
+    }
 }
