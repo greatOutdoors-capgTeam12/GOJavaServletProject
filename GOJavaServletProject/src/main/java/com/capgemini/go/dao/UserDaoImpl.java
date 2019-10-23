@@ -54,12 +54,14 @@ public class UserDaoImpl implements UserDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userRegistration - Input Parameters : userID, userName,
-	 * userMail, userNumber, activeStatus, password, userCategory - Return Type :
-	 * boolean - Throws :UserException - Author : AGNIBHA/AMAN - Creation Date :
-	 * 21/9/2019 - Description : to register a new user
+	 * - Function Name : userRegistration 
+	 * - Input Parameters : userID, userName, userMail, userNumber, activeStatus, password, userCategory 
+	 * - Return Type : boolean 
+	 * - Throws :UserException
+	 *  - Author:AMAN 
+	 *  - Creation Date : 21/9/2019 
+	 *  - Description : to register a new user
 	 * @throws ConnectException 
-	 * 
 	 * @throws SQLException
 	 ********************************************************************************************************/
 
@@ -168,10 +170,13 @@ public class UserDaoImpl implements UserDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userLogin - Input Parameters : userID, password - Return
-	 * Type : boolean - Throws :UserException - Author : AMAN - Creation Date :
-	 * 21/9/2019 - Description : to login a user
-	 * 
+	 * - Function Name : userLogin 
+	 * - Input Parameters : userID, password
+	 * - Return Type : boolean 
+	 * - Throws :UserException 
+	 * - Author : AMAN 
+	 * - Creation Date :21/9/2019 
+	 * - Description : to login a user
 	 * @throws UserException
 	 * @throws Exception
 	 ********************************************************************************************************/
@@ -270,12 +275,17 @@ public class UserDaoImpl implements UserDao {
 		}
 		return userLoginStatus;
 	}
-
+	
+	
+	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userLogout - Input Parameters : userID - Return Type :
-	 * boolean - Throws :UserException - Author : AMAN - Creation Date : 21/9/2019 -
-	 * Description : to logout a user
-	 * 
+	 * - Function Name : userLogout 
+	 * - Input Parameters : userID 
+	 * - Return Type : boolean 
+	 * - Throws :UserException 
+	 * - Author : AMAN 
+	 * - Creation Date : 21/9/2019
+	 * - Description : to logout a user
 	 * @throws SQLException
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
@@ -526,8 +536,7 @@ public class UserDaoImpl implements UserDao {
 			throw new UserException("User Does Not Exists !");
 		}
 		
-		}
-		catch (DatabaseException | SQLException | IOException e) {
+		} catch (DatabaseException | SQLException | IOException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new UserException(exceptionProps.getProperty("filter_product_error") + " >>> " + e.getMessage());
 		}
