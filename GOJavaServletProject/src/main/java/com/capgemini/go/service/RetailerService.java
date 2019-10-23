@@ -30,6 +30,17 @@ public interface RetailerService {
 
 	boolean deleteAddress(AddressDTO address) throws RetailerException;
 
+	/*******************************************************************************************************
+	 *- Function Name : addProductToWishlist 
+	 *- Input Parameters : Product List
+	 *- Return Type : boolean
+	 *- Throws : RetailerException
+	 *- Author : CAPGEMINI 
+	 *- Creation Date : 21/9/2019
+	 *- Description : To add products to Wishlist database
+	 *@throws ConnectException 
+	 *@throws SQLException 
+	 ********************************************************************************************************/
 	boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException;
 
 	List<ProductDTO> fetchfavproduct(String userId) throws UserException;

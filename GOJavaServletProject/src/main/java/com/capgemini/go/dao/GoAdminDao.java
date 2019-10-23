@@ -1,7 +1,6 @@
 package com.capgemini.go.dao;
 
 import java.net.ConnectException;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 
@@ -133,17 +132,12 @@ public interface GoAdminDao {
 
 	List<RetailerDTO> viewAllRetailerData() throws GoAdminException,ConnectException;
 
-	List<ViewSalesReportByUserDTO> viewSalesReportByCategory(Date entry, Date exit, int cat)
-			throws GoAdminException,ConnectException;
 
-	List<ViewSalesReportByUserDTO> viewSalesReportByUser(Date entry, Date exit, String TargetuserId)
-			throws GoAdminException,ConnectException;
 
 	List<ViewSalesReportByUserDTO> viewSalesReportByUserAndCategory(Date entry, Date exit, String TargetuserId,
 			int category) throws GoAdminException,ConnectException;
 
-	List<ViewSalesReportByUserDTO> viewSalesReportALLUserAndCategory(Date entry, Date exit)
-			throws GoAdminException,ConnectException;
+	
 
 	List<ViewDetailedSalesReportByProductDTO> viewDetailedSalesReportByProduct(Date entry, Date exit, int cat)
 			 throws GoAdminException,ConnectException;
