@@ -30,7 +30,7 @@ public interface RetailerService {
 
 	boolean deleteAddress(AddressDTO address) throws RetailerException;
 
-	boolean addProductToFreqOrderDB(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException;
+	boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException;
 
 	List<ProductDTO> fetchfavproduct(String userId) throws UserException;
 
