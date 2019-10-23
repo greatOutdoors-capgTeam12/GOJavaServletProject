@@ -21,9 +21,9 @@ public class HibernateUtil {
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://remotemysql.com:3306/csVhvRofgC");
-                settings.put(Environment.USER, "csVhvRofgC");
-                settings.put(Environment.PASS, "bJyRMI1cao");
+                settings.put(Environment.URL, "jdbc:mysql://remotemysql.com:3306/iMIuEwHYH8");
+				settings.put(Environment.USER, "iMIuEwHYH8");
+				settings.put(Environment.PASS, "QXFKvh2Ni9");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
