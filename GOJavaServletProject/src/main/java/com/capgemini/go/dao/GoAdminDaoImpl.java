@@ -186,6 +186,18 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	}
 
+	// ------------------------ GreatOutdoor Application --------------------------
+		/*******************************************************************************************************
+		 * Function Name : setBonus
+		 * Input Parameters : userID, bonus value 
+		 * Return Type : void
+		 * Throws : GoAdmin Exception
+		 * Author : CAPGEMINI 
+		 * Creation Date : 21/9/2019 
+		 * Description : To set bonus of a sales representative
+		 * @throws ConnectException 
+		 ********************************************************************************************************/
+
 	public void setBonus(SalesRepDTO sr, double bonus) throws ConnectException {
 
 		Connection connection = null;
@@ -268,6 +280,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return bonus;
 	}
 
+	/*******************************************************************************************************
+	 * Function Name : setTarget
+	 * Input Parameters : userID, target value 
+	 * Return Type : void 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set target of a sales representative
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setTarget(SalesRepDTO sr, double target) throws ConnectException {
 
 		Connection connection = null;
@@ -346,7 +368,17 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return target;
 
 	}
-
+	
+	/*******************************************************************************************************
+	 * Function Name : setDiscount
+	 * Input Parameters : userID, discount value 
+	 * Return Type : void 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set discount of a retailer
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setDiscount(RetailerDTO ret, double discount) throws ConnectException {
 		Connection connection = null;
 
@@ -858,12 +890,14 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewSalesRepData Input Parameters : salesRepId Return Type :
-	 * boolean Throws : - Author : CAPGEMINI Creation Date : 21/9/2019 Description :
-	 * To view report of specific sales representative
+	 * Function Name : viewSalesRepData 
+	 * Input Parameters : salesRepId 
+	 * Return Type : SalesRepDTO
+	 * boolean Throws : - 
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of specific sales representative
 	 * @throws ConnectException 
-	 * 
-	 * @throws NoConnectionException
 	 * @throws UserDoesNotExist
 	 ********************************************************************************************************/
 
@@ -922,10 +956,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewSalesRepData - Input Parameters : - Return Type : boolean
-	 * - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 - Description :
-	 * To view report of all sales representative
-	 * 
+	 * Function Name : viewSalesRepData 
+	 * Input Parameters : 
+	 * Return Type : List
+	 * Throws : 
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of all sales representative
 	 * @throws GoAdminException
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
@@ -984,9 +1021,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewRetailerData viewSalesRepData Input Parameters :
-	 * RetailerId Return Type : boolean Throws : Author : CAPGEMINI Creation Date :
-	 * 21/9/2019 Description : To view report of specific retailer
+	 * Function Name : viewRetailerData 
+	 * Input Parameters : RetailerId
+	 * Return Type : RetailerDTO 
+	 * Throws : GoAdminException
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of specific retailer
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
@@ -1038,9 +1079,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewAllRetailerData Input Parameters : Return Type : boolean
-	 * Throws : Author : CAPGEMINI Creation Date : 21/9/2019 Description : To view
-	 * report of all the retailer
+	 * Function Name : viewAllRetailerData 
+	 * Input Parameters : 
+	 * Return Type : List
+	 * Throws : GoAdminException
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of all the retailer
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
@@ -1156,7 +1201,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return viewSales;
 
 	}
-
+	//Currently not used
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUser(Date entry, Date exit, String TargetuserId)
 			throws GoAdminException, ConnectException {
 
@@ -1221,6 +1266,19 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return viewSalesList;
 	}
+
+
+	// ------------------------ GreatOutdoor Application --------------------------
+	/*******************************************************************************************************
+	 * Function Name : viewSalesReportByUserAndCategory
+	 * Input Parameters : entry ,exit , targetuserId, category 
+	 * Return Type : List 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view userId, Order Date, Order Id, Product Id, Product Category, Product Price using the given inputs
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUserAndCategory(Date entry, Date exit, String TargetuserId,
 			int category) throws GoAdminException, ConnectException {
@@ -1302,6 +1360,9 @@ public class GoAdminDaoImpl implements GoAdminDao {
 //			System.out.println(viewSales.get(i).getUserId());
 		return viewSales;
 	}
+	
+	
+	//Currently not used
 	public List<ViewSalesReportByUserDTO> viewSalesReportALLUserAndCategory(Date entry, Date exit)
 			throws GoAdminException, ConnectException {
 
@@ -1363,9 +1424,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewDetailedSalesReportByProduct Input Parameters : entry ,
-	 * exit , product Return Type : boolean Throws : Author : CAPGEMINI Creation
-	 * Date : 21/9/2019 Description : To view amount change, percentage change,
+	 * Function Name : viewDetailedSalesReportByProduct 
+	 * Input Parameters : entry ,exit , category 
+	 * Return Type : boolean 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view amount change, percentage change,
 	 * color code, month to month, quarter to quarter, year to year change of
 	 * specific product
 	 * @throws ConnectException 
