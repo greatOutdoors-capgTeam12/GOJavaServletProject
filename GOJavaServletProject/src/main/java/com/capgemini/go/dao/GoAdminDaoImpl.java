@@ -186,6 +186,18 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	}
 
+	// ------------------------ GreatOutdoor Application --------------------------
+		/*******************************************************************************************************
+		 * Function Name : setBonus
+		 * Input Parameters : userID, bonus value 
+		 * Return Type : void
+		 * Throws : GoAdmin Exception
+		 * Author : CAPGEMINI 
+		 * Creation Date : 21/9/2019 
+		 * Description : To set bonus of a sales representative
+		 * @throws ConnectException 
+		 ********************************************************************************************************/
+
 	public void setBonus(SalesRepDTO sr, double bonus) throws ConnectException {
 
 		Connection connection = null;
@@ -268,6 +280,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return bonus;
 	}
 
+	/*******************************************************************************************************
+	 * Function Name : setTarget
+	 * Input Parameters : userID, target value 
+	 * Return Type : void 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set target of a sales representative
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setTarget(SalesRepDTO sr, double target) throws ConnectException {
 
 		Connection connection = null;
@@ -346,7 +368,17 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return target;
 
 	}
-
+	
+	/*******************************************************************************************************
+	 * Function Name : setDiscount
+	 * Input Parameters : userID, discount value 
+	 * Return Type : void 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set discount of a retailer
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setDiscount(RetailerDTO ret, double discount) throws ConnectException {
 		Connection connection = null;
 
@@ -472,16 +504,19 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return prodId;
 	}
 
-
-
+	
+	
 	// Shelf Time Report and Delivery Time Report
-	/*******************************************************************************************************
-	 * - Function Name : getMonthlyTimeReport - Input Parameters : RetailerInventory
-	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
-	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
-	 * products and their Monthly Shelf time periods
-	 * @throws ConnectException 
-	 ********************************************************************************************************/
+		/*******************************************************************************************************
+		 * - Function Name : getMonthlyTimeReport 
+		 * - Input Parameters : RetailerInventory queryArguments 
+		 * - Return Type : List<RetailerInventoryBean> 
+		 * - Throws : N/A 
+		 * - Author : Vikas 
+		 * - Creation Date : 21/9/2019 
+		 * - Description : to get List of all products and their Monthly Shelf time periods
+		 ********************************************************************************************************/
+
 	@Override
 	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
 		// Declaring List where valid objects returned by query will be stored
@@ -526,14 +561,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return result;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : getQuarterlyTimeReport - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all products and their Quarterly Shelf time periods
-	 * @throws ConnectException 
+	 * - Function Name : getQuarterlyTimeReport 
+	 * - Input Parameters :RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Quarterly Shelf time periods
 	 ********************************************************************************************************/
+	
 	@Override
 	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
 		// Declaring List where valid objects returned by query will be stored
@@ -579,14 +616,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return result;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : getYearlyTimeReport - Input Parameters : RetailerInventory
-	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
-	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
-	 * products and their Yearly Shelf time periods
-	 * @throws ConnectException 
+	 * - Function Name : getYearlyTimeReport 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Yearly Shelf time periods
 	 ********************************************************************************************************/
+	
 	@Override
 	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
 		// Declaring List where valid objects returned by query will be stored
@@ -630,14 +669,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return result;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierProductCategoryDeliveryTime - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all product categories and their Delivery time periods
-	 * @throws ConnectException 
+	 * - Function Name : getOutlierProductCategoryDeliveryTime 
+	 * - Input Parameters :RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all product categories and their Delivery time periods
 	 ********************************************************************************************************/
+	
 	@Override
 	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException {
 		String retailerId = queryArguments.getRetailerUserId();
@@ -678,14 +719,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return result;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierItemDeliveryTime - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all products and their Delivery time periods
-	 * @throws ConnectException 
+	 * - Function Name : getOutlierItemDeliveryTime 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Delivery time periods
 	 ********************************************************************************************************/
+	
 	@Override
 	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException {
 		String retailerId = queryArguments.getRetailerUserId();
@@ -727,15 +770,17 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return result;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime - Input
-	 * Parameters : RetailerInventory queryArguments - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products in outlier categories
-	 * and their Delivery time periods
+	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products in outlier categories and their Delivery time periods
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
+	
 	@Override
 	public List<RetailerInventoryBean> getOutlierItemInOutlierProductCategoryDeliveryTime(
 			RetailerInventoryDTO queryArguments) throws ConnectException {
@@ -803,7 +848,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return result;
 	}
-	
 	/*******************************************************************************************************
 	 * - Function Name : getListOfRetailers 
 	 * - Input Parameters : N/A
@@ -814,6 +858,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * - Description : to get List of all retailers in database
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
+	
 	public List<RetailerInventoryBean> getListOfRetailers () throws ConnectException {
 		List<RetailerInventoryBean> retailerList = new ArrayList<RetailerInventoryBean>();
 	
@@ -845,12 +890,14 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewSalesRepData Input Parameters : salesRepId Return Type :
-	 * boolean Throws : - Author : CAPGEMINI Creation Date : 21/9/2019 Description :
-	 * To view report of specific sales representative
+	 * Function Name : viewSalesRepData 
+	 * Input Parameters : salesRepId 
+	 * Return Type : SalesRepDTO
+	 * boolean Throws : - 
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of specific sales representative
 	 * @throws ConnectException 
-	 * 
-	 * @throws NoConnectionException
 	 * @throws UserDoesNotExist
 	 ********************************************************************************************************/
 
@@ -909,10 +956,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewSalesRepData - Input Parameters : - Return Type : boolean
-	 * - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 - Description :
-	 * To view report of all sales representative
-	 * 
+	 * Function Name : viewSalesRepData 
+	 * Input Parameters : 
+	 * Return Type : List
+	 * Throws : 
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of all sales representative
 	 * @throws GoAdminException
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
@@ -971,9 +1021,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewRetailerData viewSalesRepData Input Parameters :
-	 * RetailerId Return Type : boolean Throws : Author : CAPGEMINI Creation Date :
-	 * 21/9/2019 Description : To view report of specific retailer
+	 * Function Name : viewRetailerData 
+	 * Input Parameters : RetailerId
+	 * Return Type : RetailerDTO 
+	 * Throws : GoAdminException
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of specific retailer
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
@@ -1025,9 +1079,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewAllRetailerData Input Parameters : Return Type : boolean
-	 * Throws : Author : CAPGEMINI Creation Date : 21/9/2019 Description : To view
-	 * report of all the retailer
+	 * Function Name : viewAllRetailerData 
+	 * Input Parameters : 
+	 * Return Type : List
+	 * Throws : GoAdminException
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of all the retailer
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
@@ -1143,7 +1201,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return viewSales;
 
 	}
-
+	//Currently not used
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUser(Date entry, Date exit, String TargetuserId)
 			throws GoAdminException, ConnectException {
 
@@ -1208,6 +1266,19 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return viewSalesList;
 	}
+
+
+	// ------------------------ GreatOutdoor Application --------------------------
+	/*******************************************************************************************************
+	 * Function Name : viewSalesReportByUserAndCategory
+	 * Input Parameters : entry ,exit , targetuserId, category 
+	 * Return Type : List 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view userId, Order Date, Order Id, Product Id, Product Category, Product Price using the given inputs
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUserAndCategory(Date entry, Date exit, String TargetuserId,
 			int category) throws GoAdminException, ConnectException {
@@ -1289,6 +1360,9 @@ public class GoAdminDaoImpl implements GoAdminDao {
 //			System.out.println(viewSales.get(i).getUserId());
 		return viewSales;
 	}
+	
+	
+	//Currently not used
 	public List<ViewSalesReportByUserDTO> viewSalesReportALLUserAndCategory(Date entry, Date exit)
 			throws GoAdminException, ConnectException {
 
@@ -1350,9 +1424,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewDetailedSalesReportByProduct Input Parameters : entry ,
-	 * exit , product Return Type : boolean Throws : Author : CAPGEMINI Creation
-	 * Date : 21/9/2019 Description : To view amount change, percentage change,
+	 * Function Name : viewDetailedSalesReportByProduct 
+	 * Input Parameters : entry ,exit , category 
+	 * Return Type : boolean 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view amount change, percentage change,
 	 * color code, month to month, quarter to quarter, year to year change of
 	 * specific product
 	 * @throws ConnectException 

@@ -33,51 +33,68 @@ public interface GoAdminDao {
 
 	// Shelf Time Report and Delivery Time Report
 	/*******************************************************************************************************
-	 * - Function Name : getMonthlyTimeReport - Input Parameters : RetailerInventory
-	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
-	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
-	 * products and their Monthly Shelf time periods
+	 * - Function Name : getMonthlyTimeReport 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Monthly Shelf time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments)throws ConnectException;
 
 	/*******************************************************************************************************
-	 * - Function Name : getQuarterlyTimeReport - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all products and their Quarterly Shelf time periods
+	 * - Function Name : getQuarterlyTimeReport 
+	 * - Input Parameters :RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Quarterly Shelf time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments)throws ConnectException;
 
 	/*******************************************************************************************************
-	 * - Function Name : getYearlyTimeReport - Input Parameters : RetailerInventory
-	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
-	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
-	 * products and their Yearly Shelf time periods
+	 * - Function Name : getYearlyTimeReport 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Yearly Shelf time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments)throws ConnectException;
 
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierProductCategoryDeliveryTime - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all product categories and their Delivery time periods
+	 * - Function Name : getOutlierProductCategoryDeliveryTime 
+	 * - Input Parameters :RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all product categories and their Delivery time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments)throws ConnectException;
 
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierItemDeliveryTime - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all products and their Delivery time periods
+	 * - Function Name : getOutlierItemDeliveryTime 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Delivery time periods
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments)throws ConnectException;
 
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime - Input
-	 * Parameters : RetailerInventory queryArguments - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products in outlier categories
-	 * and their Delivery time periods
+	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products in outlier categories and their Delivery time periods
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getOutlierItemInOutlierProductCategoryDeliveryTime(
