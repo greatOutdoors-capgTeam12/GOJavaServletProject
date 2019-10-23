@@ -1,7 +1,6 @@
 package com.capgemini.go.dao;
 
 import java.net.ConnectException;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 
