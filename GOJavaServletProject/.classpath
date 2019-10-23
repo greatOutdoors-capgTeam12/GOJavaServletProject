@@ -58,7 +58,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+
+	<classpathentry kind="lib" path="C:/Users/shapanwa/Downloads/mysql-connector-java-8.0.17.jar"/>
+
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/rmazumde/backup/capgemini/mysql-connector-java-8.0.17/mysql-connector-java-8.0.17.jar"/>
+
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
