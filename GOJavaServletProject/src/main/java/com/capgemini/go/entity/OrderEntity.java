@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name ="ORDER")
@@ -17,6 +19,7 @@ public class OrderEntity {
 	@Column(name="ORDER_DISPATCH_STATUS", unique=false, nullable= false)
 	private byte orderDispatchStatus;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ORDER_DISPATCH_TIME", unique=false,nullable=false)
 	private Date orderDispatchTime; 
 	

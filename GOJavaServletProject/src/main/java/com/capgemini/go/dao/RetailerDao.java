@@ -17,7 +17,7 @@ import com.capgemini.go.exception.UserException;
 
 public interface RetailerDao {
 
-	boolean returnOrder(String userId, String reason, String orderId, Date date)throws ConnectException;
+	
 
 	List<ProductDTO> returnProductByRetailer(String userId, String orderId, List<ProductDTO> acceptedProducts)throws ConnectException;
 
@@ -27,7 +27,7 @@ public interface RetailerDao {
 
 	boolean updateAddress(AddressDTO address) throws RetailerException,ConnectException;
 
-	boolean changeAddress(AddressDTO address, String orderId) throws RetailerException,ConnectException;
+	
 
 	boolean deleteAddress(AddressDTO address) throws RetailerException,ConnectException;
 	

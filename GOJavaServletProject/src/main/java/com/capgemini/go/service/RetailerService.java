@@ -16,8 +16,7 @@ import com.capgemini.go.exception.UserException;
 
 public interface RetailerService {
 
-	boolean returnOrder(String userId, String reason, String orderId, Date date);
-
+	
 	List<ProductDTO> returnProductByRetailer(String userId, String orderId, List<ProductDTO> acceptedProducts);
 
 	boolean validateRetailerID(UserDTO user) throws UserException;
@@ -26,8 +25,7 @@ public interface RetailerService {
 
 	boolean updateAddress(AddressDTO address) throws RetailerException;
 
-	boolean changeAddress(AddressDTO address, String orderId) throws RetailerException;
-
+	
 	boolean deleteAddress(AddressDTO address) throws RetailerException;
 
 	/*******************************************************************************************************

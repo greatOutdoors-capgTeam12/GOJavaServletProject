@@ -35,19 +35,7 @@ public class RetailerServiceImpl implements RetailerService {
 
 	private RetailerDao retailerdao = new RetailerDaoImpl();
 
-	// ------------------------ GreatOutdoor Application
-	// --------------------------
-	/*******************************************************************************************************
-	 * - Function Name : returnOrder - Input Parameters : userID, reason, orderID,
-	 * Date - Return Type : boolean - Throws : - Author : CAPGEMINI - Creation Date
-	 * : 21/9/2019 - Description : to return the order received by the retailer
-	 ********************************************************************************************************/
-
-	public boolean returnOrder(String userId, String reason, String orderId, Date date) {
-
-		return false;
-	}
-
+	
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
 	/*******************************************************************************************************
@@ -187,27 +175,7 @@ public class RetailerServiceImpl implements RetailerService {
 		return addressUpdateStatus;
 	}
 
-	// ------------------------ GreatOutdoor Application
-	// --------------------------
-	/*******************************************************************************************************
-	 * - Function Name : changeAddress - Input Parameters :addressID, retailerId,
-	 * buildingnum, city, state, country, zip- Return Type : boolean - Throws: -
-	 * Author : CAPGEMINI - Creation Date : 21/9/2019 - Description : to change
-	 * address for particular order in database
-	 ********************************************************************************************************/
-	public boolean changeAddress(AddressDTO address, String orderId) throws RetailerException {
-		boolean addressChangeStatus = false;
-		try {
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-
-			addressChangeStatus = retailerdao.changeAddress(address, orderId);
-		} catch (RetailerException | IOException e) {
-			throw new RetailerException(exceptionProps.getProperty("ORDER_ADDRESS_NOT_CHANGED" + e.getMessage()));
-		}
-
-		return addressChangeStatus;
-
-	}
+	
 
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
