@@ -7,7 +7,7 @@ import javax.persistence.Table;
  
 @Entity
 @Table(name = "ORDER_RETURN")
-public class OrderReturn{
+public class OrderReturnEntity{
 	
 	@Id
 	@Column(name="ORDER_ID",unique = false, nullable = false)
@@ -35,7 +35,7 @@ public class OrderReturn{
 
 	@Override
 	public String toString() {
-		return "OrderReturn [OrderId=" + OrderId + ", productId=" + productId + ", productUIN=" + productUIN
+		return "OrderReturnEntity [OrderId=" + OrderId + ", productId=" + productId + ", productUIN=" + productUIN
 				+ ", orderRetrunTime=" + orderReturnTime+ ", orderRetrunReason=" + orderReturnReason
 				+ ", orderReturnStatus=" + orderReturnStatus + "]";
 	}
@@ -88,7 +88,7 @@ public class OrderReturn{
 		this.orderReturnStatus = orderReturnStatus;
 	}
 
-	public OrderReturn(String orderId, String productId, String productUIN, String orderReturnTime,
+	public OrderReturnEntity(String orderId, String productId, String productUIN, String orderReturnTime,
 			String orderRetrunReason, String orderReturnStatus) {
 		super();
 		OrderId = orderId;
