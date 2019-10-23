@@ -8,6 +8,8 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import com.capgemini.go.entity.AddressEntity;
+import com.capgemini.go.entity.OrderCancelEntity;
+import com.capgemini.go.entity.OrderProductMapEntity;
 import com.capgemini.go.entity.RetailerInventoryEntity;
 import com.capgemini.go.entity.WishlistEntity;
 
@@ -31,7 +33,12 @@ public class HibernateUtil {
                 // Add all classes that need to be mapped here
                 configuration.addAnnotatedClass(RetailerInventoryEntity.class);
                 configuration.addAnnotatedClass(AddressEntity.class);
+
                 configuration.addAnnotatedClass(WishlistEntity.class);
+
+                configuration.addAnnotatedClass(OrderCancelEntity.class);
+                configuration.addAnnotatedClass(OrderProductMapEntity.class);
+
                 // end of this
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
