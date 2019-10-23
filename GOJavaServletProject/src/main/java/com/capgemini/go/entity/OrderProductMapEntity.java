@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-public class OrderProductMap implements Serializable {
+public class OrderProductMapEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class OrderProductMap implements Serializable {
 	@Column(name = "gift_status", unique = false, nullable = false, length = 20)
 	private int giftstatus;
 
-	public OrderProductMap(String orderId, String productid, String productuin, int productstatus, int giftstatus) {
+	public OrderProductMapEntity(String orderId, String productid, String productuin, int productstatus, int giftstatus) {
 		super();
 		this.orderId = orderId;
 		this.productid = productid;
@@ -82,7 +82,7 @@ public class OrderProductMap implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderProductMap [orderId=" + orderId + ", productid=" + productid + ", productuin=" + productuin
+		return "OrderProductMapEntity [orderId=" + orderId + ", productid=" + productid + ", productuin=" + productuin
 				+ ", productstatus=" + productstatus + ", giftstatus=" + giftstatus + "]";
 	}
 

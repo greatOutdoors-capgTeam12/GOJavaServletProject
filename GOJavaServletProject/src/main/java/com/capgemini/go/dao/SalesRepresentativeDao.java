@@ -167,13 +167,13 @@ public interface SalesRepresentativeDao {
 	List<OrderProductMapDTO> getOrderProductMapForCancelling(String orderId)  throws Exception;
 
 	/**************************************************************************************************************
-	 * - Function Name : cancelOrder(OrderCancel orderCancel)
-	 * - Input Parameters : OrderCancel orderCancel 
+	 * - Function Name : cancelOrder(OrderCancelEntity orderCancel)
+	 * - Input Parameters : OrderCancelEntity orderCancel 
 	 * - Return Type : String 
 	 * - Throws : Exception 
 	 * - Author : CAPGEMINI 
 	 * - Creation Date : 28/09/2019 
-	 * - Description : Adding rows to OrderCancel table and updating OrderReturnEntity  after canceling the product
+	 * - Description : Adding rows to OrderCancelEntity table and updating OrderReturnEntity  after canceling the product
 	 **************************************************************************************************************/
 	String cancelOrder(OrderCancelDTO oc) throws Exception;
 
@@ -209,7 +209,7 @@ public interface SalesRepresentativeDao {
 	 * - Throws : Exception 
 	 * - Author : CAPGEMINI 
 	 * - Creation Date : 28/09/2019 
-	 * - Description : Adding rows to OrderCancel table after canceling the product
+	 * - Description : Adding rows to OrderCancelEntity table after canceling the product
 	 ******************************************************************************************************************/
 	String updateOrderCancelForProduct(String orderId, String productId, int productQtyOrdered, int qty, String userId)
 			throws Exception;

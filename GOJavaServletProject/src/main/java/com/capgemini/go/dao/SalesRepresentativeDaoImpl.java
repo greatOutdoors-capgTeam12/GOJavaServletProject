@@ -626,13 +626,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 				// ------------------------ 1. GO Application --------------------------
 				/**************************************************************************************************************
-				 * - Function Name : cancelOrder(OrderCancel orderCancel)
-				 * - Input Parameters : OrderCancel orderCancel 
+				 * - Function Name : cancelOrder(OrderCancelEntity orderCancel)
+				 * - Input Parameters : OrderCancelEntity orderCancel 
 				 * - Return Type : String 
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Adding rows to OrderCancel table and updating OrderReturnEntity  after canceling the product
+				 * - Description : Adding rows to OrderCancelEntity table and updating OrderReturnEntity  after canceling the product
 				 **************************************************************************************************************/
 
 				@Override
@@ -784,7 +784,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Adding rows to OrderCancel table after canceling the product
+				 * - Description : Adding rows to OrderCancelEntity table after canceling the product
 				 ******************************************************************************************************************/
 
 				@Override

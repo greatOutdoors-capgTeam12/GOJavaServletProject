@@ -12,7 +12,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity(name = "OrderCancelEntity")
 @Table(name = "order_cancel", uniqueConstraints = { @UniqueConstraint(columnNames = "product_uin") })
-public class OrderCancel implements Serializable {
+public class OrderCancelEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +38,7 @@ public class OrderCancel implements Serializable {
 
 	
 
-	public OrderCancel(String userId, String orderid, String productid, String productuin, String ordercanceltime,
+	public OrderCancelEntity(String userId, String orderid, String productid, String productuin, String ordercanceltime,
 			String ordercancelstatus) {
 		super();
 		this.userId = userId;
@@ -101,7 +101,7 @@ public class OrderCancel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderCancel [userId=" + userId + ", orderid=" + orderid + ", productid=" + productid + ", productuin="
+		return "OrderCancelEntity [userId=" + userId + ", orderid=" + orderid + ", productid=" + productid + ", productuin="
 				+ productuin + ", ordercanceltime=" + ordercanceltime + ", ordercancelstatus=" + ordercancelstatus
 				+ "]";
 	}
