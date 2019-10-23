@@ -5,14 +5,20 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Book</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:mysql://remotemysql.com:3306/iMIuEwHYH8</property>
+        <property name="hibernate.connection.username">iMIuEwHYH8</property>
+        <property name="hibernate.connection.password">QXFKvh2Ni9</property>
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hbm2ddl.auto">update</property>
 
-        <mapping resource="book.hbm.xml" />
+        <mapping class="com.capgemini.go.entity.OrderReturnEntity" />
+        <mapping class="com.capgemini.go.entity.RetailerInventoryEntity" />
+        <mapping class="com.capgemini.go.entity.AddressEntity" />
+        <mapping class="com.capgemini.go.entity.WishlistEntity" />
+        <mapping class="com.capgemini.go.entity.OrderCancelEntity" />
+        <mapping class="com.capgemini.go.entity.OrderProductMapEntity" />
     </session-factory>
 </hibernate-configuration>
