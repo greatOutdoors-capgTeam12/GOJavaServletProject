@@ -31,11 +31,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 
 	/*******************************************************************************************************
-	 * - Function Name : returnOrder - Input Parameters : OrderReturn or- Return
-	 * Type : boolean - Throws :SalesRepresentativeException- Author : CAPGEMINI -
-	 * Creation Date : 23/09/2019 - Description : Return order adds the respective
-	 * order in the order_return table in the database
-	 * @throws ConnectException 
+	 * - Function Name : returnOrder 
+	 * - Input Parameters : OrderReturnDTO
+	 * - Return Type : boolean 
+	 * - Throws :SalesRepresentativeException, ConnectException
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 23/09/2019
+	 * - Description : Return order adds the respective order in the order_return table in the database 
 	 ********************************************************************************************************/
 	@Override
 	public boolean returnOrder(OrderReturnDTO or) throws SalesRepresentativeException, ConnectException {
@@ -77,12 +79,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : updateOrderProductMap - Input Parameters : String orderId -
-	 * Return Type : boolean - Throws :SalesRepresentativeException - Author :
-	 * CAPGEMINI - Creation Date : 23/09/2019 - Description : updating
-	 * Order_Product_Map in the database by setting product_status=0 for the
-	 * products that have been returned
-	 * @throws ConnectException 
+	 * - Function Name : updateOrderProductMap
+	 * - Input Parameters : String orderId
+	 * - Return Type : boolean 
+	 * - Throws :SalesRepresentativeException, ConnectException
+	 * - Author : CAPGEMINI 
+	 * - Creation Date : 23/09/2019 
+	 * - Description : updating Order_Product_Map in the database by setting product_status=0 for the products that have been returned
 	 ********************************************************************************************************/
 
 	public boolean updateOrderProductMap(String orderId) throws SalesRepresentativeException, ConnectException {
@@ -113,11 +116,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : getOrderProductMap - Input Parameters : String orderId -
-	 * Return Type :List<ORderProductMap>- Throws :SalesRepresentativeException -
-	 * Author : CAPGEMINI - Creation Date : 23/09/2019 - Description : getting all
-	 * the products against a particular order
-	 * @throws ConnectException 
+	 * - Function Name : getOrderProductMap 
+	 * - Input Parameters : String orderId
+	 * - Return Type :List<ORderProductMap>
+	 * - Throws :SalesRepresentativeException, ConnectException 
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 23/09/2019 
+	 * - Description : getting all the products against a particular order
 	 ********************************************************************************************************/
 
 	@Override
@@ -157,11 +162,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : checkDispatchStatus - Input Parameters : String orderId -
-	 * Return Type :List<OrderReturn>- Throws :SalesRepresentativeException -
-	 * Author : CAPGEMINI - Creation Date : 23/09/2019 - Description : checking
-	 * whether the order is at all despatched
-	 * @throws ConnectException 
+	 * - Function Name : checkDispatchStatus
+	 * - Input Parameters : String orderId
+	 * - Return Type :List<OrderReturnEntity>
+	 * - Throws :SalesRepresentativeException, ConnectException
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 23/09/2019
+	 * - Description : checking whether the order is at all despatched
 	 ********************************************************************************************************/
 	@Override
 	public boolean checkDispatchStatus(String orderId) throws SalesRepresentativeException, ConnectException {
@@ -193,11 +200,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : validateUser - Input Parameters : String orderId - Return
-	 * Type :String- Throws :SalesRepresentativeException - Author : CAPGEMINI -
-	 * Creation Date : 23/09/2019 - Description : checking whether the order is
-	 * linked with a particular user
-	 * @throws ConnectException 
+	 * - Function Name : validateUser
+	 * - Input Parameters : String orderId
+	 * - Return Type :String
+	 * - Throws :SalesRepresentativeException, ConnectException
+	 * - Author : CAPGEMINI 
+	 * - Creation Date : 23/09/2019
+	 * - Description : checking whether the order is linked with a particular user
 	 ********************************************************************************************************/
 	@Override
 	public String validateUser(String orderId) throws SalesRepresentativeException, ConnectException {
@@ -234,11 +243,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : getCountProduct - Input Parameters : String orderId,String
-	 * productId - Return Type :int- Throws :SalesRepresentativeException - Author :
-	 * CAPGEMINI - Creation Date : 23/09/2019 - Description : getting the count of
-	 * the products ordered against a particular order
-	 * @throws ConnectException 
+	 * - Function Name : getCountProduct
+	 * - Input Parameters : String orderId,String productId 
+	 * - Return Type : int
+	 * - Throws :SalesRepresentativeException, ConnectException 
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 23/09/2019
+	 * - Description : getting the count of the products ordered against a particular order
 	 ********************************************************************************************************/
 
 	@Override
@@ -274,12 +285,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : updateOrderProductMapByQty - Input Parameters : String
-	 * orderId, String productId, int qty - Return Type :boolean - Throws
-	 * :SalesRepresentativeException - Author : CAPGEMINI - Creation Date :
-	 * 23/09/2019 - Description : Updates the respective product status in the order
-	 * product map
-	 * 
+	 * - Function Name : updateOrderProductMapByQty 
+	 * - Input Parameters : String orderId, String productId, int qty 
+	 * - Return Type :boolean
+	 * - Throws SalesRepresentativeException 
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 23/09/2019 
+	 * - Description : Updates the respective product status in the order product map
 	 * @throws SalesRepresentativeException
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
@@ -321,12 +333,15 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	}
 
 	/*******************************************************************************************************
-	 * - Function Name : updateOrderReturn - Input Parameters : String orderId,
-	 * String productID, int qty ,String reason,String userId - Return Type :boolean
-	 * - Throws :SalesRepresentativeException - Author : CAPGEMINI - Creation Date :
-	 * 23/09/2019 - Description : Upload the respective products in the orderReturn
+	 * - Function Name : updateOrderReturn 
+	 * - Input Parameters : String orderId,
+	 * - String productID, int qty ,String reason,String userId 
+	 * - Return Type :boolean
+	 * - Throws :SalesRepresentativeException
+	 * - Author : CAPGEMINI 
+	 * - Creation Date : 23/09/2019 
+	 * - Description : Upload the respective products in the orderReturn
 	 * Table
-	 * 
 	 * @throws SalesRepresentativeException
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
@@ -558,11 +573,11 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				/*******************************************************************************************************
 				 * - Function Name : getOrderProductMapForCancelling(String orderId)
 				 * - Input Parameters : orderId 
-				 * - Return Type : List<OrderReturn>
+				 * - Return Type : List<OrderReturnEntity>
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : To get a list of type OrderReturn
+				 * - Description : To get a list of type OrderReturnEntity
 				 ********************************************************************************************************/
 
 				@Override
@@ -611,13 +626,13 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 				// ------------------------ 1. GO Application --------------------------
 				/**************************************************************************************************************
-				 * - Function Name : cancelOrder(OrderCancel orderCancel)
-				 * - Input Parameters : OrderCancel orderCancel 
+				 * - Function Name : cancelOrder(OrderCancelEntity orderCancel)
+				 * - Input Parameters : OrderCancelEntity orderCancel 
 				 * - Return Type : String 
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Adding rows to OrderCancel table and updating OrderReturn  after canceling the product
+				 * - Description : Adding rows to OrderCancelEntity table and updating OrderReturnEntity  after canceling the product
 				 **************************************************************************************************************/
 
 				@Override
@@ -714,7 +729,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Updating the OrderReturn after canceling the product
+				 * - Description : Updating the OrderReturnEntity after canceling the product
 				 ********************************************************************************************************/
 
 				@Override
@@ -769,7 +784,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Adding rows to OrderCancel table after canceling the product
+				 * - Description : Adding rows to OrderCancelEntity table after canceling the product
 				 ******************************************************************************************************************/
 
 				@Override
