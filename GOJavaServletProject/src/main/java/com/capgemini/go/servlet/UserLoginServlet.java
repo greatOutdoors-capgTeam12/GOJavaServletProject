@@ -54,10 +54,10 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 		
 		response.setContentType("application/json");
-		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("Access-Control-Allow-Origin", "*");
 		
-		response.setHeader("Access-Control-Allow-Headers" ,"Content-Type, Authorization, Content-Length, X-Requested-With");
-		response.setHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
+		//response.setHeader("Access-Control-Allow-Headers" ,"Content-Type, Authorization, Content-Length, X-Requested-With");
+		//response.setHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode dataResponse = mapper.createObjectNode();
 		boolean result=false;
@@ -92,6 +92,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			
 			
 		
+
+}
+protected void doOptions(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    
+    response.setHeader("Access-Control-Allow-Headers" ,"Content-Type, Authorization, Content-Length, X-Requested-With");
+    response.setHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
+
+
 
 }
 }
