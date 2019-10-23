@@ -67,12 +67,17 @@ public class RetailerDaoImpl implements RetailerDao {
 	@Override
 
 	/*******************************************************************************************************
-	 * - Function Name : addProductToFreqOrderDB - Input Parameters : Product List,
-	 * Address List - Return Type : boolean - Throws : - Author : CAPGEMINI -
-	 * Creation Date : 21/9/2019 - Description : To add products to Frequently order
-	 * database
+	 *- Function Name : addProductToWishlist 
+	 *- Input Parameters : Product List
+	 *- Return Type : boolean
+	 *- Throws : RetailerException
+	 *- Author : CAPGEMINI 
+	 *- Creation Date : 21/9/2019
+	 *- Description : To add products to Wishlist database
+	 *@throws ConnectException 
+	 *@throws SQLException 
 	 ********************************************************************************************************/
-	public boolean addProductToFreqOrderDB(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException {
+	public boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException {
 
 		boolean addProductToFreqOrderDB = false;
 		Connection connection = null;
@@ -124,7 +129,6 @@ public class RetailerDaoImpl implements RetailerDao {
 		return addProductToFreqOrderDB;
 	}
 
-	// Azhar Functions
 	/*******************************************************************************************************
 	 * - Function Name : placingOrder - Input Parameters : cart, retailerID, Date
 	 * date, address Return Type :boolean Throws : - Author : Agnibha , Azhar -
