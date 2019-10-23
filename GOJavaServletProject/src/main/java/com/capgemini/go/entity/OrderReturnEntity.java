@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
  
 @Entity
 @Table(name = "ORDER_RETURN")
@@ -21,15 +23,13 @@ public class OrderReturnEntity{
 	@Column(name="PRODUCT_UIN",unique = true, nullable = false)
 	private	String productUIN;
 	
-	@Id
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ORDER_RETURN_TIME",unique = false, nullable = false)
 	private String orderReturnTime;
 	
-	@Id
 	@Column(name="ORDER_RETURN_REASON",unique = false, nullable = false)
 	private String orderReturnReason;
 	
-	@Id
 	@Column(name="ORDER_RETURN_STATUS",unique = false, nullable = false)
 	private String orderReturnStatus;
 
