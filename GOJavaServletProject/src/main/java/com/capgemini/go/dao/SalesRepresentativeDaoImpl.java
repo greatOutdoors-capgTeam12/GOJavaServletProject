@@ -158,7 +158,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 	/*******************************************************************************************************
 	 * - Function Name : checkDispatchStatus - Input Parameters : String orderId -
-	 * Return Type :List<OrderProductMap>- Throws :SalesRepresentativeException -
+	 * Return Type :List<OrderReturn>- Throws :SalesRepresentativeException -
 	 * Author : CAPGEMINI - Creation Date : 23/09/2019 - Description : checking
 	 * whether the order is at all despatched
 	 * @throws ConnectException 
@@ -558,11 +558,11 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				/*******************************************************************************************************
 				 * - Function Name : getOrderProductMapForCancelling(String orderId)
 				 * - Input Parameters : orderId 
-				 * - Return Type : List<OrderProductMap>
+				 * - Return Type : List<OrderReturn>
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : To get a list of type OrderProductMap
+				 * - Description : To get a list of type OrderReturn
 				 ********************************************************************************************************/
 
 				@Override
@@ -617,7 +617,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Adding rows to OrderCancel table and updating OrderProductMap  after canceling the product
+				 * - Description : Adding rows to OrderCancel table and updating OrderReturn  after canceling the product
 				 **************************************************************************************************************/
 
 				@Override
@@ -714,7 +714,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 				 * - Throws : Exception 
 				 * - Author : CAPGEMINI 
 				 * - Creation Date : 28/09/2019 
-				 * - Description : Updating the OrderProductMap after canceling the product
+				 * - Description : Updating the OrderReturn after canceling the product
 				 ********************************************************************************************************/
 
 				@Override
