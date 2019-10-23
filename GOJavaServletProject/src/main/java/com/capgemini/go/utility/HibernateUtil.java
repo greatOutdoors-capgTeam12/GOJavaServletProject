@@ -10,7 +10,9 @@ import org.hibernate.service.ServiceRegistry;
 import com.capgemini.go.entity.AddressEntity;
 import com.capgemini.go.entity.OrderCancelEntity;
 import com.capgemini.go.entity.OrderProductMapEntity;
+import com.capgemini.go.entity.OrderReturnEntity;
 import com.capgemini.go.entity.RetailerInventoryEntity;
+import com.capgemini.go.entity.WishlistEntity;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
@@ -21,19 +23,27 @@ public class HibernateUtil {
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://remotemysql.com:3306/csVhvRofgC");
-                settings.put(Environment.USER, "csVhvRofgC");
-                settings.put(Environment.PASS, "bJyRMI1cao");
+                settings.put(Environment.URL, "jdbc:mysql://remotemysql.com:3306/iMIuEwHYH8");
+				settings.put(Environment.USER, "iMIuEwHYH8");
+				settings.put(Environment.PASS, "QXFKvh2Ni9");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "create-drop");
+                settings.put(Environment.HBM2DDL_AUTO, "update");
                 configuration.setProperties(settings);
                 // Add all classes that need to be mapped here
                 configuration.addAnnotatedClass(RetailerInventoryEntity.class);
                 configuration.addAnnotatedClass(AddressEntity.class);
+
+                configuration.addAnnotatedClass(WishlistEntity.class);
+
                 configuration.addAnnotatedClass(OrderCancelEntity.class);
                 configuration.addAnnotatedClass(OrderProductMapEntity.class);
+
+                configuration.addAnnotatedClass(OrderReturnEntity.class);
+
+
+
                 // end of this
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
