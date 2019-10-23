@@ -18,7 +18,7 @@ public class OrderCancelEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_Id", unique = true, nullable = false, length = 20)
+	@Column(name = "user_Id", unique = false, nullable = false, length = 20)
 	private String userId;
 
 	@Column(name = "order_id", unique = false, nullable = false, length = 20)
