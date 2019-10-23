@@ -1255,67 +1255,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return viewSales;
 	}
 	
-	
-	//Currently not used
-	public List<ViewSalesReportByUserDTO> viewSalesReportALLUserAndCategory(Date entry, Date exit)
-			throws GoAdminException, ConnectException {
-
-		List<ViewSalesReportByUserDTO> viewSales = new ArrayList<ViewSalesReportByUserDTO>();
-
-		ViewSalesReportByUserDTO temp;
-
-		Statement stmt = null;
-		Connection connection = null;
-		try {
-
-			connection = DbConnection.getInstance().getConnection();
-
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-
-			if (connection == null)
-				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
-			if (entry == null || exit == null)
-				throw new GoAdminException(exceptionProps.getProperty("INVALID_DATE"));
-			DbConnection.getInstance();
-			connection = DbConnection.getConnection();
-
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(QuerryMapper.SELECT_DATA_FROM_DATABASE);
-			
-
-			if (!rs.isBeforeFirst())
-				throw new GoAdminException(exceptionProps.getProperty("EMPTY_DATABASE"));
-
-			while (rs.next()) {
-
-				temp = new ViewSalesReportByUserDTO();
-
-				temp.setUserId(rs.getString("USER_ID"));
-				temp.setDate(rs.getDate("ORDER_INITIATE_TIME"));
-				temp.setOrderId(rs.getString("ORDER_ID"));
-				temp.setProductId(rs.getString("PRODUCT_ID"));
-				temp.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
-				temp.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
-				viewSales.add(temp);
-			}
-
-		} catch (DatabaseException | SQLException | IOException e) {
-			GoLog.logger.error(exceptionProps.getProperty(e.getMessage()));
-
-		}
-		finally
-		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
-		return viewSales;
-
-	}
-
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
 	 * Function Name : viewDetailedSalesReportByProduct 
