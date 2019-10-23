@@ -10,33 +10,33 @@ import javax.persistence.Table;
 public class OrderReturn{
 	
 	@Id
-	@Column(name="ORDER_ID")
+	@Column(name="ORDER_ID",unique = false, nullable = false)
 	private String OrderId;
 	
 	@Id
-	@Column(name="PRODUCT_ID")
+	@Column(name="PRODUCT_ID",unique = false, nullable = false)
 	private String productId;
 	
 	@Id
-	@Column(name="PRODUCT_UIN")
+	@Column(name="PRODUCT_UIN",unique = true, nullable = false)
 	private	String productUIN;
 	
 	@Id
-	@Column(name="ORDER_RETURN_TIME")
-	private String orderRetrunTime;
+	@Column(name="ORDER_RETURN_TIME",unique = false, nullable = false)
+	private String orderReturnTime;
 	
 	@Id
-	@Column(name="ORDER_RETURN_REASON")
-	private String orderRetrunReason;
+	@Column(name="ORDER_RETURN_REASON",unique = false, nullable = false)
+	private String orderReturnReason;
 	
 	@Id
-	@Column(name="ORDER_RETURN_STATUS")
+	@Column(name="ORDER_RETURN_STATUS",unique = false, nullable = false)
 	private String orderReturnStatus;
 
 	@Override
 	public String toString() {
 		return "OrderReturn [OrderId=" + OrderId + ", productId=" + productId + ", productUIN=" + productUIN
-				+ ", orderRetrunTime=" + orderRetrunTime + ", orderRetrunReason=" + orderRetrunReason
+				+ ", orderRetrunTime=" + orderReturnTime+ ", orderRetrunReason=" + orderReturnReason
 				+ ", orderReturnStatus=" + orderReturnStatus + "]";
 	}
 
@@ -65,19 +65,19 @@ public class OrderReturn{
 	}
 
 	public String getOrderRetrunTime() {
-		return orderRetrunTime;
+		return orderReturnReason;
 	}
 
 	public void setOrderRetrunTime(String orderRetrunTime) {
-		this.orderRetrunTime = orderRetrunTime;
+		this.orderReturnReason = orderRetrunTime;
 	}
 
 	public String getOrderRetrunReason() {
-		return orderRetrunReason;
+		return orderReturnReason;
 	}
 
 	public void setOrderRetrunReason(String orderRetrunReason) {
-		this.orderRetrunReason = orderRetrunReason;
+		this.orderReturnReason = orderRetrunReason;
 	}
 
 	public String getOrderReturnStatus() {
@@ -88,14 +88,14 @@ public class OrderReturn{
 		this.orderReturnStatus = orderReturnStatus;
 	}
 
-	public OrderReturn(String orderId, String productId, String productUIN, String orderRetrunTime,
+	public OrderReturn(String orderId, String productId, String productUIN, String orderReturnTime,
 			String orderRetrunReason, String orderReturnStatus) {
 		super();
 		OrderId = orderId;
 		this.productId = productId;
 		this.productUIN = productUIN;
-		this.orderRetrunTime = orderRetrunTime;
-		this.orderRetrunReason = orderRetrunReason;
+		this.orderReturnReason = orderReturnTime;
+		this.orderReturnReason = orderRetrunReason;
 		this.orderReturnStatus = orderReturnStatus;
 	}
 }
