@@ -44,9 +44,32 @@ public interface RetailerDao {
 	 ********************************************************************************************************/
 	boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException,ConnectException;
 
-
+	
+	/*******************************************************************************************************
+	 * Function Name : addItemToCart 
+	 * Input Parameters :  CartDTO
+	 * Return Type : boolean
+	 * Throws : RetailerException 
+	 * Author : Agnibha, Azhar 
+	 * Creation Date : 27/9/2019
+	 * Description : to add item to a cart
+	 * 
+	 * @throws ConnectException
+	 ********************************************************************************************************/
 	boolean addItemToCart(CartDTO cartItem) throws RetailerException,ConnectException;
+	
 
+	/*******************************************************************************************************
+	 * Function Name : placeOrder 
+	 * Input Parameters :product
+	 * Return Type :boolean 
+	 * Throws :  RetailerException 
+	 * Author : Agnibha , Azhar 
+	 * Creation Date : 21/9/2019 
+	 * Description : to place order for items in the cart
+	 *  
+	 * @throws ConnectException
+	 ********************************************************************************************************/
 	boolean placeOrder(OrderDTO order) throws RetailerException,ConnectException;
 
 	// Functions for Retailer Inventory Manipulation

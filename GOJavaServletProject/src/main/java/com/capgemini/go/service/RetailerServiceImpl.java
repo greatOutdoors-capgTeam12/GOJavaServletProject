@@ -77,8 +77,8 @@ public class RetailerServiceImpl implements RetailerService {
 
 	}
 
-	// ------------------------ GreatOutdoor Application
-	// --------------------------
+	// ------------------------ GreatOutdoor Application--------------------------//
+	
 	/*******************************************************************************************************
 	 * - Function Name : changeProductAddress - Input Parameters : Product product,
 	 * Address address - Return Type : boolean - Throws : - Author : CAPGEMINI -
@@ -93,11 +93,15 @@ public class RetailerServiceImpl implements RetailerService {
 	
 
 	/*******************************************************************************************************
-	 * - Function Name : addItemToCart - Input Parameters : productId, quantity,
-	 * retailerId - Return Type : boolean - Throws : - Author : Azhar/Agnibha-
-	 * Creation Date : 24/9/2019 - Description : To add product items to cart
+	 * Function Name : addItemToCart 
+	 * Input Parameters : CartDTO
+	 * Return Type : boolean
+	 * Throws : RetailerException
+	 * Author : Agnibha, Azhar 
+	 * Creation Date : 27/9/2019
+	 * Description : to add item to a cart
 	 * 
-	 * @throws RetailerException
+	 * @throws ConnectException
 	 ********************************************************************************************************/
 	public boolean addItemToCart(CartDTO cartItem) throws RetailerException, ConnectException {
 
@@ -106,13 +110,16 @@ public class RetailerServiceImpl implements RetailerService {
 
 		return addItemToCartStatus;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : placingOrder - Input Parameters :userId, addressId - Return
-	 * Type : boolean - Throws : - Author : Azhar/Agnibha - Creation Date :
-	 * 24/9/2019 - Description : To place order
+	 * Function Name : placeOrder 
+	 * Input Parameters : Order
+	 * Return Type :boolean 
+	 * Throws :  RetailerException
+	 * Author : Agnibha , Azhar -
+	 * Creation Date : 21/9/2019 
+	 * Description : to place order for items in the cart
 	 * 
-	 * @throws RetailerException
+	 * @throws ConnectException
 	 ********************************************************************************************************/
 	public boolean placeOrder(OrderDTO order) throws RetailerException, ConnectException {
 		boolean placeOrderStatus = false;

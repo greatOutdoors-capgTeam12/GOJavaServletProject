@@ -7,12 +7,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.capgemini.go.bean.ProductBean;
 import com.capgemini.go.dto.AddressDTO;
 import com.capgemini.go.dto.CartDTO;
 import com.capgemini.go.dto.FrequentOrderedDTO;
@@ -128,12 +126,14 @@ public class RetailerDaoImpl implements RetailerDao {
 		}
 		return addProductToFreqOrderDB;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : placingOrder - Input Parameters : cart, retailerID, Date
-	 * date, address Return Type :boolean Throws : - Author : Agnibha , Azhar -
-	 * Creation Date : 21/9/2019 - Description : to place order for items in the
-	 * cart
+	 * Function Name : placeOrder 
+	 * Input Parameters : Order
+	 * Return Type :boolean 
+	 * Throws :  RetailerException
+	 * Author : Agnibha , Azhar -
+	 * Creation Date : 21/9/2019 
+	 * Description : to place order for items in the cart
 	 * 
 	 * @throws ConnectException
 	 ********************************************************************************************************/
@@ -217,9 +217,14 @@ public class RetailerDaoImpl implements RetailerDao {
 		return checkOutStatus;
 	}
 
+	
 	/*******************************************************************************************************
-	 * Function Name : addItemToCart Input Parameters : Product Return Type :
-	 * boolean Throws : Author : Agnibha, Azhar Creation Date : 27/9/2019
+	 * Function Name : addItemToCart 
+	 * Input Parameters : CartDTO
+	 * Return Type : boolean
+	 * Throws : RetailerException
+	 * Author : Agnibha, Azhar 
+	 * Creation Date : 27/9/2019
 	 * Description : to add item to a cart
 	 * 
 	 * @throws ConnectException
