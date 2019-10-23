@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,7 +88,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
 	 * - Function Name : sendNotification - Input Parameters : order Return Database
-	 * - Return Type : List of OrderReturn - Throws : - Author : AGNIBHA - Creation
+	 * - Return Type : List of OrderReturnEntity - Throws : - Author : AGNIBHA - Creation
 	 * Date : 21/9/2019 - Description : to send Notification if Wrong Product
 	 * Shipped
 	 * 
@@ -186,242 +185,198 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	}
 
+	// ------------------------ GreatOutdoor Application --------------------------
+	/*******************************************************************************************************
+	 * Function Name : setBonus
+	 * Input Parameters : userID, bonus value 
+	 * Return Type : void
+	 * Throws : GoAdmin Exception
+	 * Author : Aniket 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set bonus of a sales representative
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setBonus(SalesRepDTO sr, double bonus) throws ConnectException {
-
 		Connection connection = null;
-
 		try {
-
 			// Connecting Database
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			DbConnection.getInstance();
 			connection = DbConnection.getConnection();
-
 			Statement stmt = connection.createStatement();
 			String sql = "UPDATE `SALES_REP` SET `BONUS`=" + bonus + " WHERE USER_ID='" + sr.getUserId() + "'";
 			stmt.executeUpdate(sql);
-		}
-
-		catch (DatabaseException | SQLException | IOException e) {
+		} catch (DatabaseException | SQLException | IOException e) {
 			System.out.println("DATABASE EXCEPTION");
 
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-
 	}
 
 	public double getBonus(SalesRepDTO sr) throws SalesRepresentativeException, ConnectException {
-
 		Connection connection = null;
 		double bonus = -1;
-
 		// Finds the bonus from the database
 		try {
-
 			// Connecting Database
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			DbConnection.getInstance();
 			connection = DbConnection.getConnection();
-
 			// Searching for the bonus information
 			PreparedStatement statement = connection.prepareStatement(QuerryMapper.SELECT_SALES_REP_BONUS);
 			statement.setString(1, sr.getUserId());
-
 			ResultSet rs = statement.executeQuery();
-
 			if (rs.next()) {
-
 				bonus = rs.getDouble("BONUS");
 			}
-
 			else {
 				throw new SalesRepresentativeException(exceptionProps.getProperty("SALES_REP_NOT_FOUND"));
 			}
-
-		}
-
-		catch (DatabaseException | SQLException | IOException | SalesRepresentativeException e) {
-
+		} catch (DatabaseException | SQLException | IOException | SalesRepresentativeException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new SalesRepresentativeException(e.getMessage());
-
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-
 		// returns -1 if bonus not found.
 		return bonus;
 	}
 
+	/*******************************************************************************************************
+	 * Function Name : setTarget
+	 * Input Parameters : userID, target value 
+	 * Return Type : void 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set target of a sales representative
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setTarget(SalesRepDTO sr, double target) throws ConnectException {
-
 		Connection connection = null;
-
 		try {
-
 			// Connecting Database
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			DbConnection.getInstance();
 			connection = DbConnection.getConnection();
-
 			Statement stmt = connection.createStatement();
 			String sql = "UPDATE `SALES_REP` SET `TARGET_SALES`=" + target + " WHERE USER_ID='" + sr.getUserId() + "'";
 			stmt.executeUpdate(sql);
-		}
-
-		catch (DatabaseException | SQLException | IOException e) {
+		} catch (DatabaseException | SQLException | IOException e) {
 			System.out.println("EXCEPTION");
-
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
-			} catch (SQLException e) {
-				
+			} catch (SQLException e) {	
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-
 	}
 
 	public double getTarget(SalesRepDTO sr) throws SalesRepresentativeException, ConnectException {
-
 		Connection connection = null;
 		double target = -1;
-
 		// Finds the bonus from the database
 		try {
-
 			// Connecting Database
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			DbConnection.getInstance();
 			connection = DbConnection.getConnection();
-
 			// Searching for the bonus information
 			PreparedStatement statement = connection.prepareStatement(QuerryMapper.SELECT_SALES_REP_TARGET);
 			statement.setString(1, sr.getUserId());
-
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				target = rs.getDouble("TARGET_SALES");
 
-			}
-
-			else {
+			} else {
 				throw new SalesRepresentativeException(exceptionProps.getProperty("SALES_REP_NOT_FOUND"));
 			}
-		}
-
-		catch (DatabaseException | SQLException | IOException | SalesRepresentativeException e) {
+		} catch (DatabaseException | SQLException | IOException | SalesRepresentativeException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new SalesRepresentativeException(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-
 		// returns -1 if bonus not found.
 		return target;
-
 	}
-
+	
+	/*******************************************************************************************************
+	 * Function Name : setDiscount
+	 * Input Parameters : userID, discount value 
+	 * Return Type : void 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To set discount of a retailer
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 	public void setDiscount(RetailerDTO ret, double discount) throws ConnectException {
 		Connection connection = null;
-
 		try {
-
 			// Connecting Database
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			DbConnection.getInstance();
 			connection = DbConnection.getConnection();
-
 			Statement stmt = connection.createStatement();
 			String sql = "UPDATE `RETAILER` SET `DISCOUNT`=" + discount + " WHERE USER_ID='" + ret.getUserId() + "'";
 			stmt.executeUpdate(sql);
-		}
-
-		catch (DatabaseException | SQLException | IOException e) {
+		} catch (DatabaseException | SQLException | IOException e) {
 			System.out.println("EXCEPTION");
 			e.printStackTrace();
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
-			} catch (SQLException e) {
-				
+			} catch (SQLException e) {	
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-
 	}
 
 	public double getDiscount(RetailerDTO ret) throws RetailerException, ConnectException {
 		Connection connection = null;
 		double discount = -1;
-
 		// Finds the bonus from the database
 		try {
-
 			// Connecting Database
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			DbConnection.getInstance();
 			connection = DbConnection.getConnection();
-
 			// Searching for the bonus information
 			PreparedStatement statement = connection.prepareStatement(QuerryMapper.SELECT_RETAILER_DISCOUNT);
 			statement.setString(1, ret.getUserId());
-
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-
 				discount = rs.getDouble("DISCOUNT");
-			}
-
-			else {
+			} else {
 				throw new RetailerException(exceptionProps.getProperty("RETAILER NOT FOUND"));
 			}
-		}
-
-		catch (DatabaseException | SQLException | IOException | RetailerException e) {
+		} catch (DatabaseException | SQLException | IOException | RetailerException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new RetailerException(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-
 		// returns -1 if bonus not found.
 		return discount;
-
 	}
 
 	// ------------------------ GreatOutdoor Application --------------------------
@@ -472,15 +427,17 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return prodId;
 	}
 
-
-
+	
+	
 	// Shelf Time Report and Delivery Time Report
 	/*******************************************************************************************************
-	 * - Function Name : getMonthlyTimeReport - Input Parameters : RetailerInventory
-	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
-	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
-	 * products and their Monthly Shelf time periods
-	 * @throws ConnectException 
+	 * - Function Name : getMonthlyTimeReport 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Monthly Shelf time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
@@ -490,7 +447,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		String retailerUserId = queryArguments.getRetailerUserId();
 		Connection connection = null;
 		try {
-			
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR_AND_MONTH);
@@ -514,25 +470,24 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			}
 		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
-			} catch (SQLException e) {
-				
+			} catch (SQLException e) {	
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
 		return result;
 	}
-
+	
 	/*******************************************************************************************************
-	 * - Function Name : getQuarterlyTimeReport - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all products and their Quarterly Shelf time periods
-	 * @throws ConnectException 
+	 * - Function Name : getQuarterlyTimeReport 
+	 * - Input Parameters :RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Quarterly Shelf time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getQuarterlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
@@ -567,25 +522,23 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			}
 		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
 		return result;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : getYearlyTimeReport - Input Parameters : RetailerInventory
-	 * queryArguments - Return Type : List<RetailerInventoryBean> - Throws : N/A -
-	 * Author : Kunal - Creation Date : 21/9/2019 - Description : to get List of all
-	 * products and their Yearly Shelf time periods
-	 * @throws ConnectException 
+	 * - Function Name : getYearlyTimeReport 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean> 
+	 * - Throws : N/A 
+	 * - Author : Vikas 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Yearly Shelf time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getYearlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
@@ -595,7 +548,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		String retailerUserId = queryArguments.getRetailerUserId();
 		Connection connection = null;
 		try {
-			
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement(QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR);
@@ -618,25 +570,24 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			}
 		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
 		return result;
 	}
-
+	
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierProductCategoryDeliveryTime - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all product categories and their Delivery time periods
-	 * @throws ConnectException 
+	 * - Function Name : getOutlierProductCategoryDeliveryTime 
+	 * - Input Parameters :RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all product categories and their Delivery time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getOutlierProductCategoryDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException {
@@ -645,7 +596,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		Connection connection = null;
 		try {
-			
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID_AND_PRODUCTCATEGORY);
@@ -666,25 +616,24 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			}
 		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
 		return result;
 	}
-
+	
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierItemDeliveryTime - Input Parameters :
-	 * RetailerInventory queryArguments - Return Type : List<RetailerInventoryBean>
-	 * - Throws : N/A - Author : Kunal - Creation Date : 21/9/2019 - Description :
-	 * to get List of all products and their Delivery time periods
-	 * @throws ConnectException 
+	 * - Function Name : getOutlierItemDeliveryTime 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products and their Delivery time periods
 	 ********************************************************************************************************/
 	@Override
 	public List<RetailerInventoryBean> getOutlierItemDeliveryTime(RetailerInventoryDTO queryArguments) throws ConnectException {
@@ -693,7 +642,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		Connection connection = null;
 		try {
-			
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection
 					.prepareStatement(QuerryMapper.GET_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID);
@@ -715,25 +663,24 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			}
 		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
 		return result;
 	}
-
+	
 	/*******************************************************************************************************
-	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime - Input
-	 * Parameters : RetailerInventory queryArguments - Return Type :
-	 * List<RetailerInventoryBean> - Throws : N/A - Author : Kunal - Creation Date :
-	 * 21/9/2019 - Description : to get List of all products in outlier categories
-	 * and their Delivery time periods
+	 * - Function Name : getOutlierItemInOutlierProductCategoryDeliveryTime 
+	 * - Input Parameters : RetailerInventory queryArguments 
+	 * - Return Type : List<RetailerInventoryBean>
+	 * - Throws : N/A 
+	 * - Author : Kunal 
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to get List of all products in outlier categories and their Delivery time periods
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 	@Override
@@ -748,7 +695,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		Connection connection = null;
 		try {
-			
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_OUTLIER_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID_AND_PRODUCTCATEGORY);
@@ -769,7 +715,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(null);
 				result.add(temp);
 			}
-
 			stmt = connection.prepareStatement(
 					QuerryMapper.GET_OUTLIER_PRODUCTS_AND_DELIVERYTIMEPERIOD_BY_RETAILER_ID_AND_PRODUCTCATEGORY);
 			// filling query statement fields
@@ -791,13 +736,10 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			}
 		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
@@ -816,7 +758,6 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 ********************************************************************************************************/
 	public List<RetailerInventoryBean> getListOfRetailers () throws ConnectException {
 		List<RetailerInventoryBean> retailerList = new ArrayList<RetailerInventoryBean>();
-	
 		Connection connection = null;
 		try {
 			connection = DbConnection.getInstance().getConnection();
@@ -834,26 +775,26 @@ public class GoAdminDaoImpl implements GoAdminDao {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
-		
 		return retailerList;
 	}
 	// end of Shelf Time Report and Delivery Time Report
 
 	// ------------------------ GreatOutdoor Application --------------------------
+	
 	/*******************************************************************************************************
-	 * Function Name : viewSalesRepData Input Parameters : salesRepId Return Type :
-	 * boolean Throws : - Author : CAPGEMINI Creation Date : 21/9/2019 Description :
-	 * To view report of specific sales representative
+	 * Function Name : viewSalesRepData 
+	 * Input Parameters : salesRepId 
+	 * Return Type : SalesRepDTO
+	 * boolean Throws : - 
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of specific sales representative
 	 * @throws ConnectException 
-	 * 
-	 * @throws NoConnectionException
 	 * @throws UserDoesNotExist
 	 ********************************************************************************************************/
-
 	public SalesRepDTO viewSalesRepData(String salesRepId) throws GoAdminException, ConnectException {
 
 		SalesRepDTO salesRep = new SalesRepDTO();
@@ -909,10 +850,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewSalesRepData - Input Parameters : - Return Type : boolean
-	 * - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 - Description :
-	 * To view report of all sales representative
-	 * 
+	 * Function Name : viewSalesRepData 
+	 * Input Parameters : 
+	 * Return Type : List
+	 * Throws : 
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of all sales representative
 	 * @throws GoAdminException
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
@@ -971,9 +915,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewRetailerData viewSalesRepData Input Parameters :
-	 * RetailerId Return Type : boolean Throws : Author : CAPGEMINI Creation Date :
-	 * 21/9/2019 Description : To view report of specific retailer
+	 * Function Name : viewRetailerData 
+	 * Input Parameters : RetailerId
+	 * Return Type : RetailerDTO 
+	 * Throws : GoAdminException
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of specific retailer
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
@@ -1025,9 +973,13 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewAllRetailerData Input Parameters : Return Type : boolean
-	 * Throws : Author : CAPGEMINI Creation Date : 21/9/2019 Description : To view
-	 * report of all the retailer
+	 * Function Name : viewAllRetailerData 
+	 * Input Parameters : 
+	 * Return Type : List
+	 * Throws : GoAdminException
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view report of all the retailer
 	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
@@ -1143,7 +1095,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		return viewSales;
 
 	}
-
+	//Currently not used
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUser(Date entry, Date exit, String TargetuserId)
 			throws GoAdminException, ConnectException {
 
@@ -1208,6 +1160,19 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		}
 		return viewSalesList;
 	}
+
+
+	// ------------------------ GreatOutdoor Application --------------------------
+	/*******************************************************************************************************
+	 * Function Name : viewSalesReportByUserAndCategory
+	 * Input Parameters : entry ,exit , targetuserId, category 
+	 * Return Type : List 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view userId, Order Date, Order Id, Product Id, Product Category, Product Price using the given inputs
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
 
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUserAndCategory(Date entry, Date exit, String TargetuserId,
 			int category) throws GoAdminException, ConnectException {
@@ -1289,70 +1254,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 //			System.out.println(viewSales.get(i).getUserId());
 		return viewSales;
 	}
-	public List<ViewSalesReportByUserDTO> viewSalesReportALLUserAndCategory(Date entry, Date exit)
-			throws GoAdminException, ConnectException {
-
-		List<ViewSalesReportByUserDTO> viewSales = new ArrayList<ViewSalesReportByUserDTO>();
-
-		ViewSalesReportByUserDTO temp;
-
-		Statement stmt = null;
-		Connection connection = null;
-		try {
-
-			connection = DbConnection.getInstance().getConnection();
-
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-
-			if (connection == null)
-				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
-			if (entry == null || exit == null)
-				throw new GoAdminException(exceptionProps.getProperty("INVALID_DATE"));
-			DbConnection.getInstance();
-			connection = DbConnection.getConnection();
-
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(QuerryMapper.SELECT_DATA_FROM_DATABASE);
-			
-
-			if (!rs.isBeforeFirst())
-				throw new GoAdminException(exceptionProps.getProperty("EMPTY_DATABASE"));
-
-			while (rs.next()) {
-
-				temp = new ViewSalesReportByUserDTO();
-
-				temp.setUserId(rs.getString("USER_ID"));
-				temp.setDate(rs.getDate("ORDER_INITIATE_TIME"));
-				temp.setOrderId(rs.getString("ORDER_ID"));
-				temp.setProductId(rs.getString("PRODUCT_ID"));
-				temp.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
-				temp.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
-				viewSales.add(temp);
-			}
-
-		} catch (DatabaseException | SQLException | IOException e) {
-			GoLog.logger.error(exceptionProps.getProperty(e.getMessage()));
-
-		}
-		finally
-		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
-		return viewSales;
-
-	}
-
+	
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * Function Name : viewDetailedSalesReportByProduct Input Parameters : entry ,
-	 * exit , product Return Type : boolean Throws : Author : CAPGEMINI Creation
-	 * Date : 21/9/2019 Description : To view amount change, percentage change,
+	 * Function Name : viewDetailedSalesReportByProduct 
+	 * Input Parameters : entry ,exit , category 
+	 * Return Type : boolean 
+	 * Throws : GoAdmin Exception
+	 * Author : CAPGEMINI 
+	 * Creation Date : 21/9/2019 
+	 * Description : To view amount change, percentage change,
 	 * color code, month to month, quarter to quarter, year to year change of
 	 * specific product
 	 * @throws ConnectException 
