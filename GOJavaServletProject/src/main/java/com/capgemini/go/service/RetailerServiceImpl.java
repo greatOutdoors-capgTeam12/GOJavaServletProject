@@ -70,9 +70,9 @@ public class RetailerServiceImpl implements RetailerService {
 	 * Creation Date : 21/9/2019 - Description : To add products to Frequently order
 	 * database
 	 ********************************************************************************************************/
-	public boolean addProductToFreqOrderDB(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException {
+	public boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException {
 		boolean addProdToFreqDbStatus = false;
-		addProdToFreqDbStatus = retailer.addProductToFreqOrderDB(freqOrder);
+		addProdToFreqDbStatus = retailer.addProductToWishlist(freqOrder);
 		return addProdToFreqDbStatus;
 
 	}
