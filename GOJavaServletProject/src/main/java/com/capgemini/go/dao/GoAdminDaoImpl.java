@@ -89,7 +89,7 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
 	 * - Function Name : sendNotification - Input Parameters : order Return Database
-	 * - Return Type : List of OrderReturn - Throws : - Author : AGNIBHA - Creation
+	 * - Return Type : List of OrderReturnEntity - Throws : - Author : AGNIBHA - Creation
 	 * Date : 21/9/2019 - Description : to send Notification if Wrong Product
 	 * Shipped
 	 * 

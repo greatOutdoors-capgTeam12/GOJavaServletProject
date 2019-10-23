@@ -1,6 +1,6 @@
 package com.capgemini.go.dto;
 
-public class ReturnOrder {
+public class ReturnOrderDTO {
 	private String orderId;
 	private String userId;
 	private String returnReason;
