@@ -58,7 +58,7 @@ public interface UserDao {
 
 	boolean userLogout(UserDTO user) throws UserException, SQLException,ConnectException;
 
-	List<ProductBean> getAllProducts() throws UserException,ConnectException;
+	List<ProductBean> getAllProducts() throws UserException;
 
 	List<ProductBean> searchProduct(String productName) throws UserException,ConnectException;
 

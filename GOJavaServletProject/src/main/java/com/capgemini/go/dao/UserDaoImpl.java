@@ -15,7 +15,9 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.capgemini.go.bean.ProductBean;
 import com.capgemini.go.dto.ProductFilterDTO;
@@ -355,16 +357,19 @@ public class UserDaoImpl implements UserDao {
 	 * @throws ConnectException
 	 ********************************************************************************************************/
 
-	public List<ProductBean> getAllProducts() throws UserException, ConnectException {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<ProductBean> getAllProducts() throws UserException {
 		List<ProductBean> allProducts = new ArrayList<ProductBean>();
 		Session session = null;
 		SessionFactory sessionFactory = null;
+		Transaction transaction = null;
 		try {
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			sessionFactory = HibernateUtil.getSessionFactory();
 			session = sessionFactory.getCurrentSession();
-			session.beginTransaction();
-			List<ProductEntity> allProds = (List<ProductEntity>) session.createQuery(HQLQuerryMapper.GET_ALL_PRODUCTS).list();
+			transaction = session.beginTransaction();
+			Query query = session.getNamedQuery("ProductEntity.getAllProducts");
+			List<ProductEntity> allProds = (List<ProductEntity>)query.list();
 			if (allProds != null) {
 				for (ProductEntity prod : allProds) {
 
@@ -375,9 +380,10 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 
-			session.getTransaction().commit();
+			transaction.commit();
 		} catch (HibernateException | IOException exp) {
-			session.getTransaction().rollback();
+			transaction.rollback();
+			GoLog.logger.error(exceptionProps.getProperty("view_all_product_error") + " >>> " + exp.getMessage());
 			throw new UserException(exceptionProps.getProperty("view_all_product_error") + " >>> " + exp.getMessage());
 		}
 
