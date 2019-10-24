@@ -20,5 +20,7 @@
         <mapping class="com.capgemini.go.entity.WishlistEntity" />
         <mapping class="com.capgemini.go.entity.OrderCancelEntity" />
         <mapping class="com.capgemini.go.entity.OrderProductMapEntity" />
+        <mapping class="com.capgemini.go.entity.OrderEntity" />
+        
     </session-factory>
 </hibernate-configuration>
