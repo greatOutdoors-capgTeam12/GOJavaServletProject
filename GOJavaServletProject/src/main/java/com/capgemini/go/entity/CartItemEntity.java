@@ -3,7 +3,6 @@ package com.capgemini.go.entity;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -12,8 +11,8 @@ import javax.persistence.Table;
 public class CartItemEntity {	
 	
 	@EmbeddedId
-	@Column(name= "RetailerCartUniqueKey", unique=true, nullable=false)
-	private RetailerCartUniqueKey Id;
+	@Column(name= "CartItemUniqueKey", unique=true, nullable=false)
+	private CartItemUniqueKey Id;
 	
 	@Column(name = "quantity", unique = false, nullable = false)
 		private String quantity;
@@ -21,11 +20,11 @@ public class CartItemEntity {
 	
 	//getters
 
-	public RetailerCartUniqueKey getId() {return Id;}
+	public CartItemUniqueKey getId() {return Id;}
 	public String getQuantity() {return quantity;}
 
 	//setters
-	public void setId(RetailerCartUniqueKey id) {Id = id;}
+	public void setId(CartItemUniqueKey id) {Id = id;}
 	public void setQuantity(String quantity) {this.quantity = quantity;}
 
 	//constructors
@@ -34,16 +33,11 @@ public class CartItemEntity {
 	
 	}
 	
-	public CartItemEntity(RetailerCartUniqueKey id, String quantity) {
+	public CartItemEntity(CartItemUniqueKey id, String quantity) {
 		super();
 		Id = id;
 		this.quantity = quantity;
 	}
-	
-	
-	
-	
-	
 	
 	
 }
