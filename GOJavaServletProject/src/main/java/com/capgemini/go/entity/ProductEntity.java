@@ -10,6 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "ProductEntity.getAllProducts", query = "FROM ProductEntity prod WHERE prod.quantity >= 0 ORDER BY prod.productName") })
 @Table(name = "PRODUCT")
 public class ProductEntity implements Serializable {
 

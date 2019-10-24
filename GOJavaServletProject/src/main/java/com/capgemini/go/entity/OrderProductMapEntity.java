@@ -27,7 +27,7 @@ public class OrderProductMapEntity implements Serializable {
 	private int giftStatus;
 
 	public OrderProductMapEntity() {
-
+		super();
 	}
 
 	public OrderProductMapEntity(String orderId, String productId, String productUIN, int productStatus,
@@ -68,6 +68,10 @@ public class OrderProductMapEntity implements Serializable {
 		return productStatus;
 	}
 
+	public int getProductStatus() {
+		return productStatus;
+	}
+
 	public void setProductStatus(int productStatus) {
 		this.productStatus = productStatus;
 	}
@@ -79,6 +83,7 @@ public class OrderProductMapEntity implements Serializable {
 	public void setGiftStatus(int giftStatus) {
 		this.giftStatus = giftStatus;
 	}
-	
+
+
 	
 }

@@ -116,6 +116,96 @@ public class RetailerDaoImpl implements RetailerDao {
 		}
 		return addProductToFreqOrderDB;
 	}
+	
+	
+
+	/*******************************************************************************************************
+	 * Function Name : addItemToCart 
+	 * Input Parameters : CartDTO
+	 * Return Type : boolean
+	 * Throws : RetailerException
+	 * Author : Agnibha, Azhar 
+	 * Creation Date : 27/9/2019
+	 * Description : to add item to a cart
+	 * 
+	 * @throws ConnectException
+	 ********************************************************************************************************/
+	@Override
+	public boolean addItemToCart(CartDTO cartItem) throws RetailerException, ConnectException {
+		boolean itemAddedToCart = false;
+		String retailerId = cartItem.getRetailerId();
+		String productId = cartItem.getProductId();
+		int quantity = cartItem.getQuantity();
+		Connection connection = null;
+		try {
+
+			connection = DbConnection.getInstance().getConnection();
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+			PreparedStatement isProdPres = connection.prepareStatement(QuerryMapper.GET_PROD_PRESENT_STATUS);
+			isProdPres.setString(1, productId);
+			isProdPres.setString(2, retailerId);
+			ResultSet rset = isProdPres.executeQuery();
+			rset.next();
+			if (rset.getInt(1) == 1) {
+				PreparedStatement cartItemQty = connection.prepareStatement(QuerryMapper.CART_ITEM_QTY);
+				cartItemQty.setString(1, productId);
+				cartItemQty.setString(2, retailerId);
+				ResultSet resultSet = cartItemQty.executeQuery();
+				resultSet.next();
+				int beforeQty = resultSet.getInt(1);
+				quantity = quantity + beforeQty;
+				PreparedStatement getProdCount = connection.prepareStatement(QuerryMapper.GET_PROD_QTY);
+				getProdCount.setString(1, productId);
+				resultSet = getProdCount.executeQuery();
+				resultSet.next();
+				int initQty = resultSet.getInt(1);
+				if (initQty > quantity) {
+					PreparedStatement addCartItem = connection.prepareStatement(QuerryMapper.INCREASE_CART_ITEM);
+					addCartItem.setString(2, retailerId);
+					addCartItem.setString(3, productId);
+					addCartItem.setInt(1, quantity);
+					addCartItem.executeUpdate();
+					itemAddedToCart = true;
+				} else {
+					GoLog.logger.error(exceptionProps.getProperty("prod_not_available"));
+					throw new RetailerException(exceptionProps.getProperty("prod_not_available"));
+				}
+			} else {
+				PreparedStatement getProdCount = connection.prepareStatement(QuerryMapper.GET_PROD_QTY);
+				getProdCount.setString(1, productId);
+				ResultSet resultSet = getProdCount.executeQuery();
+				resultSet.next();
+				int initQty = resultSet.getInt(1);
+				if (initQty > quantity) {
+					PreparedStatement addCartItem = connection.prepareStatement(QuerryMapper.ADD_ITEM_TO_CART);
+					addCartItem.setString(1, retailerId);
+					addCartItem.setString(2, productId);
+					addCartItem.setInt(3, quantity);
+					addCartItem.executeUpdate();
+					itemAddedToCart = true;
+				} else {
+					GoLog.logger.error(exceptionProps.getProperty("prod_not_available"));
+					throw new RetailerException(exceptionProps.getProperty("prod_not_available"));
+				}
+			}
+
+		} catch (DatabaseException | RetailerException | IOException | SQLException e) {
+
+			throw new RetailerException(e.getMessage());
+
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+
+				throw new ConnectException(Constants.connectionError);
+			}
+		}
+
+		return itemAddedToCart;
+	}
+	
+	
 	/*******************************************************************************************************
 	 * Function Name : placeOrder 
 	 * Input Parameters : Order
@@ -208,91 +298,6 @@ public class RetailerDaoImpl implements RetailerDao {
 	}
 
 	
-	/*******************************************************************************************************
-	 * Function Name : addItemToCart 
-	 * Input Parameters : CartDTO
-	 * Return Type : boolean
-	 * Throws : RetailerException
-	 * Author : Agnibha, Azhar 
-	 * Creation Date : 27/9/2019
-	 * Description : to add item to a cart
-	 * 
-	 * @throws ConnectException
-	 ********************************************************************************************************/
-	@Override
-	public boolean addItemToCart(CartDTO cartItem) throws RetailerException, ConnectException {
-		boolean itemAddedToCart = false;
-		String retailerId = cartItem.getRetailerId();
-		String productId = cartItem.getProductId();
-		int quantity = cartItem.getQuantity();
-		Connection connection = null;
-		try {
-
-			connection = DbConnection.getInstance().getConnection();
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			PreparedStatement isProdPres = connection.prepareStatement(QuerryMapper.GET_PROD_PRESENT_STATUS);
-			isProdPres.setString(1, productId);
-			isProdPres.setString(2, retailerId);
-			ResultSet rset = isProdPres.executeQuery();
-			rset.next();
-			if (rset.getInt(1) == 1) {
-				PreparedStatement cartItemQty = connection.prepareStatement(QuerryMapper.CART_ITEM_QTY);
-				cartItemQty.setString(1, productId);
-				cartItemQty.setString(2, retailerId);
-				ResultSet resultSet = cartItemQty.executeQuery();
-				resultSet.next();
-				int beforeQty = resultSet.getInt(1);
-				quantity = quantity + beforeQty;
-				PreparedStatement getProdCount = connection.prepareStatement(QuerryMapper.GET_PROD_QTY);
-				getProdCount.setString(1, productId);
-				resultSet = getProdCount.executeQuery();
-				resultSet.next();
-				int initQty = resultSet.getInt(1);
-				if (initQty > quantity) {
-					PreparedStatement addCartItem = connection.prepareStatement(QuerryMapper.INCREASE_CART_ITEM);
-					addCartItem.setString(2, retailerId);
-					addCartItem.setString(3, productId);
-					addCartItem.setInt(1, quantity);
-					addCartItem.executeUpdate();
-					itemAddedToCart = true;
-				} else {
-					GoLog.logger.error(exceptionProps.getProperty("prod_not_available"));
-					throw new RetailerException(exceptionProps.getProperty("prod_not_available"));
-				}
-			} else {
-				PreparedStatement getProdCount = connection.prepareStatement(QuerryMapper.GET_PROD_QTY);
-				getProdCount.setString(1, productId);
-				ResultSet resultSet = getProdCount.executeQuery();
-				resultSet.next();
-				int initQty = resultSet.getInt(1);
-				if (initQty > quantity) {
-					PreparedStatement addCartItem = connection.prepareStatement(QuerryMapper.ADD_ITEM_TO_CART);
-					addCartItem.setString(1, retailerId);
-					addCartItem.setString(2, productId);
-					addCartItem.setInt(3, quantity);
-					addCartItem.executeUpdate();
-					itemAddedToCart = true;
-				} else {
-					GoLog.logger.error(exceptionProps.getProperty("prod_not_available"));
-					throw new RetailerException(exceptionProps.getProperty("prod_not_available"));
-				}
-			}
-
-		} catch (DatabaseException | RetailerException | IOException | SQLException e) {
-
-			throw new RetailerException(e.getMessage());
-
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
-
-		return itemAddedToCart;
-	}
 	// end of Azhar Functions
 
 	// Functions for Retailer Inventory Manipulation
