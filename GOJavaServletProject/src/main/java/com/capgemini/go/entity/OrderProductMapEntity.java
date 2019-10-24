@@ -68,9 +68,7 @@ public class OrderProductMapEntity implements Serializable {
 		return productStatus;
 	}
 
-	public int getProductStatus() {
-		return productStatus;
-	}
+	
 
 	public void setProductStatus(int productStatus) {
 		this.productStatus = productStatus;
