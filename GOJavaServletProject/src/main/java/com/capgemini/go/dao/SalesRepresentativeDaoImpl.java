@@ -420,7 +420,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 //				throw new ConnectException(Constants.connectionError);
 //			}
 //		}
-		return orderID;
+		return orderId;
 
 	}
 
