@@ -16,25 +16,29 @@ public class OrderCancelEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "user_Id", length = 20)
+	@Column(name = "order_id", unique = false, length = 20)
+	private String orderid;
+	
+	@Column(name = "user_Id", unique = false, length = 20)
 	private String userId;
 
-	@Column(name = "order_id", length = 20)
-	private String orderid;
-
-	@Column(name = "product_id", length = 20)
+	@Column(name = "product_id", unique = false, length = 20)
 	private String productid;
 	
 	@Id
-	@Column(name = "product_uin", length = 20)
+	@Column(name = "product_uin", unique = true, length = 20)
 	private String productuin;
 
-	@Column(name = "order_cancel_time", length = 20)
+	@Column(name = "order_cancel_time", unique = false, length = 20)
 	private String ordercanceltime;
 
-	@Column(name = "order_cancel_status", length = 20)
+	@Column(name = "order_cancel_status", unique = false, length = 1)
 	private String ordercancelstatus;
 
+	public OrderCancelEntity() {
+		
+	}
+	
 	public OrderCancelEntity(String userId, String orderid, String productid, String productuin, String ordercanceltime,
 			String ordercancelstatus) {
 		super();
