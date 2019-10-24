@@ -7,12 +7,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.capgemini.go.bean.ProductBean;
 import com.capgemini.go.dto.AddressDTO;
 import com.capgemini.go.dto.CartDTO;
 import com.capgemini.go.dto.FrequentOrderedDTO;
@@ -38,17 +36,7 @@ public class RetailerDaoImpl implements RetailerDao {
 	private boolean ITEM_NOT_ADDED = false;
 
 	// ------------------------ GreatOutdoor Application
-	// --------------------------
-	/*******************************************************************************************************
-	 * - Function Name : returnOrder - Input Parameters : userID, reason, orderID,
-	 * Date - Return Type : boolean - Throws : - Author : CAPGEMINI - Creation Date
-	 * : 21/9/2019 - Description : to return the order received by the retailer
-	 ********************************************************************************************************/
-
-	public boolean returnOrder(String userId, String reason, String orderId, Date date) {
-
-		return false;
-	}
+	
 
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
@@ -128,12 +116,14 @@ public class RetailerDaoImpl implements RetailerDao {
 		}
 		return addProductToFreqOrderDB;
 	}
-
 	/*******************************************************************************************************
-	 * - Function Name : placingOrder - Input Parameters : cart, retailerID, Date
-	 * date, address Return Type :boolean Throws : - Author : Agnibha , Azhar -
-	 * Creation Date : 21/9/2019 - Description : to place order for items in the
-	 * cart
+	 * Function Name : placeOrder 
+	 * Input Parameters : Order
+	 * Return Type :boolean 
+	 * Throws :  RetailerException
+	 * Author : Agnibha , Azhar -
+	 * Creation Date : 21/9/2019 
+	 * Description : to place order for items in the cart
 	 * 
 	 * @throws ConnectException
 	 ********************************************************************************************************/
@@ -217,9 +207,14 @@ public class RetailerDaoImpl implements RetailerDao {
 		return checkOutStatus;
 	}
 
+	
 	/*******************************************************************************************************
-	 * Function Name : addItemToCart Input Parameters : Product Return Type :
-	 * boolean Throws : Author : Agnibha, Azhar Creation Date : 27/9/2019
+	 * Function Name : addItemToCart 
+	 * Input Parameters : CartDTO
+	 * Return Type : boolean
+	 * Throws : RetailerException
+	 * Author : Agnibha, Azhar 
+	 * Creation Date : 27/9/2019
 	 * Description : to add item to a cart
 	 * 
 	 * @throws ConnectException
@@ -403,11 +398,13 @@ public class RetailerDaoImpl implements RetailerDao {
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : addAddress - Input Parameters : address - Return Type :
-	 * boolean - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 -
-	 * Description : to add address to the database
-	 * 
-	 * @throws ConnectException
+	 * - Function Name : addAddress 
+	 * - Input Parameters : address
+	 * - Return Type : boolean
+	 * - Throws : ConnectException
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 21/9/2019 
+	 * - Description : to add address to the database
 	 ********************************************************************************************************/
 	public boolean addAddress(AddressDTO address) throws RetailerException, ConnectException {
 		boolean addAddressState = address.isAddressStatus();
@@ -456,12 +453,13 @@ public class RetailerDaoImpl implements RetailerDao {
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : updateAddress - Input Parameters : address - Return Type :
-	 * boolean - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 -
-	 * Description : to update address to the database
-	 * 
-	 * @throws RetailerException
-	 * @throws ConnectException
+	 * - Function Name : updateAddress
+	 * - Input Parameters : address
+	 * - Return Type :boolean 
+	 * - Throws :RetailerException,ConnectException
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 21/9/2019 
+	 * -Description : to update address to the database
 	 ********************************************************************************************************/
 	public boolean updateAddress(AddressDTO address) throws RetailerException, ConnectException {
 		boolean addAddressState = true;
@@ -528,88 +526,17 @@ public class RetailerDaoImpl implements RetailerDao {
 		return addAddressState;
 	}
 
+	
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : changeAddress - Input Parameters : address and orderId -
-	 * Return Type : boolean - Throws : - Author : CAPGEMINI - Creation Date :
-	 * 21/9/2019 - Description : to change address of a particular orderId in the
-	 * database
-	 * 
-	 * @throws RetailerException
-	 * @throws ConnectException
-	 ********************************************************************************************************/
-	public boolean changeAddress(AddressDTO address, String orderId) throws RetailerException, ConnectException {
-		Connection connection = null;
-		try {
-
-			connection = DbConnection.getInstance().getConnection();
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
-			String addressID = address.getAddressId();
-			String retailerID = address.getRetailerId();
-			String city = address.getCity();
-			String state = address.getState();
-			String zip = address.getZip();
-			String buildingNum = address.getBuildingNo();
-			String country = address.getCountry();
-			PreparedStatement statement = connection.prepareStatement(QuerryMapper.CHECK_ORDERID_IN_ORDERDB);
-
-			statement.setString(1, addressID);
-			statement.setString(2, orderId);
-			ResultSet rs = statement.executeQuery();
-			if (rs.next() == true) {
-				PreparedStatement statement2 = connection.prepareStatement(QuerryMapper.CHANGE_ORDER_ADDRESS);
-				statement2.setString(9, addressID);
-				if (rs.getString(1).equals(addressID) && rs.getString(2).equals(retailerID)) {
-
-					statement2.setString(1, addressID);
-					statement2.setString(2, retailerID);
-					statement2.setString(3, city);
-					statement2.setString(4, state);
-					statement2.setString(5, zip);
-					statement2.setString(6, buildingNum);
-					statement2.setString(7, country);
-
-				}
-
-				int row = 0;
-				row = statement2.executeUpdate();
-
-				if (row == 1)
-					return true;
-				else {
-					System.out.println("cannot change order address");
-				}
-			}
-
-		}
-
-		catch (DatabaseException | IOException | SQLException e)// SQLException
-		{
-			GoLog.logger.error(exceptionProps.getProperty(EXCEPTION_PROPERTIES_FILE));
-			throw new RetailerException("....." + e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
-
-		return false;
-	}
-
-	// ------------------------ GreatOutdoor Application
-	// --------------------------
-	/*******************************************************************************************************
-	 * - Function Name : deleteAddress - Input Parameters : address - Return Type :
-	 * boolean - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 -
-	 * Description : to delete address of a particular order in the database
-	 * 
-	 * @throws RetailerException
-	 * @throws ConnectException
+	 * - Function Name : deleteAddress
+	 * - Input Parameters : address
+	 * - Return Type : boolean 
+	 * - Throws :RetailerException,ConnectException
+	 * - Author : CAPGEMINI
+	 * - Creation Date : 21/9/2019 
+	 * -Description : to delete address of a particular order in the database
 	 ********************************************************************************************************/
 
 	public boolean deleteAddress(AddressDTO address) throws RetailerException, ConnectException {

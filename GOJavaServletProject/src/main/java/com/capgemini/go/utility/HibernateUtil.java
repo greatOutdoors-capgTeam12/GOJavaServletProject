@@ -9,6 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.capgemini.go.entity.AddressEntity;
 import com.capgemini.go.entity.OrderCancelEntity;
+import com.capgemini.go.entity.OrderEntity;
 import com.capgemini.go.entity.OrderProductMapEntity;
 import com.capgemini.go.entity.OrderReturnEntity;
 import com.capgemini.go.entity.RetailerInventoryEntity;
@@ -41,7 +42,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(OrderProductMapEntity.class);
 
                 configuration.addAnnotatedClass(OrderReturnEntity.class);
-
+                configuration.addAnnotatedClass(OrderEntity.class);
 
 
                 // end of this
