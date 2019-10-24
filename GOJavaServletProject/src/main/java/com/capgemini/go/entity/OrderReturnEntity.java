@@ -15,7 +15,6 @@ public class OrderReturnEntity{
 	@EmbeddedId
 	private OrderReturnPK orderReturnPK;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ORDER_RETURN_TIME")
 	private String orderReturnTime;
 	

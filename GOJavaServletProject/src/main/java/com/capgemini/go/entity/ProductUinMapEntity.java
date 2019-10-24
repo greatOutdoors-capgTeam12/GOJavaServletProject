@@ -1,5 +1,7 @@
 package com.capgemini.go.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -10,8 +12,13 @@ import javax.persistence.TemporalType;
  
 @Entity
 @Table(name = "PRODUCT_UIN_MAP")
-public class ProductUinMapEntity{
+public class ProductUinMapEntity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1493939388747328941L;
+
 	@EmbeddedId
 	private ProductIdentityEntity productUniqueIdentity;
 	

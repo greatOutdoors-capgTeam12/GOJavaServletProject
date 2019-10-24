@@ -29,7 +29,6 @@ public class OrderCancelEntity implements Serializable {
 	@Column(name = "product_uin", length = 20)
 	private String productuin;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "order_cancel_time", length = 20)
 	private String ordercanceltime;
 

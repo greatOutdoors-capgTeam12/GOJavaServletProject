@@ -2,12 +2,14 @@ package com.capgemini.go.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="user_wishlist")
 public class WishlistEntity {
 	// attributes
+	@Id
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	private String userId;
 	

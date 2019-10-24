@@ -1,11 +1,18 @@
 package com.capgemini.go.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class OrderReturnPK {
+public class OrderReturnPK implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8143887179101862155L;
+
 	@Column(name="ORDER_ID")
 	private String orderId;
 	

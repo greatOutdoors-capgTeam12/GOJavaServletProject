@@ -1,13 +1,22 @@
 package com.capgemini.go.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUCT")
-public class ProductEntity {
+public class ProductEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2165469246059692902L;
 
 	@Id
 	@Column(name = "PRODUCT_ID", unique = true, nullable = false, length=20)
@@ -40,6 +49,11 @@ public class ProductEntity {
 	@Column(name = "PRODUCT_NAME", unique = false, nullable = false, length = 100)
 	private String productName;
 
+	public ProductEntity()
+	{
+		
+	}
+	
 	public ProductEntity(String productId, double price, String colour, String dimension, String specification,
 			String manufacturer, int quantity, int productCategory, String productName) {
 		super();
