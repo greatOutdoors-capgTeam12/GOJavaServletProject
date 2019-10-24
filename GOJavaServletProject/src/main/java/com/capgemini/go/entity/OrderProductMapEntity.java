@@ -21,37 +21,45 @@ public class OrderProductMapEntity implements Serializable {
 	private int giftStatus;
 
 	public OrderProductMapEntity() {
-
-	}
-
-	public OrderProductMapEntity(int productstatus, int giftstatus) {
 		super();
-		this.productStatus = productstatus;
-		this.giftStatus = giftstatus;
 	}
 
-	public int getProductstatus() {
+	public OrderProductMapEntity(OrderProductMapPK id, int productStatus, int giftStatus) {
+		super();
+		Id = id;
+		this.productStatus = productStatus;
+		this.giftStatus = giftStatus;
+	}
+
+	public OrderProductMapPK getId() {
+		return Id;
+	}
+
+	public void setId(OrderProductMapPK id) {
+		Id = id;
+	}
+
+	public int getProductStatus() {
 		return productStatus;
 	}
 
-	public void setProductstatus(int productstatus) {
-		this.productStatus = productstatus;
+	public void setProductStatus(int productStatus) {
+		this.productStatus = productStatus;
 	}
 
-	public int getGiftstatus() {
+	public int getGiftStatus() {
 		return giftStatus;
 	}
 
-	public void setGiftstatus(int giftstatus) {
-		this.giftStatus = giftstatus;
+	public void setGiftStatus(int giftStatus) {
+		this.giftStatus = giftStatus;
 	}
 
-	@Override
-	public String toString() {
-
-		return "OrderProductMap [orderId=" + Id.getOrderId() + ", productid=" + Id.getProductId() + ", productuin="
-				+ Id.getProductUIN() + ", productstatus=" + productStatus + ", giftstatus=" + giftStatus + "]";
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
+
+	
+
 
 }

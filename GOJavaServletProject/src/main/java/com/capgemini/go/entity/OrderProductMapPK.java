@@ -9,25 +9,13 @@ public class OrderProductMapPK implements Serializable{
 
 	private static final long serialVersionUID = -3282093658803237026L;
 
-	@Id
-	@Column(name = "order_id", unique = false, length = 20)
+	@Column(name = "ORDER_ID")
 	private String orderId;
 
-	@Column(name = "product_id", unique = false, length = 20)
+	@Column(name = "PRODUCT_ID")
 	private String productId;
 
-	@Column(name = "product_uin", unique = true, length = 20)
+	@Column(name = "PRODUCT_UIN")
 	private String productUIN;
 
-	public String getOrderId() {
-		return orderId;
-	}
-
-	public String getProductId() {
-		return productId;
-	}
-
-	public String getProductUIN() {
-		return productUIN;
-	}
 }
