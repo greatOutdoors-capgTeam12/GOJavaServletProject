@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity(name = "OrderCancelEntity")
@@ -18,25 +20,24 @@ public class OrderCancelEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_Id", unique = false, nullable = false, length = 20)
+	@Column(name = "user_Id", length = 20)
 	private String userId;
 
-	@Column(name = "order_id", unique = false, nullable = false, length = 20)
+	@Column(name = "order_id", length = 20)
 	private String orderid;
 
-	@Column(name = "product_id", unique = false, nullable = false, length = 20)
+	@Column(name = "product_id", length = 20)
 	private String productid;
 
-	@Column(name = "product_uin", unique = true, nullable = false, length = 20)
+	@Column(name = "product_uin", length = 20)
 	private String productuin;
 
-	@Column(name = "order_cancel_time", unique = false, nullable = false, length = 20)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "order_cancel_time", length = 20)
 	private String ordercanceltime;
 
-	@Column(name = "order_cancel_status", unique = false, nullable = false, length = 20)
+	@Column(name = "order_cancel_status", length = 20)
 	private String ordercancelstatus;
-
-	
 
 	public OrderCancelEntity(String userId, String orderid, String productid, String productuin, String ordercanceltime,
 			String ordercancelstatus) {
@@ -48,8 +49,7 @@ public class OrderCancelEntity implements Serializable {
 		this.ordercanceltime = ordercanceltime;
 		this.ordercancelstatus = ordercancelstatus;
 	}
-	
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -98,12 +98,11 @@ public class OrderCancelEntity implements Serializable {
 		this.ordercancelstatus = ordercancelstatus;
 	}
 
-
 	@Override
 	public String toString() {
-		return "OrderCancelEntity [userId=" + userId + ", orderid=" + orderid + ", productid=" + productid + ", productuin="
-				+ productuin + ", ordercanceltime=" + ordercanceltime + ", ordercancelstatus=" + ordercancelstatus
-				+ "]";
+		return "OrderCancelEntity [userId=" + userId + ", orderid=" + orderid + ", productid=" + productid
+				+ ", productuin=" + productuin + ", ordercanceltime=" + ordercanceltime + ", ordercancelstatus="
+				+ ordercancelstatus + "]";
 	}
 
 }

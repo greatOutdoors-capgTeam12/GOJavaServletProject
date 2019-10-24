@@ -18,19 +18,19 @@ public class OrderProductMapEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id", unique = false, nullable = false, length = 20)
+	@Column(name = "order_id", length = 20)
 	private String orderId;
 
-	@Column(name = "product_id", unique = false, nullable = false, length = 20)
+	@Column(name = "product_id", length = 20)
 	private String productId;
 
-	@Column(name = "product_uin", unique = true, nullable = false, length = 20)
+	@Column(name = "product_uin", length = 20)
 	private String productUIN;
 
-	@Column(name = "product_status", unique = false, nullable = false, length = 20)
+	@Column(name = "product_status", length = 20)
 	private int productStatus;
 
-	@Column(name = "gift_status", unique = false, nullable = false, length = 20)
+	@Column(name = "gift_status", length = 20)
 	private int giftStatus;
 
 	public OrderProductMapEntity(String orderId, String productid, String productuin, int productstatus,
