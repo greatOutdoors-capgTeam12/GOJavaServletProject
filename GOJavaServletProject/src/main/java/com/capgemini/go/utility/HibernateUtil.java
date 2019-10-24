@@ -1,6 +1,7 @@
 package com.capgemini.go.utility;
 
 import java.util.Properties;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -11,8 +12,6 @@ import com.capgemini.go.entity.AddressEntity;
 import com.capgemini.go.entity.OrderCancelEntity;
 import com.capgemini.go.entity.OrderEntity;
 import com.capgemini.go.entity.OrderReturnEntity;
-import com.capgemini.go.entity.ProductEntity;
-import com.capgemini.go.entity.ProductUinMapEntity;
 import com.capgemini.go.entity.RetailerInventoryEntity;
 import com.capgemini.go.entity.WishlistEntity;
 
@@ -36,17 +35,10 @@ public class HibernateUtil {
                 // Add all classes that need to be mapped here
                 configuration.addAnnotatedClass(RetailerInventoryEntity.class);
                 configuration.addAnnotatedClass(AddressEntity.class);
-                
                 configuration.addAnnotatedClass(WishlistEntity.class);
-                
                 configuration.addAnnotatedClass(OrderCancelEntity.class);
                 configuration.addAnnotatedClass(OrderReturnEntity.class);
                 configuration.addAnnotatedClass(OrderEntity.class);
-                
-
-
-                configuration.addAnnotatedClass(ProductEntity.class);
-                configuration.addAnnotatedClass(ProductUinMapEntity.class);
                 // end of this
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

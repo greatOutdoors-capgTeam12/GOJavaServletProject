@@ -15,11 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -32,7 +28,6 @@ import com.capgemini.go.dto.UserDTO;
 import com.capgemini.go.dto.ViewDetailedSalesReportByProductDTO;
 import com.capgemini.go.dto.ViewSalesReportByUserDTO;
 import com.capgemini.go.dto.WrongProductNotificationDTO;
-import com.capgemini.go.entity.ProductEntity;
 import com.capgemini.go.exception.DatabaseException;
 import com.capgemini.go.exception.GoAdminException;
 import com.capgemini.go.exception.ProductMasterException;
@@ -450,13 +445,21 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * - Description : to get List of all products and their Monthly Shelf time periods
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
+	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
 		// Declaring List where valid objects returned by query will be stored
+		/*
+		 * if the given month argument matches with the month of the timestamp of sale 
+		 * then show that item else don't consider it.
+		 * 
+		 */
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		// Storing given arguments
 		String retailerUserId = queryArguments.getRetailerUserId();
 		Connection connection = null;
 		try {
+			// this line can throw IO Exception
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+			
 			connection = DbConnection.getInstance().getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR_AND_MONTH);
@@ -478,8 +481,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(p);
 				result.add(temp);
 			}
-		} catch (SQLException | DatabaseException e) {
+		} catch (IOException e) {
+			// if IO exception occurs
 			GoLog.logger.error(e.getMessage());
+			throw new GoAdminException (exceptionProps.getProperty("ERROR_FILE_IO_ERROR"));
+		} catch (SQLException e) {
+			GoLog.logger.error(e.getMessage());
+			throw new GoAdminException (exceptionProps.getProperty("QUERY_ERROR"));
+		} catch (DatabaseException e) {
+			GoLog.logger.error(e.getMessage());
+			throw new GoAdminException (exceptionProps.getProperty("DATABASE_ERROR"));
 		} finally {
 			try {
 				connection.close();

@@ -22,6 +22,8 @@ public class HQLQuerryMapper {
 
 	public static final String UPDATE_ORDER_PRODUCT_MAP="UPDATE OrderProductMapEntity opm SET opm.productStatus=0 WHERE ORDER_ID=:orderId ";
 
-	
+	// Time Report Queries
+	public static final String GET_ITEMS_FOR_MONTH = "";
+	// End of Time Report Queries
 }
 //INNER JOIN OrderProductMapPK as opm ON order.orderId = opm.orderId 
