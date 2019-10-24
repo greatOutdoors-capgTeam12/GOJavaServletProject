@@ -29,7 +29,7 @@ public class ProductEntity implements Serializable {
 	@Column(name = "PRODUCT_COLOUR", unique = false, nullable = false, length = 20)
 	private String colour;
 	
-	@Column(name = "PRODUCT_DIMESION", unique = false, nullable = false, length = 30)
+	@Column(name = "PRODUCT_DIMENSION", unique = false, nullable = false, length = 30)
 	private String dimension;
 	
 	@Column(name = "PRODUCT_SPECIFICATION", unique = false, nullable = false, length = 50)

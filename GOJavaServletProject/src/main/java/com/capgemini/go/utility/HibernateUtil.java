@@ -8,6 +8,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import com.capgemini.go.entity.AddressEntity;
+import com.capgemini.go.entity.CartItemEntity;
 import com.capgemini.go.entity.OrderCancelEntity;
 import com.capgemini.go.entity.OrderEntity;
 import com.capgemini.go.entity.OrderReturnEntity;
@@ -42,8 +43,8 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(OrderCancelEntity.class);
                 configuration.addAnnotatedClass(OrderReturnEntity.class);
                 configuration.addAnnotatedClass(OrderEntity.class);
-                
-
+                configuration.addAnnotatedClass(CartItemEntity.class);
+               
 
                 configuration.addAnnotatedClass(ProductEntity.class);
                 configuration.addAnnotatedClass(ProductUinMapEntity.class);

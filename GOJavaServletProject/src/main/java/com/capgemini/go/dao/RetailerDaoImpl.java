@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import com.capgemini.go.dto.AddressDTO;
 import com.capgemini.go.dto.CartDTO;
 import com.capgemini.go.dto.FrequentOrderedDTO;
@@ -18,13 +23,17 @@ import com.capgemini.go.dto.OrderDTO;
 import com.capgemini.go.dto.ProductDTO;
 import com.capgemini.go.dto.RetailerInventoryDTO;
 import com.capgemini.go.dto.UserDTO;
+import com.capgemini.go.entity.CartItemEntity;
+import com.capgemini.go.entity.ProductEntity;
 import com.capgemini.go.exception.DatabaseException;
 import com.capgemini.go.exception.RetailerException;
 import com.capgemini.go.exception.UserException;
 import com.capgemini.go.utility.Constants;
 import com.capgemini.go.utility.DbConnection;
 import com.capgemini.go.utility.GoLog;
+import com.capgemini.go.utility.HibernateUtil;
 import com.capgemini.go.utility.PropertiesLoader;
+
 
 public class RetailerDaoImpl implements RetailerDao {
 
@@ -130,22 +139,91 @@ public class RetailerDaoImpl implements RetailerDao {
 	 * 
 	 * @throws ConnectException
 	 ********************************************************************************************************/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public boolean addItemToCart(CartDTO cartItem) throws RetailerException, ConnectException {
+		// function variables
 		boolean itemAddedToCart = false;
 		String retailerId = cartItem.getRetailerId();
 		String productId = cartItem.getProductId();
 		int quantity = cartItem.getQuantity();
-		Connection connection = null;
+		
+		// hibernate access variables
+		Session session = null;
+		SessionFactory sessionFactory = null;
+		Transaction transaction = null;
+		
 		try {
-
-			connection = DbConnection.getInstance().getConnection();
+			// IOException possible
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			PreparedStatement isProdPres = connection.prepareStatement(QuerryMapper.GET_PROD_PRESENT_STATUS);
-			isProdPres.setString(1, productId);
-			isProdPres.setString(2, retailerId);
-			ResultSet rset = isProdPres.executeQuery();
-			rset.next();
+			
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery(HQLQuerryMapper.CART_ITEM_QTY_FOR_PRODUCT_ID);
+			query.setParameter("product_id", productId);
+		    List<CartItemEntity> quant = (List<CartItemEntity>) query.list();
+		    
+		    Query query1 = session.createQuery(HQLQuerryMapper.GET_PRODUCT_QTY_FROM_DB);
+		    query1.setParameter("product_id", productId);
+		    List<ProductEntity> availableQuants = (List<ProductEntity>) query1.list();
+		    
+		    if (quant.size() == 0) {
+		    	// the user is adding this product to the cart for the first time
+			    if (quantity < availableQuants.get(0).getQuantity()) {
+			    	// add this item to cart and reduce the quantity in PRODUCT table by quantity amount
+			    	CartItemEntity obj = new CartItemEntity (retailerId, productId, quantity);
+			    	session.save(obj);
+			    	
+			    	Query query3 = session.createQuery(HQLQuerryMapper. UPDATE_QTY_IN_PRODUCT);
+			    	int availableQuantity = availableQuants.get(0).getQuantity();
+			    	query3.setParameter("quantity", availableQuantity );
+			    	query3.setParameter("product_id", productId);
+			    	query3.executeUpdate();
+			    	availableQuantity -= quantity;
+			    	itemAddedToCart = true;
+			    } else {
+			    	// the requested number of items is not available
+			    	itemAddedToCart = false;
+			    	GoLog.logger.error(exceptionProps.getProperty("prod_not_available"));
+					throw new RetailerException(exceptionProps.getProperty("prod_not_available"));
+			    }
+		    } else {
+		    	// the user has previously added this item to his cart and is trying to increase quantity
+		    	if (quantity < availableQuants.get(0).getQuantity()) {
+		    		// add quantity to that already present in the cart and reduce the quantity in PRODUCT table by quantity amount
+		    		Query query4 = session.createQuery(HQLQuerryMapper.UPDATE_CART);
+		    		int quantityPresent = quant.get(0).getQuantity();
+		    		query4.setParameter("product_id", productId);
+		    		query4.executeUpdate();
+		    		quantityPresent += quantity;
+		    			    		
+			    	Query query3 = session.createQuery(HQLQuerryMapper. UPDATE_QTY_IN_PRODUCT);
+			    	int availableQuantity = availableQuants.get(0).getQuantity();
+			    	query3.setParameter("quantity", availableQuantity );
+			    	query3.setParameter("product_id", productId);
+			    	query3.executeUpdate();
+			    	availableQuantity -= quantity;
+		    		itemAddedToCart = true;
+		    		
+		    	} else {
+		    		// the requested quantity of items is not available 	
+		    		itemAddedToCart = false;
+		    		GoLog.logger.error(exceptionProps.getProperty("prod_not_available"));
+					throw new RetailerException(exceptionProps.getProperty("prod_not_available"));
+		    	}
+		    }		    
+		} catch (IOException e) {
+			GoLog.logger.error(e.getMessage());
+			throw new RetailerException ("Could not open Error Properties File");
+		} catch (Exception e) {
+			
+		}
+		return itemAddedToCart;
+	}
+		    		
+	/*	    		
 			if (rset.getInt(1) == 1) {
 				PreparedStatement cartItemQty = connection.prepareStatement(QuerryMapper.CART_ITEM_QTY);
 				cartItemQty.setString(1, productId);
@@ -204,7 +282,7 @@ public class RetailerDaoImpl implements RetailerDao {
 
 		return itemAddedToCart;
 	}
-	
+	*/
 	
 	/*******************************************************************************************************
 	 * Function Name : placeOrder 

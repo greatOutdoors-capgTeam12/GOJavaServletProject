@@ -1,8 +1,8 @@
 package com.capgemini.go.dto;
 
 public class CartDTO {
-	private String productId;
 	private String retailerId;
+	private String productId;
 	private int quantity;
 
 	/**
