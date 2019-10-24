@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class RetailerCartUniqueKey {
+public class CartItemUniqueKey {
 	
 	@Column(name = "userId", unique = true, nullable = false)
 	private String userId;
@@ -21,10 +21,10 @@ public class RetailerCartUniqueKey {
 	public void setProductId(String productId) {this.productId = productId;}
 
 	//constructors
-	public RetailerCartUniqueKey() {
+	public CartItemUniqueKey() {
 	
 	}
-	public RetailerCartUniqueKey(String userId, String productId) {
+	public CartItemUniqueKey(String userId, String productId) {
 		super();
 		this.userId = userId;
 		this.productId = productId;
