@@ -11,7 +11,7 @@ public class WishlistEntity {
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	private String userId;
 	
-	@Column(name = "PRODUCT_ID", unique = true, nullable = false)
+	@Column(name = "PRODUCT_ID", unique = false, nullable = false)
 	private String productId;
 	
 	// getters

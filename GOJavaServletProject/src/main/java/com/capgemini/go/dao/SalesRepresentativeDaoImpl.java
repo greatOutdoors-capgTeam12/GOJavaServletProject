@@ -21,6 +21,8 @@ import com.capgemini.go.utility.Constants;
 import com.capgemini.go.utility.DbConnection;
 import com.capgemini.go.utility.GoLog;
 import com.capgemini.go.utility.PropertiesLoader;
+import javax.persistence.*;  
+import javax.persistence.criteria.*;  
 
 public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
@@ -391,32 +393,33 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 	@Override
 	public String getOrderDetails(String orderId) throws Exception {
-		Connection connection = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		String orderID = null;
-		try {
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
-			DbConnection.getInstance();
-			connection = DbConnection.getConnection();
-			statement = connection.prepareStatement(QuerryMapper.IS_ORDER_PRESENT);
-			statement.setString(1, orderId);
-			resultSet = statement.executeQuery();
-			resultSet.next();
-			orderID = resultSet.getString(1);
-			if(orderID != null) {
-				return orderID;
-			}
-		} catch (Exception e) {
-			GoLog.logger.error(exceptionProps.getProperty("orderId_not_found_failure"));
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
+		
+//		Connection connection = null;
+//		PreparedStatement statement = null;
+//		ResultSet resultSet = null;
+//		String orderID = null;
+//		try {
+//			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+//			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
+//			DbConnection.getInstance();
+//			connection = DbConnection.getConnection();
+//			statement = connection.prepareStatement(QuerryMapper.IS_ORDER_PRESENT);
+//			statement.setString(1, orderId);
+//			resultSet = statement.executeQuery();
+//			resultSet.next();
+//			orderID = resultSet.getString(1);
+//			if(orderID != null) {
+//				return orderID;
+//			}
+//		} catch (Exception e) {
+//			GoLog.logger.error(exceptionProps.getProperty("orderId_not_found_failure"));
+//		} finally {
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				throw new ConnectException(Constants.connectionError);
+//			}
+//		}
 		return orderID;
 
 	}
