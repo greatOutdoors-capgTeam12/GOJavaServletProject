@@ -11,28 +11,28 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity(name = "OrderCancelEntity")
-@Table(name = "order_cancel", uniqueConstraints = { @UniqueConstraint(columnNames = "product_uin") })
+@Table(name = "ORDER_CANCEL", uniqueConstraints = { @UniqueConstraint(columnNames = "product_uin") })
 public class OrderCancelEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "order_id", unique = false, length = 20)
+	@Column(name = "ORDER_ID", unique = false, length = 20)
 	private String orderid;
 	
-	@Column(name = "user_Id", unique = false, length = 20)
+	@Column(name = "USER_ID", unique = false, length = 20)
 	private String userId;
 
-	@Column(name = "product_id", unique = false, length = 20)
+	@Column(name = "PRODUCT_ID", unique = false, length = 20)
 	private String productid;
 	
 	@Id
-	@Column(name = "product_uin", unique = true, length = 20)
+	@Column(name = "PRODUCT_UIN", unique = true, length = 20)
 	private String productuin;
 
-	@Column(name = "order_cancel_time", unique = false, length = 20)
+	@Column(name = "ORDER_CANCEL_TIME", unique = false, length = 20)
 	private String ordercanceltime;
 
-	@Column(name = "order_cancel_status", unique = false, length = 1)
+	@Column(name = "ORDER_CANCEL_STATUS", unique = false, length = 1)
 	private String ordercancelstatus;
 
 	public OrderCancelEntity() {

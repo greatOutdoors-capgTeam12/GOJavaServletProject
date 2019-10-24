@@ -3,6 +3,8 @@ package com.capgemini.go.dao;
 public class HQLQuerryMapper {
 
 	public static final String GET_ALL_PRODUCTS = "FROM ProductEntity prod WHERE prod.quantity >= 0 ORDER BY prod.productName";
+	
+
 
 	
 	public static final String SELECT_DATA_FROM_DATABASE = "SELECT order.orderId, order.userId, order.orderInitiateTime, "
@@ -14,5 +16,12 @@ public class HQLQuerryMapper {
 		//"SELECT  `PRODUCT_ID`,`PRODUCT_PRICE` , `PRODUCT_CATEGORY` FROM PRODUCT
 		//, , `PRODUCT_UIN` ,  FROM `ORDER` INNER JOIN `ORDER_PRODUCT_MAP` USING (ORDER_ID) INNER JOIN `PRODUCT` USING (PRODUCT_ID)";
 			
+
+	public static final String IS_ORDER_PRESENT = "FROM OrderEntity WHERE orderId = :ordID";
+	
+
+	public static final String UPDATE_ORDER_PRODUCT_MAP="UPDATE OrderProductMapEntity opm SET opm.productStatus=0 WHERE ORDER_ID=:orderId ";
+
+	
 }
 //INNER JOIN OrderProductMapPK as opm ON order.orderId = opm.orderId 
