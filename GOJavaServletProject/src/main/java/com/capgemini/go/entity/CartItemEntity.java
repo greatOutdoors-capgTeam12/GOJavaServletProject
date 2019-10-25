@@ -1,5 +1,7 @@
 package com.capgemini.go.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -7,8 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Embeddable
-class CartItemUniqueKey {
-	
+class CartItemUniqueKey implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "RETAILER_ID", unique = true, nullable = false)
 	private String userId;
 	

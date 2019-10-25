@@ -1,6 +1,11 @@
-2019-10-18 12:06:27,453 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? WHERE `BASE_ADDRESS_STATUS`= 1' at line 1
-2019-10-18 12:07:45,591 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? AND `BASE_ADDRESS_STATUS`= 1' at line 1
-2019-10-18 12:11:06,518 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? AND `BASE_ADDRESS_STATUS` = 1' at line 1
-2019-10-18 12:12:28,851 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 1 AND WHERE `USER_ID` = ?' at line 1
-2019-10-18 12:13:44,264 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
-2019-10-18 12:18:09,357 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
+2019-10-25 12:09:05,666 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 12:17:06,925 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 12:19:05,614 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 12:23:36,303 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 12:24:10,877 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 12:25:27,283 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 12:44:22,250 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.PropertyValueException: not-null property references a null or transient value : com.capgemini.go.entity.RetailerInventoryEntity.productOrderTimestamp
+2019-10-25 13:33:42,328 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 13:34:16,494 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.PropertyValueException: not-null property references a null or transient value : com.capgemini.go.entity.RetailerInventoryEntity.productOrderTimestamp
+2019-10-25 13:47:29,949 ERROR c.c.g.d.RetailerDaoImpl [main] org.hibernate.exception.ConstraintViolationException: could not execute statement
+2019-10-25 13:51:20,376 ERROR c.c.g.d.RetailerDaoImpl [main] Product is not a part of the Inventory

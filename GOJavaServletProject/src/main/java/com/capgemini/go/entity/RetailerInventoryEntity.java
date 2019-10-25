@@ -22,10 +22,10 @@ public class RetailerInventoryEntity {
 	private String productUniqueId;
 	
 	@Column(name = "PRODUCT_DISPATCH_TIMESTAMP", unique = false, nullable = false)
-	private Calendar productOrderTimestamp;
+	private Calendar productDispatchTimestamp;
 	
 	@Column(name = "PRODUCT_RECEIVE_TIMESTAMP", unique = false, nullable = true)
-	private Calendar productDeliveryTimestamp;
+	private Calendar productReceiveTimestamp;
 	
 	@Column(name = "PRODUCT_SALE_TIMESTAMP", unique = false, nullable = true)
 	private Calendar productSaleTimestamp;
@@ -34,17 +34,17 @@ public class RetailerInventoryEntity {
 	public String getRetailerId () {return this.retailerId;}
 	public byte getProductCategory () {return this.productCategory;}
 	public String getProductUniqueId () {return this.productUniqueId;}
-	public Calendar getProductOrderTimestamp () {return this.productOrderTimestamp;}
-	public Calendar getProductDeliveryTimestamp () {return this.productDeliveryTimestamp;}
+	public Calendar getProductDispatchTimestamp () {return this.productDispatchTimestamp;}
+	public Calendar getProductReceiveTimestamp () {return this.productReceiveTimestamp;}
 	public Calendar getProductSaleTimestamp () {return this.productSaleTimestamp;}
 	
 	// setters
-	void setRetailerId (String retailerId) {this.retailerId = retailerId;}
-	void setProductCategory (byte productCategory) {this.productCategory = productCategory;}
-	void setProductUniqueId (String productUniqueId) {this.productUniqueId = productUniqueId;}
-	void setProductOrderTimestamp (Calendar productOrderTimestamp) {this.productOrderTimestamp = productOrderTimestamp;}
-	void setProductDeliveryTimestamp (Calendar productDeliveryTimestamp) {this.productDeliveryTimestamp = productDeliveryTimestamp;}
-	void setProductSaleTimestamp (Calendar productSaleTimestamp) {this.productSaleTimestamp = productSaleTimestamp;}
+	public void setRetailerId (String retailerId) {this.retailerId = retailerId;}
+	public void setProductCategory (byte productCategory) {this.productCategory = productCategory;}
+	public void setProductUniqueId (String productUniqueId) {this.productUniqueId = productUniqueId;}
+	public void setProductDispatchTimestamp (Calendar productOrderTimestamp) {this.productDispatchTimestamp = productOrderTimestamp;}
+	public void setProductReceiveTimestamp (Calendar productDeliveryTimestamp) {this.productReceiveTimestamp = productDeliveryTimestamp;}
+	public void setProductSaleTimestamp (Calendar productSaleTimestamp) {this.productSaleTimestamp = productSaleTimestamp;}
 	
 	// constructors
 	public RetailerInventoryEntity () {
@@ -56,8 +56,8 @@ public class RetailerInventoryEntity {
 		this.retailerId = retailerId;
 		this.productCategory = productCategory;
 		this.productUniqueId = productUniqueId;
-		this.productOrderTimestamp = productOrderTimestamp;
-		this.productDeliveryTimestamp = productDeliveryTimestamp;
+		this.productDispatchTimestamp = productOrderTimestamp;
+		this.productReceiveTimestamp = productDeliveryTimestamp;
 		this.productSaleTimestamp = productSaleTimestamp;
 	}
 	
@@ -81,15 +81,15 @@ public class RetailerInventoryEntity {
 	@Override
     public String toString() {
 		String temp = "";
-		if (this.productDeliveryTimestamp != null) {
-			temp += ", productDeliveryTimestamp: " + calendarToString(this.productDeliveryTimestamp);
+		if (this.productReceiveTimestamp != null) {
+			temp += ", productDeliveryTimestamp: " + calendarToString(this.productReceiveTimestamp);
 		}
 		if (this.productSaleTimestamp != null) {
 			temp += ", productSaleTimestamp: " + calendarToString(this.productSaleTimestamp);
 		}
         String result = "[retailerId: " + this.retailerId + ", productCategory: " 
         		+ this.productCategory + ", productUniqueId: " + this.productUniqueId 
-        		+ ", productOrderTimestamp: " + calendarToString(this.productOrderTimestamp) + temp + "]";
+        		+ ", productOrderTimestamp: " + calendarToString(this.productDispatchTimestamp) + temp + "]";
         return result;
     }
 }

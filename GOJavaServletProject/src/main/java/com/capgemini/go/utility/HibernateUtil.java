@@ -37,15 +37,11 @@ public class HibernateUtil {
                 // Add all classes that need to be mapped here
                 configuration.addAnnotatedClass(RetailerInventoryEntity.class);
                 configuration.addAnnotatedClass(AddressEntity.class);
-                
                 configuration.addAnnotatedClass(WishlistEntity.class);
-                
                 configuration.addAnnotatedClass(OrderCancelEntity.class);
                 configuration.addAnnotatedClass(OrderReturnEntity.class);
                 configuration.addAnnotatedClass(OrderEntity.class);
                 configuration.addAnnotatedClass(CartItemEntity.class);
-               
-
                 configuration.addAnnotatedClass(ProductEntity.class);
                 configuration.addAnnotatedClass(ProductUinMapEntity.class);
                 // end of this

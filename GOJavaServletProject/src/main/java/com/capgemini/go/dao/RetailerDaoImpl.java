@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.persistence.PersistenceException;
+import javax.persistence.RollbackException;
+import javax.validation.ConstraintViolationException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,6 +29,8 @@ import com.capgemini.go.dto.RetailerInventoryDTO;
 import com.capgemini.go.dto.UserDTO;
 import com.capgemini.go.entity.CartItemEntity;
 import com.capgemini.go.entity.ProductEntity;
+import com.capgemini.go.entity.RetailerInventoryEntity;
+import com.capgemini.go.entity.WishlistEntity;
 import com.capgemini.go.exception.DatabaseException;
 import com.capgemini.go.exception.RetailerException;
 import com.capgemini.go.exception.UserException;
@@ -389,10 +395,55 @@ public class RetailerDaoImpl implements RetailerDao {
 	 * @throws RetailerException
 	 ********************************************************************************************************/
 	@Override
-	public boolean updateProductReceiveTimeStamp(RetailerInventoryDTO queryArguments) throws ConnectException {
-		boolean timestampUpdated = false;
+	public boolean updateProductReceiveTimeStamp(RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException {
+		boolean receiveTimestampUpdated = false;
+		/*
+		 *  required arguments in `queryArguments`
+		 *  productUIN, productRecieveTime
+		 *  
+		 *  un-required
+		 *  productDispatchTime, productShelfTimeOut, productCategory, retailerUserId
+		 */
+		RetailerInventoryEntity newItem = new RetailerInventoryEntity();
+		newItem.setProductUniqueId(queryArguments.getProductUIN());
+		newItem.setProductReceiveTimestamp(queryArguments.getProductRecieveTime());
 		
-		return timestampUpdated;
+		Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            List<RetailerInventoryEntity> itemList = session.createQuery("from RetailerInventoryEntity", RetailerInventoryEntity.class).list();
+            boolean productNotFound = true;
+            for (RetailerInventoryEntity item : itemList) {
+            	if (item.getProductUniqueId().equals(newItem.getProductUniqueId())) {
+            		newItem.setRetailerId(item.getRetailerId());
+            		newItem.setProductCategory(item.getProductCategory());
+            		newItem.setProductDispatchTimestamp(item.getProductDispatchTimestamp());
+            		productNotFound = false;
+            		break;
+            	}
+            }
+            if (productNotFound) {
+            	GoLog.logger.error("Product is not a part of the Inventory");
+            	throw new RetailerException ("Product is not a part of the Inventory");
+            } else {
+            	session.merge(newItem);
+            }
+            transaction.commit();
+        } catch (IllegalStateException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("Method has been invoked at an illegal or inappropriate time");
+        } catch (RollbackException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("Could not Commit changes to Retailer Inventory");
+        } catch (PersistenceException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("The item is already present in the inventory");
+        }  finally {
+        	session.close();
+        }
+        receiveTimestampUpdated = true;
+		return receiveTimestampUpdated;
 	}
 
 	/*******************************************************************************************************
@@ -407,35 +458,56 @@ public class RetailerDaoImpl implements RetailerDao {
 	 * @throws RetailerException
 	 ********************************************************************************************************/
 	@Override
-	public boolean updateProductSaleTimeStamp(RetailerInventoryDTO queryArguments) throws ConnectException {
-		int querySuccess = -1;
-		Connection connection = null;
-		try {
-			connection = DbConnection.getInstance().getConnection();
-			PreparedStatement stmt = connection
-					.prepareStatement(QuerryMapper.UPDATE_PRODUCT_SALE_TIMESTAMP_BY_RETAILER_ID_AND_PRODUCT_UIN);
-			// filling query statement fields
-			java.sql.Date c = new java.sql.Date(queryArguments.getProductShelfTimeOut().getTimeInMillis());
-			stmt.setString(1, c.toString());
-			stmt.setString(2, queryArguments.getRetailerUserId());
-			stmt.setString(3, queryArguments.getProductUIN());
-			// end of filling query statement fields
-			querySuccess = stmt.executeUpdate();
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
-		if (querySuccess > 0) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean updateProductSaleTimeStamp(RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException {
+		boolean saleTimestampUpdated = false;
+		/*
+		 *  required arguments in `queryArguments`
+		 *  productUIN, productSaleTime
+		 *  
+		 *  un-required
+		 *  productDispatchTime, productReceiveTime, productCategory, retailerUserId
+		 */
+		RetailerInventoryEntity newItem = new RetailerInventoryEntity();
+		newItem.setProductUniqueId(queryArguments.getProductUIN());
+		newItem.setProductSaleTimestamp(queryArguments.getProductShelfTimeOut());
+		
+		Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            List<RetailerInventoryEntity> itemList = session.createQuery("from RetailerInventoryEntity", RetailerInventoryEntity.class).list();
+            boolean productNotFound = true;
+            for (RetailerInventoryEntity item : itemList) {
+            	if (item.getProductUniqueId().equals(newItem.getProductUniqueId())) {
+            		newItem.setRetailerId(item.getRetailerId());
+            		newItem.setProductCategory(item.getProductCategory());
+            		newItem.setProductDispatchTimestamp(item.getProductDispatchTimestamp());
+            		newItem.setProductReceiveTimestamp(item.getProductReceiveTimestamp());
+            		productNotFound = false;
+            		break;
+            	}
+            }
+            if (productNotFound) {
+            	GoLog.logger.error("Product is not a part of the Inventory");
+            	throw new RetailerException ("Product is not a part of the Inventory");
+            } else {
+            	session.merge(newItem);
+            }
+            transaction.commit();
+        } catch (IllegalStateException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("Method has been invoked at an illegal or inappropriate time");
+        } catch (RollbackException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("Could not Commit changes to Retailer Inventory");
+        } catch (PersistenceException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("The item is already present in the inventory");
+        }  finally {
+        	session.close();
+        }
+        saleTimestampUpdated = true;		
+		return saleTimestampUpdated;
 	}
 	
 	/*******************************************************************************************************
@@ -443,7 +515,7 @@ public class RetailerDaoImpl implements RetailerDao {
 	 * Input Parameters : RetailerInventoryDTO
 	 * Return Type : boolean 
 	 * Author : Kunal 
-	 * Creation Date : 21/9/2019 
+	 * Creation Date : 25/10/2019 
 	 * Description : to insert a product into the inventory
 	 *  
 	 * @throws ConnectException
@@ -452,21 +524,40 @@ public class RetailerDaoImpl implements RetailerDao {
 	@Override
 	public boolean insertItemInRetailerInventory(RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException {
 		boolean productInserted = false;
-		
 		/*
 		 *  required arguments in `queryArguments`
-		 *  retailerUserId
-		 *  productCategory
-		 *  productUIN
-		 *  productDispatchTime
+		 *  retailerUserId, productCategory, productUIN, productDispatchTime
 		 *  
 		 *  un-required
-		 *  productRecieveTime
-		 *  productShelfTimeOut
+		 *  productRecieveTime, productShelfTimeOut
+		 *  
+		 *  in any case, if the arguments are supplied, they will be stored in the database
 		 */
+		RetailerInventoryEntity newItem = new RetailerInventoryEntity();
+		newItem.setRetailerId (queryArguments.getRetailerUserId());
+		newItem.setProductCategory((byte)queryArguments.getProductCategory());
+		newItem.setProductUniqueId(queryArguments.getProductUIN());
+		newItem.setProductDispatchTimestamp(queryArguments.getProductDispatchTime());
 		
-		
-		
+		Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.save(newItem);
+            transaction.commit();
+        } catch (IllegalStateException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("Method has been invoked at an illegal or inappropriate time");
+        } catch (RollbackException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("Could not Commit changes to Retailer Inventory");
+        } catch (PersistenceException error) {
+        	GoLog.logger.error(error.getMessage());
+        	throw new RetailerException ("The item is already present in the inventory");
+        }  finally {
+        	session.close();
+        }
+        productInserted = true;
 		return productInserted;
 	}
 	// end of Functions for Retailer Inventory Manipulation
