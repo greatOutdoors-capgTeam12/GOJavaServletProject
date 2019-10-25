@@ -78,7 +78,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             RetailerService fav = new RetailerServiceImpl();
             FrequentOrderedDTO addFav = new FrequentOrderedDTO(userId ,productId);
                 try {
-                    result = fav.addProductToWishlist(addFav);
+                    result = fav.addProductToFreqOrderDB(addFav);
                 
                 if(result)
                 {

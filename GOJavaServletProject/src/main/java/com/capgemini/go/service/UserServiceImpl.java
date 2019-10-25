@@ -29,12 +29,10 @@ public class UserServiceImpl implements UserService {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userRegistration 
-	 * - Input Parameters : userID, userName, userMail, userNumber, activeStatus, password, userCategory 
-	 * - Return Type : boolean 
-	 * - Author : CAPGEMINI 
-	 * - Creation Date : 21/9/2019 
-	 * - Description : to register a new user
+	 * - Function Name : userRegistration - Input Parameters : userID, userName,
+	 * userMail, userNumber, activeStatus, password, userCategory - Return Type :
+	 * boolean - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 -
+	 * Description : to register a new user
 	 * 
 	 * @throws UserException
 	 * @throws ConnectException 
@@ -52,12 +50,9 @@ public class UserServiceImpl implements UserService {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userLogin 
-	 * - Input Parameters : userID, password 
-	 * - Return Type : boolean 
-	 * - Author : CAPGEMINI 
-	 * - Creation Date : 21/9/2019 
-	 * - Description : to login a user
+	 * - Function Name : userLogin - Input Parameters : userID, password - Return
+	 * Type : boolean - Throws : - Author : CAPGEMINI - Creation Date : 21/9/2019 -
+	 * Description : to login a user
 	 * 
 	 * @throws Exception
 	 ********************************************************************************************************/
@@ -74,13 +69,9 @@ public class UserServiceImpl implements UserService {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userLogout 
-	 * - Input Parameters : userID
-	 * - Return Type : boolean 
-	 * - Throws :UserExecution 
-	 * - Author : CAPGEMINI 
-	 * - Creation Date : 21/9/2019 
-	 * - Description : to logout a user
+	 * - Function Name : userLogout - Input Parameters : userID- Return Type :
+	 * boolean - Throws :UserExecution - Author : CAPGEMINI - Creation Date :
+	 * 21/9/2019 - Description : to logout a user
 	 * 
 	 * @throws UserException
 	 * @throws SQLException

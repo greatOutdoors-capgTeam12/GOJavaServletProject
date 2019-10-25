@@ -35,7 +35,19 @@ public class RetailerServiceImpl implements RetailerService {
 
 	private RetailerDao retailerdao = new RetailerDaoImpl();
 
-	
+	// ------------------------ GreatOutdoor Application
+	// --------------------------
+	/*******************************************************************************************************
+	 * - Function Name : returnOrder - Input Parameters : userID, reason, orderID,
+	 * Date - Return Type : boolean - Throws : - Author : CAPGEMINI - Creation Date
+	 * : 21/9/2019 - Description : to return the order received by the retailer
+	 ********************************************************************************************************/
+
+	public boolean returnOrder(String userId, String reason, String orderId, Date date) {
+
+		return false;
+	}
+
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
 	/*******************************************************************************************************
@@ -53,25 +65,20 @@ public class RetailerServiceImpl implements RetailerService {
 	// ------------------------ GreatOutdoor Application
 	// --------------------------
 	/*******************************************************************************************************
-	 *- Function Name : addProductToWishlist 
-	 *- Input Parameters : Product List
-	 *- Return Type : boolean
-	 *- Throws : RetailerException
-	 *- Author : CAPGEMINI 
-	 *- Creation Date : 21/9/2019
-	 *- Description : To add products to Wishlist database
-	 *@throws ConnectException 
-	 *@throws SQLException 
+	 * - Function Name : addProductToFreqOrderDB - Input Parameters : Product List,
+	 * Address List - Return Type : boolean - Throws : - Author : CAPGEMINI -
+	 * Creation Date : 21/9/2019 - Description : To add products to Frequently order
+	 * database
 	 ********************************************************************************************************/
-	public boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException {
+	public boolean addProductToFreqOrderDB(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException {
 		boolean addProdToFreqDbStatus = false;
-		addProdToFreqDbStatus = retailer.addProductToWishlist(freqOrder);
+		addProdToFreqDbStatus = retailer.addProductToFreqOrderDB(freqOrder);
 		return addProdToFreqDbStatus;
 
 	}
 
-	// ------------------------ GreatOutdoor Application--------------------------//
-	
+	// ------------------------ GreatOutdoor Application
+	// --------------------------
 	/*******************************************************************************************************
 	 * - Function Name : changeProductAddress - Input Parameters : Product product,
 	 * Address address - Return Type : boolean - Throws : - Author : CAPGEMINI -
@@ -86,15 +93,11 @@ public class RetailerServiceImpl implements RetailerService {
 	
 
 	/*******************************************************************************************************
-	 * Function Name : addItemToCart 
-	 * Input Parameters : CartDTO
-	 * Return Type : boolean
-	 * Throws : RetailerException
-	 * Author : Agnibha, Azhar 
-	 * Creation Date : 27/9/2019
-	 * Description : to add item to a cart
+	 * - Function Name : addItemToCart - Input Parameters : productId, quantity,
+	 * retailerId - Return Type : boolean - Throws : - Author : Azhar/Agnibha-
+	 * Creation Date : 24/9/2019 - Description : To add product items to cart
 	 * 
-	 * @throws ConnectException
+	 * @throws RetailerException
 	 ********************************************************************************************************/
 	public boolean addItemToCart(CartDTO cartItem) throws RetailerException, ConnectException {
 
@@ -103,16 +106,13 @@ public class RetailerServiceImpl implements RetailerService {
 
 		return addItemToCartStatus;
 	}
+
 	/*******************************************************************************************************
-	 * Function Name : placeOrder 
-	 * Input Parameters : Order
-	 * Return Type :boolean 
-	 * Throws :  RetailerException
-	 * Author : Agnibha , Azhar -
-	 * Creation Date : 21/9/2019 
-	 * Description : to place order for items in the cart
+	 * - Function Name : placingOrder - Input Parameters :userId, addressId - Return
+	 * Type : boolean - Throws : - Author : Azhar/Agnibha - Creation Date :
+	 * 24/9/2019 - Description : To place order
 	 * 
-	 * @throws ConnectException
+	 * @throws RetailerException
 	 ********************************************************************************************************/
 	public boolean placeOrder(OrderDTO order) throws RetailerException, ConnectException {
 		boolean placeOrderStatus = false;
@@ -182,7 +182,27 @@ public class RetailerServiceImpl implements RetailerService {
 		return addressUpdateStatus;
 	}
 
-	
+	// ------------------------ GreatOutdoor Application
+	// --------------------------
+	/*******************************************************************************************************
+	 * - Function Name : changeAddress - Input Parameters :addressID, retailerId,
+	 * buildingnum, city, state, country, zip- Return Type : boolean - Throws: -
+	 * Author : CAPGEMINI - Creation Date : 21/9/2019 - Description : to change
+	 * address for particular order in database
+	 ********************************************************************************************************/
+	public boolean changeAddress(AddressDTO address, String orderId) throws RetailerException {
+		boolean addressChangeStatus = false;
+		try {
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+
+			addressChangeStatus = retailerdao.changeAddress(address, orderId);
+		} catch (RetailerException | IOException e) {
+			throw new RetailerException(exceptionProps.getProperty("ORDER_ADDRESS_NOT_CHANGED" + e.getMessage()));
+		}
+
+		return addressChangeStatus;
+
+	}
 
 	// ------------------------ GreatOutdoor Application
 	// --------------------------

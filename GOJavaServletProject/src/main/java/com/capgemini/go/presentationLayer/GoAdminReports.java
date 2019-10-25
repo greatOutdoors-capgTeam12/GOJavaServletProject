@@ -108,7 +108,35 @@ public class GoAdminReports {
 				break;
 
 			}
-			
+			case 5: {
+				int i = 0;
+				System.out.println("ENTER THE DATES in dd/MM/yyyy format");
+				String dateEntry = sc.next();
+				String dateExit = sc.next();
+				Date dentry = new SimpleDateFormat("dd/MM/yyyy").parse(dateEntry);
+				Date dexit = new SimpleDateFormat("dd/MM/yyyy").parse(dateExit);
+				System.out.println("ENTER THE PRODUCT CATEGORY IN INTEGER");
+				System.out.println("1.CAMPING");
+				System.out.println("2.GOLF");
+				System.out.println("3.MOUNTANEERING");
+				System.out.println("4.OUTDOOR");
+				System.out.println("5.PERSONAL");
+				int category = sc.nextInt();
+				List<ViewSalesReportByUserDTO> reports = goAdmin.viewSalesReportByCategory(dentry, dexit, category);
+
+				if (reports != null) {
+
+					int n = reports.size();
+					System.out.printf("%-25s %-25s %-25s %-25s %-25s %-25s %n", "USER ID", "DATE", "ORDER ID",
+							"PRODUCT ID", "PRODUCT CATEGORY", "PRODUCT PRICE");
+					while (i < n) {
+						reports.get(i).printData();
+						i++;
+					}
+				}
+				break;
+
+			}
 			case 6: {
 				int i = 0;
 				int n;
@@ -143,7 +171,56 @@ public class GoAdminReports {
 				break;
 
 			}
-			
+			case 7: {
+				int i = 0;
+				int n;
+				System.out.println("ENTER THE USER ID");
+				String user = sc.next();
+
+				System.out.println("ENTER THE DATES in dd/MM/yyyy format");
+				String dateEntry = sc.next();
+				String dateExit = sc.next();
+				Date dentry = new SimpleDateFormat("dd/MM/yyyy").parse(dateEntry);
+				Date dexit = new SimpleDateFormat("dd/MM/yyyy").parse(dateExit);
+
+				List<ViewSalesReportByUserDTO> reports = goAdmin.viewSalesReportByUser(dentry, dexit, user);
+
+				if (reports != null) {
+					n = reports.size();
+
+					System.out.printf("%-25s %-25s %-25s %-25s %-25s %-25s %n", "USER ID", "DATE", "ORDER ID",
+							"PRODUCT ID", "PRODUCT CATEGORY", "PRODUCT PRICE");
+					while (i < n) {
+						reports.get(i).printData();
+						i++;
+					}
+				}
+				break;
+
+			}
+			case 8: {
+				int i = 0, n;
+
+				System.out.println("ENTER THE DATES in dd/MM/yyyy format");
+				String dateEntry = sc.next();
+				String dateExit = sc.next();
+				Date dentry = new SimpleDateFormat("dd/MM/yyyy").parse(dateEntry);
+				Date dexit = new SimpleDateFormat("dd/MM/yyyy").parse(dateExit);
+
+				List<ViewSalesReportByUserDTO> reports = goAdmin.viewSalesReportALLUserAndCategory(dentry, dexit);
+
+				if (reports != null) {
+					n = reports.size();
+					System.out.printf("%-25s %-25s %-25s %-25s %-25s %-25s %n", "USER ID", "DATE", "ORDER ID",
+							"PRODUCT ID", "PRODUCT CATEGORY", "PRODUCT PRICE");
+					while (i < n) {
+						reports.get(i).printData();
+						i++;
+					}
+				}
+				break;
+
+			}
 			case 9: {
 
 				int i = 0;

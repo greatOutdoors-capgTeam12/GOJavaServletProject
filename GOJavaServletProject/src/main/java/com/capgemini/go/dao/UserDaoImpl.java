@@ -20,14 +20,12 @@ import org.hibernate.query.Query;
 import com.capgemini.go.bean.ProductBean;
 import com.capgemini.go.dto.ProductFilterDTO;
 import com.capgemini.go.dto.UserDTO;
-import com.capgemini.go.entity.ProductEntity;
 import com.capgemini.go.exception.DatabaseException;
 import com.capgemini.go.exception.UserException;
 import com.capgemini.go.utility.Authentication;
 import com.capgemini.go.utility.Constants;
 import com.capgemini.go.utility.DbConnection;
 import com.capgemini.go.utility.GoLog;
-import com.capgemini.go.utility.HibernateUtil;
 import com.capgemini.go.utility.PropertiesLoader;
 import com.capgemini.go.utility.Validator;
 
@@ -37,6 +35,7 @@ public class UserDaoImpl implements UserDao {
 	private static Properties goProps = null;
 	private static final String EXCEPTION_PROPERTIES_FILE = "exceptionStatement.properties";
 	private static final String GO_PROPERTIES_FILE = "goUtility.properties";
+	
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
@@ -61,12 +60,14 @@ public class UserDaoImpl implements UserDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userRegistration - Input Parameters : userID, userName,
-	 * userMail, userNumber, activeStatus, password, userCategory - Return Type :
-	 * boolean - Throws :UserException - Author:AMAN - Creation Date : 21/9/2019 -
-	 * Description : to register a new user
-	 * 
-	 * @throws ConnectException
+	 * - Function Name : userRegistration 
+	 * - Input Parameters : userID, userName, userMail, userNumber, activeStatus, password, userCategory 
+	 * - Return Type : boolean 
+	 * - Throws :UserException
+	 *  - Author:AMAN 
+	 *  - Creation Date : 21/9/2019 
+	 *  - Description : to register a new user
+	 * @throws ConnectException 
 	 * @throws SQLException
 	 ********************************************************************************************************/
 
@@ -159,11 +160,13 @@ public class UserDaoImpl implements UserDao {
 
 			GoLog.logger.error(exceptionProps.getProperty("registration_failed"));
 			throw new UserException(" >>>" + e.getMessage());
-		} finally {
+		}
+		finally
+		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-
+				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
@@ -173,10 +176,13 @@ public class UserDaoImpl implements UserDao {
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userLogin - Input Parameters : userID, password - Return
-	 * Type : boolean - Throws :UserException - Author : AMAN - Creation Date
-	 * :21/9/2019 - Description : to login a user
-	 * 
+	 * - Function Name : userLogin 
+	 * - Input Parameters : userID, password
+	 * - Return Type : boolean 
+	 * - Throws :UserException 
+	 * - Author : AMAN 
+	 * - Creation Date :21/9/2019 
+	 * - Description : to login a user
 	 * @throws UserException
 	 * @throws Exception
 	 ********************************************************************************************************/
@@ -256,11 +262,13 @@ public class UserDaoImpl implements UserDao {
 		catch (DatabaseException | SQLException | IOException e) {
 			GoLog.logger.error(exceptionProps.getProperty("login_failure"));
 			throw new UserException(" >>>" + e.getMessage());
-		} finally {
+		}
+		finally
+		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-
+				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
@@ -273,15 +281,19 @@ public class UserDaoImpl implements UserDao {
 		}
 		return userLoginStatus;
 	}
-
+	
+	
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
-	 * - Function Name : userLogout - Input Parameters : userID - Return Type :
-	 * boolean - Throws :UserException - Author : AMAN - Creation Date : 21/9/2019 -
-	 * Description : to logout a user
-	 * 
+	 * - Function Name : userLogout 
+	 * - Input Parameters : userID 
+	 * - Return Type : boolean 
+	 * - Throws :UserException 
+	 * - Author : AMAN 
+	 * - Creation Date : 21/9/2019
+	 * - Description : to logout a user
 	 * @throws SQLException
-	 * @throws ConnectException
+	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
 	@Override
@@ -326,11 +338,13 @@ public class UserDaoImpl implements UserDao {
 			GoLog.logger.error(exceptionProps.getProperty("logout_failure"));
 			throw new UserException(" >>>" + e.getMessage());
 
-		} finally {
+		}
+		finally
+		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-
+				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
@@ -341,6 +355,7 @@ public class UserDaoImpl implements UserDao {
 			throw new UserException(exceptionProps.getProperty("invalid_user"));
 
 		}
+		
 
 		return userLogoutStatus;
 	}
@@ -352,39 +367,36 @@ public class UserDaoImpl implements UserDao {
 	 * : to get all the product from the database
 	 * 
 	 * @throws UserException
-	 * @throws ConnectException
+	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<ProductBean> getAllProducts() throws UserException {
+	public List<ProductBean> getAllProducts() throws UserException, ConnectException {
 		List<ProductBean> allProducts = new ArrayList<ProductBean>();
-		Session session = null;
-		SessionFactory sessionFactory = null;
-		Transaction transaction = null;
+		Connection connection = null;
 		try {
+
+			 connection = DbConnection.getInstance().getConnection();
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.getCurrentSession();
-			transaction = session.beginTransaction();
-			Query query = session.getNamedQuery("ProductEntity.getAllProducts");
-			List<ProductEntity> allProds = (List<ProductEntity>)query.list();
-			if (allProds != null) {
-				for (ProductEntity prod : allProds) {
-
-					ProductBean product = new ProductBean(prod.getProductId(), prod.getPrice(), prod.getColour(),
-							prod.getDimension(), prod.getSpecification(), prod.getManufacturer(), prod.getQuantity(),
-							prod.getProductCategory(), prod.getProductName());
-					allProducts.add(product);
-				}
+			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
+			Statement smt = connection.createStatement();
+			ResultSet resultSet = smt.executeQuery(QuerryMapper.GET_ALL_PRODUCT);
+			while (resultSet.next()) {
+				ProductBean product = productDataMapping(resultSet);
+				allProducts.add(product);
 			}
-
-			transaction.commit();
-		} catch (HibernateException | IOException exp) {
-			transaction.rollback();
-			GoLog.logger.error(exceptionProps.getProperty("view_all_product_error") + " >>> " + exp.getMessage());
-			throw new UserException(exceptionProps.getProperty("view_all_product_error") + " >>> " + exp.getMessage());
+		} catch (DatabaseException | SQLException | IOException e) {
+			GoLog.logger.error(e.getMessage());
+			throw new UserException(exceptionProps.getProperty("view_all_product_error") + " >>> " + e.getMessage());
 		}
-
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				
+				throw new ConnectException(Constants.connectionError);
+			}
+		}
 		return allProducts;
 	}
 
@@ -395,7 +407,7 @@ public class UserDaoImpl implements UserDao {
 	 * 21/9/2019 - Description : to search product based on the product name
 	 * 
 	 * @throws UserException
-	 * @throws ConnectException
+	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
 	public List<ProductBean> searchProduct(String productName) throws UserException, ConnectException {
@@ -403,7 +415,7 @@ public class UserDaoImpl implements UserDao {
 		Connection connection = null;
 		try {
 
-			connection = DbConnection.getInstance().getConnection();
+			 connection = DbConnection.getInstance().getConnection();
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
 			PreparedStatement presmt = connection.prepareStatement(QuerryMapper.GET_PRODUCT_BY_PRODUCT_NAME);
@@ -418,11 +430,13 @@ public class UserDaoImpl implements UserDao {
 		} catch (DatabaseException | SQLException | IOException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new UserException(exceptionProps.getProperty("search_product_error") + " >>> " + e.getMessage());
-		} finally {
+		}
+		finally
+		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-
+				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
@@ -437,7 +451,7 @@ public class UserDaoImpl implements UserDao {
 	 * 21/9/2019 - Description : to filter product based on the filter category
 	 * 
 	 * @throws UserException
-	 * @throws ConnectException
+	 * @throws ConnectException 
 	 ********************************************************************************************************/
 
 	public List<ProductBean> filterProduct(ProductFilterDTO filterProduct) throws UserException, ConnectException {
@@ -446,7 +460,7 @@ public class UserDaoImpl implements UserDao {
 		Connection connection = null;
 		try {
 
-			connection = DbConnection.getInstance().getConnection();
+			 connection = DbConnection.getInstance().getConnection();
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
 			PreparedStatement presmt;
@@ -473,53 +487,61 @@ public class UserDaoImpl implements UserDao {
 		} catch (DatabaseException | SQLException | IOException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new UserException(exceptionProps.getProperty("filter_product_error") + " >>> " + e.getMessage());
-		} finally {
+		}
+		finally
+		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-
+				
 				throw new ConnectException(Constants.connectionError);
 			}
 		}
 
 		return filteredProducts;
 	}
-
+	
+	
 	// ------------------------ GreatOutdoor Application --------------------------
-	/*******************************************************************************************************
-	 * - Function Name : userFetch - Input Parameters : userID - Return Type :User
-	 * Throws :UserException - Author : AGNIBHA/AMAN - Creation Date : 21/9/2019 -
-	 * Description : to fetch a user
-	 * 
-	 * @throws UserException
-	 * @throws ConnectException
-	 * 
-	 * @throws SQLException
-	 ********************************************************************************************************/
+		/*******************************************************************************************************
+		 * - Function Name : userFetch - Input Parameters : userID
+		 *- Return Type :User
+		 *  Throws :UserException - Author : AGNIBHA/AMAN - Creation Date :
+		 * 21/9/2019 - Description : to fetch a  user
+		 * @throws UserException 
+		 * @throws ConnectException 
+		 * 
+		 * @throws SQLException
+		 ********************************************************************************************************/
 	@Override
-	public UserDTO fetchUser(String userId) throws UserException {
+	public UserDTO fetchUser(String userId) throws UserException
+	{
 		Connection connection = null;
 		UserDTO loggedUser = null;
-		try {
-			connection = DbConnection.getInstance().getConnection();
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
-			PreparedStatement presmt = connection.prepareStatement(QuerryMapper.GET_USER);
-			presmt.setString(1, userId);
-			ResultSet resultSet = presmt.executeQuery();
-			if (resultSet.next()) {
-				String userName = resultSet.getString(1);
-				String userid = resultSet.getString(2);
-				String userMail = resultSet.getString(3);
-				String userPassword = resultSet.getString(4);
-				Long userNumber = resultSet.getLong(5);
-				int userCategory = resultSet.getInt(6);
-
-				loggedUser = new UserDTO(userName, userid, userMail, userPassword, userNumber, userCategory, true);
-			} else {
-				throw new UserException("User Does Not Exists !");
-			}
-
+		try
+		{
+		connection = DbConnection.getInstance().getConnection();
+		exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+		goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
+		PreparedStatement presmt = connection.prepareStatement(QuerryMapper.GET_USER);
+		presmt.setString(1, userId);
+		ResultSet resultSet = presmt.executeQuery();
+		if(resultSet.next())
+		{	
+		String userName=resultSet.getString(1);
+		String userid= resultSet.getString(2);
+		String userMail=resultSet.getString(3);
+		String userPassword=resultSet.getString(4);
+		Long userNumber=resultSet.getLong(5);
+		int userCategory=resultSet.getInt(6);
+		
+		loggedUser = new UserDTO(userName, userid, userMail, userPassword, userNumber, userCategory, true);
+		}
+		else
+		{
+			throw new UserException("User Does Not Exists !");
+		}
+		
 		} catch (DatabaseException | SQLException | IOException e) {
 			GoLog.logger.error(e.getMessage());
 			throw new UserException(exceptionProps.getProperty("filter_product_error") + " >>> " + e.getMessage());

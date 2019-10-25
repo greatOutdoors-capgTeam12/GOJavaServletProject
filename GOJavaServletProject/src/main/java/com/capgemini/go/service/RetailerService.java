@@ -16,7 +16,8 @@ import com.capgemini.go.exception.UserException;
 
 public interface RetailerService {
 
-	
+	boolean returnOrder(String userId, String reason, String orderId, Date date);
+
 	List<ProductDTO> returnProductByRetailer(String userId, String orderId, List<ProductDTO> acceptedProducts);
 
 	boolean validateRetailerID(UserDTO user) throws UserException;
@@ -25,21 +26,11 @@ public interface RetailerService {
 
 	boolean updateAddress(AddressDTO address) throws RetailerException;
 
-	
+	boolean changeAddress(AddressDTO address, String orderId) throws RetailerException;
+
 	boolean deleteAddress(AddressDTO address) throws RetailerException;
 
-	/*******************************************************************************************************
-	 *- Function Name : addProductToWishlist 
-	 *- Input Parameters : Product List
-	 *- Return Type : boolean
-	 *- Throws : RetailerException
-	 *- Author : CAPGEMINI 
-	 *- Creation Date : 21/9/2019
-	 *- Description : To add products to Wishlist database
-	 *@throws ConnectException 
-	 *@throws SQLException 
-	 ********************************************************************************************************/
-	boolean addProductToWishlist(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException;
+	boolean addProductToFreqOrderDB(FrequentOrderedDTO freqOrder) throws RetailerException, ConnectException;
 
 	List<ProductDTO> fetchfavproduct(String userId) throws UserException;
 

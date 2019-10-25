@@ -257,7 +257,8 @@ public class GoInteractiveUserInterface {
                                 System.out.println("Enter Product ID");
                                 String productID = scanner.next();
                                 FrequentOrderedDTO freqOrder = new FrequentOrderedDTO(retailerID, productID);
-                                boolean freqOrderStatus = retailerservice.addProductToWishlist(freqOrder);
+                                boolean freqOrderStatus = retailerservice.addProductToFreqOrderDB(freqOrder
+                                         );
                                 if (freqOrderStatus == true) {
                                     System.out
                                             .println("Product has been successfully added to your frequent order list");
