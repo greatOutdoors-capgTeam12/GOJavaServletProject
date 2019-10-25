@@ -88,15 +88,6 @@ public class AddressDriver {
 				System.out.println(retailerservice.updateAddress(address));
 				break;
 			}
-			case 3: {
-				System.out.println("Welcome....." + userId + "/n proceed ahead to change order address");
-				System.out.println("Enter ADDRESS id");
-				String addressId = scanner.next();
-				System.out.println("Enter order id");
-				String orderId = scanner.next();
-				System.out.println(retailerservice.changeAddress(address, orderId));
-				break;
-			}
 			case 4: {
 				System.out.println("Welcome....." + userId + "/n <<<<proceed ahead to delete address>>>>");
 

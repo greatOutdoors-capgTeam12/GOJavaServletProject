@@ -324,45 +324,8 @@ public class GoAdminServiceImpl implements GoAdminService {
 		return result;
 	}
 
-	// ------------------------ GreatOutdoor Application --------------------------
-	/*******************************************************************************************************
-	 * Function Name : viewSalesReportByCategory Input Parameters : Category , entry
-	 * , exit ,connection Return Type : List Throws : Author : Rintu Creation Date :
-	 * 21/9/2019 Description : To view sales report of specific product within given
-	 * dates ID within given date
-	 ********************************************************************************************************/
 
-	public List<ViewSalesReportByUserDTO> viewSalesReportByCategory(Date entry, Date exit, int cat)
-			throws GoAdminException, ConnectException {
-		List<ViewSalesReportByUserDTO> result = new ArrayList<ViewSalesReportByUserDTO>();
-		try {
-			result = go.viewSalesReportByCategory(entry, exit, cat);
-		} catch (GoAdminException e) {
-			GoLog.logger.error(e.getMessage());
-		}
-		return result;
-
-	}
-
-	// ------------------------ GreatOutdoor Application --------------------------
-	/*******************************************************************************************************
-	 * Function Name : viewSalesReportByUser Input Parameters : TargetuserId , entry
-	 * , exit, connection Return Type : List Throws : Author : Rintu Creation Date :
-	 * 21/9/2019 Description : To view sales report of specific user within given
-	 * date
-	 ********************************************************************************************************/
-
-	public List<ViewSalesReportByUserDTO> viewSalesReportByUser(Date entry, Date exit, String TargetuserId)
-			throws GoAdminException, ConnectException {
-		List<ViewSalesReportByUserDTO> result = new ArrayList<ViewSalesReportByUserDTO>();
-		try {
-			result = go.viewSalesReportByUser(entry, exit, TargetuserId);
-		} catch (GoAdminException e) {
-			GoLog.logger.error(e.getMessage());
-		}
-		return result;
-
-	}
+	
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
@@ -384,25 +347,7 @@ public class GoAdminServiceImpl implements GoAdminService {
 
 	}
 
-	// ------------------------ GreatOutdoor Application --------------------------
-	/*******************************************************************************************************
-	 * Function Name : viewSalesReportALLUserAndCategory Input Parameters :
-	 * connection , entry , exit , product Return Type : List Throws : Author :
-	 * Rintu Creation Date : 21/9/2019 Description : To view sales reports of all
-	 * user and all products within a given dates.
-	 ********************************************************************************************************/
-
-	public List<ViewSalesReportByUserDTO> viewSalesReportALLUserAndCategory(Date entry, Date exit)
-			throws GoAdminException, ConnectException {
-
-		List<ViewSalesReportByUserDTO> result = new ArrayList<ViewSalesReportByUserDTO>();
-		try {
-			result = go.viewSalesReportALLUserAndCategory(entry, exit);
-		} catch (GoAdminException e) {
-			GoLog.logger.error(e.getMessage());
-		}
-		return result;
-	}
+	
 
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
