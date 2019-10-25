@@ -11,31 +11,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import org.hibernate.query.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-
-import com.capgemini.go.bean.ProductBean;
 import com.capgemini.go.dto.OrderCancelDTO;
 import com.capgemini.go.dto.OrderProductMapDTO;
 import com.capgemini.go.dto.OrderReturnDTO;
 import com.capgemini.go.dto.ProductDTO;
-import com.capgemini.go.entity.OrderEntity;
-
-import com.capgemini.go.entity.OrderProductMapEntity;
-import com.capgemini.go.entity.ProductEntity;
 import com.capgemini.go.exception.DatabaseException;
 import com.capgemini.go.exception.SalesRepresentativeException;
-import com.capgemini.go.exception.UserException;
 import com.capgemini.go.utility.Constants;
 import com.capgemini.go.utility.DbConnection;
 import com.capgemini.go.utility.GoLog;
-import com.capgemini.go.utility.HibernateUtil;
 import com.capgemini.go.utility.PropertiesLoader;
 
 public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
@@ -103,7 +87,7 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	 * - Description : updating Order_Product_Map in the database by setting product_status=0 for the products that have been returned
 	 ********************************************************************************************************/
 
-	/*public boolean updateOrderProductMap(String orderId) throws SalesRepresentativeException, ConnectException {
+	public boolean updateOrderProductMap(String orderId) throws SalesRepresentativeException, ConnectException {
 		boolean orderProductMapFlag = false;
 		Connection connection = null;
 		try {
@@ -127,33 +111,6 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 
 		return orderProductMapFlag;
 
-	}*/
-	
-	public boolean updateOrderProductMap(String orderId)throws SalesRepresentativeException, ConnectException{
-		boolean orderProductMapFlag = false;
-		Session session = null;
-		SessionFactory sessionFactory = null;
-		try {
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
-			sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.getCurrentSession();
-			session.beginTransaction();
-			OrderProductMapEntity opm=new OrderProductMapEntity();
-			Query query=session.createQuery(HQLQuerryMapper.UPDATE_ORDER_PRODUCT_MAP);
-			query.setParameter("orderId", orderId);
-			int result=query.executeUpdate();
-			
-			
-
-			session.getTransaction().commit();
-		} catch (HibernateException | IOException exp) {
-			session.getTransaction().rollback();
-			session.close();
-			throw new SalesRepresentativeException(exceptionProps.getProperty("order_product_map_failure"));
-		}
-
-		return orderProductMapFlag;
-		
 	}
 
 	/*******************************************************************************************************
@@ -435,19 +392,22 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 	@Override
 	public String getOrderDetails(String orderId) throws Exception {
 
-		Session session = null;
-		SessionFactory sessionFactory = null;
+		
+
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
 		String orderID = null;
 		try {
 			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 			goProps = PropertiesLoader.loadProperties(GO_PROPERTIES_FILE);
-			sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.getCurrentSession();
-			session.beginTransaction();
-			Query query= session.createQuery(HQLQuerryMapper.IS_ORDER_PRESENT);
-			query.setParameter("ordID", orderId);
-			List<OrderEntity> order = (List<OrderEntity>)query.list();
-			orderID = order.get(0).getOrderId();
+			DbConnection.getInstance();
+			connection = DbConnection.getConnection();
+			statement = connection.prepareStatement(QuerryMapper.IS_ORDER_PRESENT);
+			statement.setString(1, orderId);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			orderID = resultSet.getString(1);
 			if(orderID != null) {
 				return orderID;
 			}
@@ -455,8 +415,8 @@ public class SalesRepresentativeDaoImpl implements SalesRepresentativeDao {
 			GoLog.logger.error(exceptionProps.getProperty("orderId_not_found_failure"));
 		} finally {
 			try {
-				session.close();
-			} catch (Exception e) {
+				connection.close();
+			} catch (SQLException e) {
 				throw new ConnectException(Constants.connectionError);
 			}
 		}

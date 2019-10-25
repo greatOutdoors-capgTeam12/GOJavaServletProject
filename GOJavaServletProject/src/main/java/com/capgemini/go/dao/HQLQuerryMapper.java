@@ -33,5 +33,8 @@ public class HQLQuerryMapper {
 	public static final String GET_ITEMS_FOR_YEAR = "FROM RetailerInventoryEntity year where year.PRODUCT_CATEGORY, year.PRODUCT_UIN, year.DATEDIFF(`PRODUCT_SALE_TIMESTAMP`, `PRODUCT_RECEIVE_TIMESTAMP`),"
 			+ "AS `SHELF_TIMEPERIOD` FROM RetailerInventoryEntity year  WHERE year.RETAILER_ID=? AND year.YEAR(`PRODUCT_SALE_TIMESTAMP`)=? ORDER BY `year.SHELF_TIMEPERIOD ";
 	// End of Time Report Queries
+    public static final String CART_ITEM_QTY_FOR_PRODUCT_ID="select QUANTITY from CART_ITEM where PRODUCT_ID = :product_id";
+    public static final String GET_PRODUCT_QTY_FROM_DB = "select PRODUCT_QUANTITY from PRODUCT where PRODUCT_ID = :product_id";
+    public static final String UPDATE_QTY_IN_PRODUCT = "update PRODUCT set PRODUCT_QUANTITY = :quantity where PRODUCT_ID = :product_id";
+    public static final String UPDATE_CART = "update CART_ITEM set QUANTITY= :quantity where PRODUCT_ID= :product_id";
 }
-//INNER JOIN OrderProductMapPK as opm ON order.orderId = opm.orderId 

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import com.capgemini.go.dao.SalesRepresentativeDao;
-import com.capgemini.go.dao.SalesRepresentativeDaoImpl;
 import com.capgemini.go.exception.SalesRepresentativeException;
 import com.capgemini.go.service.SalesRepresentativeService;
 import com.capgemini.go.service.SalesRepresentativeServiceImpl;
@@ -27,7 +25,6 @@ public class SalesRepPresentation {
 		Scanner scanner = new Scanner(System.in);
 
 		SalesRepresentativeService salesRepService = new SalesRepresentativeServiceImpl();
-		SalesRepresentativeDao salesRepDao = new SalesRepresentativeDaoImpl();
 		String orderId;
 		String reason;
 		String productId;
@@ -37,7 +34,7 @@ public class SalesRepPresentation {
 		while (salesRepEntry == true) {
 			System.out.println("************* SALES REPRESENTATIVE MENU ***********");
 			System.out.println("Press The key according to the operation you want to perform");
-			System.out.println(" 1 RETURN AN ORDER ...\n 2 RETURN A PRODUCT...\n 3 CANCEL AN ORDER...\n 4 CANCEL A PRODUCT...\n 5 CHECK TARGET STATUS...\n 6 CHECK BONUS... \n 7 Dao method...\n  0 TO GO BACK TO THE MAIN MENU");
+			System.out.println(" 1 RETURN AN ORDER ...\n 2 RETURN A PRODUCT...\n 3 CANCEL AN ORDER...\n 4 CANCEL A PRODUCT...\n 5 CHECK TARGET STATUS...\n 6 CHECK BONUS... \n 0 TO GO BACK TO THE MAIN MENU");
 			int salesRepChoice = scanner.nextInt();
 			scanner.nextLine();
 			switch (salesRepChoice) {
@@ -155,15 +152,8 @@ public class SalesRepPresentation {
 					GoLog.logger.error(exceptionProps.getProperty("user_id_invalid"));
 				}
 				break;
-				
-			case 7:
-				System.out.println("Enter the order Id");
-				orderId = scanner.nextLine();
-				try {
-					System.out.println(salesRepDao.getOrderDetails(orderId));
-				}catch(Exception e) {
-					e.getMessage();
-				}
+
+
 			default:
 				System.out.println("Invalid Input . Enter a valid choice ");
 			}

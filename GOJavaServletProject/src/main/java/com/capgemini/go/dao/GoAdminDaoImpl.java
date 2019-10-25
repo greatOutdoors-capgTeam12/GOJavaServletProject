@@ -15,10 +15,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.capgemini.go.bean.RetailerInventoryBean;
 import com.capgemini.go.dto.RetailerDTO;
 import com.capgemini.go.dto.RetailerInventoryDTO;
@@ -37,7 +33,6 @@ import com.capgemini.go.exception.UserException;
 import com.capgemini.go.utility.Constants;
 import com.capgemini.go.utility.DbConnection;
 import com.capgemini.go.utility.GoLog;
-import com.capgemini.go.utility.HibernateUtil;
 import com.capgemini.go.utility.PropertiesLoader;
 
 public class GoAdminDaoImpl implements GoAdminDao {
@@ -445,13 +440,8 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	 * - Description : to get List of all products and their Monthly Shelf time periods
 	 ********************************************************************************************************/
 	@Override
-	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException, GoAdminException {
+	public List<RetailerInventoryBean> getMonthlyShelfTime(RetailerInventoryDTO queryArguments) throws ConnectException {
 		// Declaring List where valid objects returned by query will be stored
-		/*
-		 * if the given month argument matches with the month of the timestamp of sale 
-		 * then show that item else don't consider it.
-		 * 
-		 */
 		List<RetailerInventoryBean> result = new ArrayList<RetailerInventoryBean>();
 		// Storing given arguments
 		String retailerUserId = queryArguments.getRetailerUserId();
@@ -468,6 +458,9 @@ public class GoAdminDaoImpl implements GoAdminDao {
 //			List <RetailerInventoryBean> result  = stmt.list();
 			
 			
+			connection = DbConnection.getInstance().getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR_AND_MONTH);
 			// filling query statement fields
 			stmt.setString(1, retailerUserId);
 			stmt.setInt(2, queryArguments.getProductShelfTimeOut().get(Calendar.YEAR));
@@ -486,16 +479,8 @@ public class GoAdminDaoImpl implements GoAdminDao {
 				temp.setProductShelfTimePeriod(p);
 				result.add(temp);
 			}
-		} catch (IOException e) {
-			// if IO exception occurs
+		} catch (SQLException | DatabaseException e) {
 			GoLog.logger.error(e.getMessage());
-			throw new GoAdminException (exceptionProps.getProperty("ERROR_FILE_IO_ERROR"));
-		} catch (SQLException e) {
-			GoLog.logger.error(e.getMessage());
-			throw new GoAdminException (exceptionProps.getProperty("QUERY_ERROR"));
-		} catch (DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
-			throw new GoAdminException (exceptionProps.getProperty("DATABASE_ERROR"));
 		} finally {
 			try {
 				connection.close();
@@ -1055,7 +1040,139 @@ public class GoAdminDaoImpl implements GoAdminDao {
 
 	}
 
-	
+	// ------------------------ GreatOutdoor Application --------------------------
+	/*******************************************************************************************************
+	 * Function Name : viewSalesReportByUser Input Parameters : entry , exit ,
+	 * TargetuserId Return Type : boolean Throws : Author : CAPGEMINI Creation Date
+	 * : 21/9/2019 Description : To view sales report of specific user ID within
+	 * given date
+	 * @throws ConnectException 
+	 ********************************************************************************************************/
+
+	public List<ViewSalesReportByUserDTO> viewSalesReportByCategory(Date entry, Date exit, int cat)
+			throws GoAdminException, ConnectException {
+
+		List<ViewSalesReportByUserDTO> viewSales = new ArrayList<ViewSalesReportByUserDTO>();
+		Connection connection = null;
+		Statement statement = null;
+		try {
+
+			connection = DbConnection.getInstance().getConnection();
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+			if (connection == null)
+				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
+
+			if (cat < 1 || cat > 5)
+				throw new GoAdminException(exceptionProps.getProperty("INVALID_CATEGORY"));
+			if (entry == null || exit == null)
+				throw new GoAdminException(exceptionProps.getProperty("INVALID_DATE"));
+
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(QuerryMapper.SELECT_DATA_FROM_DATABASE);
+
+			if (!rs.isBeforeFirst())
+				throw new GoAdminException(exceptionProps.getProperty("EMPTY_DATABASE"));
+
+			while (rs.next()) {
+
+				ViewSalesReportByUserDTO temp = new ViewSalesReportByUserDTO();
+				if (rs.getInt("PRODUCT_CATEGORY") == cat) {
+
+					temp.setUserId(rs.getString("USER_ID"));
+					temp.setDate(rs.getDate("ORDER_INITIATE_TIME"));
+					temp.setOrderId(rs.getString("ORDER_ID"));
+					temp.setProductId(rs.getString("PRODUCT_ID"));
+					temp.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
+					temp.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
+					viewSales.add(temp);
+				}
+
+			}
+			return viewSales;
+
+		} catch (DatabaseException |SQLException | IOException e) {
+			GoLog.logger.error(exceptionProps.getProperty(e.getMessage()));
+
+		}
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				
+				throw new ConnectException(Constants.connectionError);
+			}
+		}
+		return viewSales;
+
+	}
+	//Currently not used
+	public List<ViewSalesReportByUserDTO> viewSalesReportByUser(Date entry, Date exit, String TargetuserId)
+			throws GoAdminException, ConnectException {
+
+		List<ViewSalesReportByUserDTO> viewSalesList = new ArrayList<ViewSalesReportByUserDTO>();
+
+		ViewSalesReportByUserDTO temp1;
+
+		Statement statement = null;
+		Connection connection = null;
+		try {
+
+			connection = DbConnection.getInstance().getConnection();
+
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+			if (connection == null)
+				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
+			if (TargetuserId == null)
+				throw new GoAdminException(exceptionProps.getProperty("INVALID_USERID"));
+			if (entry == null || exit == null)
+				throw new GoAdminException(exceptionProps.getProperty("INVALID_DATE"));
+
+			PreparedStatement stmt = connection.prepareStatement(QuerryMapper.SELECT_USER);
+			stmt.setString(1, TargetuserId);
+			ResultSet user = stmt.executeQuery();
+			if (!user.isBeforeFirst())
+				throw new GoAdminException(exceptionProps.getProperty("USER_DOES_NOT_EXISTS"));
+
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(QuerryMapper.SELECT_DATA_FROM_DATABASE);
+
+			if (!rs.isBeforeFirst())
+				throw new GoAdminException(exceptionProps.getProperty("EMPTY_DATABASE"));
+
+			while (rs.next()) {
+				if (TargetuserId.equalsIgnoreCase(rs.getString("USER_ID"))) {
+					temp1 = new ViewSalesReportByUserDTO();
+					temp1.setUserId(rs.getString("USER_ID"));
+					temp1.setDate(rs.getDate("ORDER_INITIATE_TIME"));
+					temp1.setOrderId(rs.getString("ORDER_ID"));
+					temp1.setProductId(rs.getString("PRODUCT_ID"));
+					temp1.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
+					temp1.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
+
+					viewSalesList.add(temp1);
+
+				}
+
+			}
+
+		} catch (DatabaseException |SQLException | IOException e) {
+
+			GoLog.logger.error(exceptionProps.getProperty(e.getMessage()));
+		}
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				
+				throw new ConnectException(Constants.connectionError);
+			}
+		}
+		return viewSalesList;
+	}
+
+
 	// ------------------------ GreatOutdoor Application --------------------------
 	/*******************************************************************************************************
 	 * Function Name : viewSalesReportByUserAndCategory
@@ -1071,77 +1188,81 @@ public class GoAdminDaoImpl implements GoAdminDao {
 	public List<ViewSalesReportByUserDTO> viewSalesReportByUserAndCategory(Date entry, Date exit, String TargetuserId,
 			int category) throws GoAdminException, ConnectException {
 
+		Statement statement = null;
 
 		List<ViewSalesReportByUserDTO> viewSales = new ArrayList<ViewSalesReportByUserDTO>();
-		Session session = null;
-		SessionFactory sessionFactory = null;
-		
+		ViewSalesReportByUserDTO temp;
+		Connection connection = null;
 		try {
-			ViewSalesReportByUserDTO temp;
+			connection = DbConnection.getInstance().getConnection();
+			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
 
-//			if (connection == null)
-//				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
+			if (connection == null)
+				throw new GoAdminException(exceptionProps.getProperty("NO_CONNECTION"));
 			if (entry == null || exit == null)
 				throw new GoAdminException(exceptionProps.getProperty("INVALID_DATE"));
 
+//			PreparedStatement stmt = connection.prepareStatement(QuerryMapper.SELECT_USER);
+//			stmt.setString(1, TargetuserId);
+//			ResultSet user = stmt.executeQuery();
+//			if (!user.isBeforeFirst() && !(TargetuserId.equalsIgnoreCase("ALL")))
+//				throw new GoAdminException(exceptionProps.getProperty("USER_DOES_NOT_EXISTS"));
 
-			sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.getCurrentSession();
-			session.beginTransaction();
-			List<ViewSalesReportByUserDTO> rs=null;
-			rs = (List<ViewSalesReportByUserDTO>) session.createQuery(HQLQuerryMapper.SELECT_DATA_FROM_DATABASE).list();
-			
-			
-			for (ViewSalesReportByUserDTO data : rs) {
-				
-				if (TargetuserId.equalsIgnoreCase(data.getUserId())
-						&& category == data.getProductCategory()) {
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(QuerryMapper.SELECT_DATA_FROM_DATABASE);
+
+			if (!rs.isBeforeFirst())
+				throw new GoAdminException(exceptionProps.getProperty("EMPTY_DATABASE"));
+
+			while (rs.next()) {
+
+				if (TargetuserId.equalsIgnoreCase(rs.getString("USER_ID"))
+						&& category == rs.getInt("PRODUCT_CATEGORY")) {
 
 					temp = new ViewSalesReportByUserDTO();
-					temp.setUserId(data.getUserId());
-					temp.setDate(data.getDate());
-					temp.setOrderId(data.getOrderId());
-					temp.setProductId(data.getProductId());
-					temp.setProductPrice(data.getProductPrice());
-					temp.setProductCategory(data.getProductCategory());
+					temp.setUserId(rs.getString("USER_ID"));
+					temp.setDate(rs.getDate("ORDER_INITIATE_TIME"));
+					temp.setOrderId(rs.getString("ORDER_ID"));
+					temp.setProductId(rs.getString("PRODUCT_ID"));
+					temp.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
+					temp.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
 					viewSales.add(temp);
-				} else if (TargetuserId.equalsIgnoreCase("ALL") && category == data.getProductCategory()) {
+				} else if (TargetuserId.equalsIgnoreCase("ALL") && category == rs.getInt("PRODUCT_CATEGORY")) {
 					temp = new ViewSalesReportByUserDTO();
-					temp.setUserId(data.getUserId());
-					temp.setDate(data.getDate());
-					temp.setOrderId(data.getOrderId());
-					temp.setProductId(data.getProductId());
-					temp.setProductPrice(data.getProductPrice());
-					temp.setProductCategory(data.getProductCategory());
+					temp.setUserId(rs.getString("USER_ID"));
+					temp.setDate(rs.getDate("ORDER_INITIATE_TIME"));
+					temp.setOrderId(rs.getString("ORDER_ID"));
+					temp.setProductId(rs.getString("PRODUCT_ID"));
+					temp.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
+					temp.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
 					viewSales.add(temp);
 				} else if (TargetuserId.equalsIgnoreCase("ALL") && category == 6) {
 					temp = new ViewSalesReportByUserDTO();
-					temp.setUserId(data.getUserId());
-					temp.setDate(data.getDate());
-					temp.setOrderId(data.getOrderId());
-					temp.setProductId(data.getProductId());
-					temp.setProductPrice(data.getProductPrice());
-					temp.setProductCategory(data.getProductCategory());
+					temp.setUserId(rs.getString("USER_ID"));
+					temp.setDate(rs.getDate("ORDER_INITIATE_TIME"));
+					temp.setOrderId(rs.getString("ORDER_ID"));
+					temp.setProductId(rs.getString("PRODUCT_ID"));
+					temp.setProductPrice(rs.getDouble("PRODUCT_PRICE"));
+					temp.setProductCategory(rs.getInt("PRODUCT_CATEGORY"));
 					viewSales.add(temp);
 
 				}
-			
-				
+
 			}
-			
 
-		} catch (HibernateException e) {
-			
-			
-			session.getTransaction().rollback();
-			
+		} catch (DatabaseException | SQLException | IOException e) {
+			GoLog.logger.error(exceptionProps.getProperty(e.getMessage()));
 
-		} 
-		catch(Exception exp)
-		{
-			exp.printStackTrace();
-			
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+
+				throw new ConnectException(Constants.connectionError);
+			}
 		}
+//		for(int i=0;i<viewSales.size();i++)
+//			System.out.println(viewSales.get(i).getUserId());
 		return viewSales;
 	}
 	

@@ -1,1 +1,6 @@
-2019-10-24 13:37:21,934 ERROR c.c.g.p.SalesRepPresentation [main] Unable to process request
+2019-10-18 12:06:27,453 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? WHERE `BASE_ADDRESS_STATUS`= 1' at line 1
+2019-10-18 12:07:45,591 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? AND `BASE_ADDRESS_STATUS`= 1' at line 1
+2019-10-18 12:11:06,518 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? AND `BASE_ADDRESS_STATUS` = 1' at line 1
+2019-10-18 12:12:28,851 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 1 AND WHERE `USER_ID` = ?' at line 1
+2019-10-18 12:13:44,264 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
+2019-10-18 12:18:09,357 ERROR c.c.g.d.RetailerDaoImpl [main] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1

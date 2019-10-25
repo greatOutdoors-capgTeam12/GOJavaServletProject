@@ -8,26 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="RETAILER_INVENTORY")
+@Table(name="retailer_inventory")
 public class RetailerInventoryEntity {
 	// attributes
-	@Column(name = "RETAILER_ID", unique = false, nullable = false)
+	@Column(name = "retailerId", unique = false, nullable = false)
 	private String retailerId;
 	
-	@Column(name = "PRODUCT_CATEGORY", unique = false, nullable = false)
+	@Column(name = "productCategory", unique = false, nullable = false)
 	private byte productCategory;
 	
 	@Id
-	@Column(name = "PRODUCT_UIN", unique = true, nullable = false)
+	@Column(name = "productUniqueId", unique = true, nullable = false)
 	private String productUniqueId;
 	
-	@Column(name = "PRODUCT_DISPATCH_TIMESTAMP", unique = false, nullable = false)
+	@Column(name = "productOrderTimestamp", unique = false, nullable = false)
 	private Calendar productOrderTimestamp;
 	
-	@Column(name = "PRODUCT_RECEIVE_TIMESTAMP", unique = false, nullable = true)
+	@Column(name = "productDeliveryTimestamp", unique = false, nullable = true)
 	private Calendar productDeliveryTimestamp;
 	
-	@Column(name = "PRODUCT_SALE_TIMESTAMP", unique = false, nullable = true)
+	@Column(name = "productSaleTimestamp", unique = false, nullable = true)
 	private Calendar productSaleTimestamp;
 	
 	// getters
@@ -70,10 +70,11 @@ public class RetailerInventoryEntity {
 		int hour = instance.get(Calendar.HOUR);
 		int minute = instance.get(Calendar.MINUTE);
 		int second = instance.get(Calendar.SECOND);
+		int milliSecond = instance.get(Calendar.MILLISECOND);
 		
 		//String result = "{" + day + "/" + month + "/" + year + "}";
 		//String result = "{" + day + "/" + month + "/" + year + "::" + hour + ":" + minute + ":" + second + ":" + milliSecond + "}";
-		String result = "{Date: " + day + "/" + month + "/" + year + ", Time:" + hour + ":" + minute + ":" + second + "}";		
+		String result = "{Date: " + day + "/" + month + "/" + year + ", Time:" + hour + ":" + minute + ":" + second + ":" + milliSecond + "}";		
 		return result;
 	}
 	

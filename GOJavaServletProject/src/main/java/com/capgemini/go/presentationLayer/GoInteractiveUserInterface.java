@@ -75,7 +75,7 @@ public class GoInteractiveUserInterface {
 				System.out.println("******************* GREAT OUTDOOR  Menu ********************");
 				System.out.println("Press Your Choice according to the User");
 				System.out.println(
-						" 1 for GO ADMIN ... \n 2 for  REPRESENTATIVE ... \n 3 for RETAILER... \n 4 for PRODUCT MASTER...  \n 5 for ANY USER \n Press 0 to exit from the Application ...");
+						" 1 for GO ADMIN ... \n 2 for SALES REPRESENTATIVE ... \n 3 for RETAILER... \n 4 for PRODUCT MASTER...  \n 5 for ANY USER \n Press 0 to exit from the Application ...");
 				int choice = scanner.nextInt();
 				scanner.nextLine();
 				switch (choice) {
