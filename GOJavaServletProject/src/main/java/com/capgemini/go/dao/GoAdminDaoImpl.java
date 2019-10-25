@@ -458,11 +458,16 @@ public class GoAdminDaoImpl implements GoAdminDao {
 		Connection connection = null;
 		try {
 			// this line can throw IO Exception
-			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+//			exceptionProps = PropertiesLoader.loadProperties(EXCEPTION_PROPERTIES_FILE);
+//			sessionFactory = HibernateUtil.getSessionFactory();
+//			session = sessionFactory.getCurrentSession();
+//			transaction = session.beginTransaction();
+//			
+			Query stmt =session.createQuery(HQLQuerryMapper.GET_ITEMS_FOR_MONTH);
+//			stmt.setParam
+//			List <RetailerInventoryBean> result  = stmt.list();
 			
-			connection = DbConnection.getInstance().getConnection();
-			PreparedStatement stmt = connection.prepareStatement(
-					QuerryMapper.GET_PRODUCTS_AND_SHELFTIMEPERIOD_BY_RETAILER_ID_AND_GIVEN_YEAR_AND_MONTH);
+			
 			// filling query statement fields
 			stmt.setString(1, retailerUserId);
 			stmt.setInt(2, queryArguments.getProductShelfTimeOut().get(Calendar.YEAR));
