@@ -374,44 +374,38 @@ public class RetailerDaoImpl implements RetailerDao {
 
 		return checkOutStatus;
 	}
-
-	
 	// end of Azhar Functions
 
 	// Functions for Retailer Inventory Manipulation
+	/*******************************************************************************************************
+	 * Function Name : updateProductReceiveTimeStamp 
+	 * Input Parameters : RetailerInventoryDTO
+	 * Return Type : boolean
+	 * Author : Kunal 
+	 * Creation Date : 21/9/2019 
+	 * Description : to update receive timestamp of the product
+	 *  
+	 * @throws ConnectException
+	 * @throws RetailerException
+	 ********************************************************************************************************/
 	@Override
 	public boolean updateProductReceiveTimeStamp(RetailerInventoryDTO queryArguments) throws ConnectException {
-		int querySuccess = -1;
-		Connection connection = null;
-		try {
-
-			connection = DbConnection.getInstance().getConnection();
-			PreparedStatement stmt = connection
-					.prepareStatement(QuerryMapper.UPDATE_PRODUCT_RECEIVE_TIMESTAMP_BY_RETAILER_ID_AND_PRODUCT_UIN);
-			// filling query statement fields
-			java.sql.Date c = new java.sql.Date(queryArguments.getProductRecieveTime().getTimeInMillis());
-			stmt.setString(1, c.toString());
-			stmt.setString(2, queryArguments.getRetailerUserId());
-			stmt.setString(3, queryArguments.getProductUIN());
-			// end of filling query statement fields
-			querySuccess = stmt.executeUpdate();
-		} catch (SQLException | DatabaseException e) {
-			GoLog.logger.error(e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-
-				throw new ConnectException(Constants.connectionError);
-			}
-		}
-		if (querySuccess > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		boolean timestampUpdated = false;
+		
+		return timestampUpdated;
 	}
 
+	/*******************************************************************************************************
+	 * Function Name : updateProductSaleTimeStamp 
+	 * Input Parameters : RetailerInventoryDTO
+	 * Return Type : boolean 
+	 * Author : Kunal 
+	 * Creation Date : 21/9/2019 
+	 * Description : to update sale timestamp of the product
+	 *  
+	 * @throws ConnectException
+	 * @throws RetailerException
+	 ********************************************************************************************************/
 	@Override
 	public boolean updateProductSaleTimeStamp(RetailerInventoryDTO queryArguments) throws ConnectException {
 		int querySuccess = -1;
@@ -442,6 +436,38 @@ public class RetailerDaoImpl implements RetailerDao {
 		} else {
 			return false;
 		}
+	}
+	
+	/*******************************************************************************************************
+	 * Function Name : insertItemInRetailerInventory
+	 * Input Parameters : RetailerInventoryDTO
+	 * Return Type : boolean 
+	 * Author : Kunal 
+	 * Creation Date : 21/9/2019 
+	 * Description : to insert a product into the inventory
+	 *  
+	 * @throws ConnectException
+	 * @throws RetailerException
+	 ********************************************************************************************************/
+	@Override
+	public boolean insertItemInRetailerInventory(RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException {
+		boolean productInserted = false;
+		
+		/*
+		 *  required arguments in `queryArguments`
+		 *  retailerUserId
+		 *  productCategory
+		 *  productUIN
+		 *  productDispatchTime
+		 *  
+		 *  un-required
+		 *  productRecieveTime
+		 *  productShelfTimeOut
+		 */
+		
+		
+		
+		return productInserted;
 	}
 	// end of Functions for Retailer Inventory Manipulation
 

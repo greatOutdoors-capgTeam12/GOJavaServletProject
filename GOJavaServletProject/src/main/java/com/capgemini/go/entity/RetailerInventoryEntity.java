@@ -8,26 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="retailer_inventory")
+@Table(name="RETAILER_INVENTORY")
 public class RetailerInventoryEntity {
 	// attributes
-	@Column(name = "retailerId", unique = false, nullable = false)
+	@Column(name = "RETAILER_ID", unique = false, nullable = false)
 	private String retailerId;
 	
-	@Column(name = "productCategory", unique = false, nullable = false)
+	@Column(name = "PRODUCT_CATEGORY", unique = false, nullable = false)
 	private byte productCategory;
 	
 	@Id
-	@Column(name = "productUniqueId", unique = true, nullable = false)
+	@Column(name = "PRODUCT_UIN", unique = true, nullable = false)
 	private String productUniqueId;
 	
-	@Column(name = "productOrderTimestamp", unique = false, nullable = false)
+	@Column(name = "PRODUCT_DISPATCH_TIMESTAMP", unique = false, nullable = false)
 	private Calendar productOrderTimestamp;
 	
-	@Column(name = "productDeliveryTimestamp", unique = false, nullable = true)
+	@Column(name = "PRODUCT_RECEIVE_TIMESTAMP", unique = false, nullable = true)
 	private Calendar productDeliveryTimestamp;
 	
-	@Column(name = "productSaleTimestamp", unique = false, nullable = true)
+	@Column(name = "PRODUCT_SALE_TIMESTAMP", unique = false, nullable = true)
 	private Calendar productSaleTimestamp;
 	
 	// getters

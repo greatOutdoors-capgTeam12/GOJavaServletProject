@@ -73,9 +73,44 @@ public interface RetailerDao {
 	boolean placeOrder(OrderDTO order) throws RetailerException,ConnectException;
 
 	// Functions for Retailer Inventory Manipulation
-	boolean updateProductReceiveTimeStamp(RetailerInventoryDTO queryArguments)throws ConnectException,ConnectException;
+	/*******************************************************************************************************
+	 * Function Name : updateProductReceiveTimeStamp 
+	 * Input Parameters : RetailerInventoryDTO
+	 * Return Type : boolean
+	 * Author : Kunal 
+	 * Creation Date : 21/9/2019 
+	 * Description : to update receive timestamp of the product
+	 *  
+	 * @throws ConnectException
+	 * @throws RetailerException
+	 ********************************************************************************************************/
+	boolean updateProductReceiveTimeStamp (RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException;
 
-	boolean updateProductSaleTimeStamp(RetailerInventoryDTO queryArguments)throws ConnectException,ConnectException;
+	/*******************************************************************************************************
+	 * Function Name : updateProductSaleTimeStamp 
+	 * Input Parameters : RetailerInventoryDTO
+	 * Return Type : boolean 
+	 * Author : Kunal 
+	 * Creation Date : 21/9/2019 
+	 * Description : to update sale timestamp of the product
+	 *  
+	 * @throws ConnectException
+	 * @throws RetailerException
+	 ********************************************************************************************************/
+	boolean updateProductSaleTimeStamp (RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException;
+	
+	/*******************************************************************************************************
+	 * Function Name : insertItemInRetailerInventory
+	 * Input Parameters : RetailerInventoryDTO
+	 * Return Type : boolean 
+	 * Author : Kunal 
+	 * Creation Date : 21/9/2019 
+	 * Description : to insert a product into the inventory
+	 *  
+	 * @throws ConnectException
+	 * @throws RetailerException
+	 ********************************************************************************************************/
+	boolean insertItemInRetailerInventory (RetailerInventoryDTO queryArguments) throws RetailerException, ConnectException;
 	// end of Functions for Retailer Inventory Manipulation
 
 	List<AddressDTO> viewAllAddress(String RetailerId) throws RetailerException, ConnectException;
